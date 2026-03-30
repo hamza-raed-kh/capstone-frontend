@@ -1,0 +1,59 @@
+/* Global CSS variable names as of now: */
+
+/* @import "tailwindcss"; */
+
+:root {
+  /* Light Mode */
+  --color-main: #3C68AE;
+  --color-main-accent: #7A9CD1;
+  --color-green: #35B340;
+  --color-green-accent: #75D67E;
+  --color-pink: #A83D8B;
+  --color-pink-accent: #CF7CB8;
+  --color-danger: #BE4141;
+  --color-red-accent: #D17A7A;
+  
+  --color-text: #274472;
+  --color-text-accent: #3C68AE;
+  --color-field-text: #000000;
+  --color-white: #FFFFFF;
+  --color-whitespace: #F5F8FC;
+  
+  --color-inactive: #757575;
+  --color-checked: #338ECC;
+  --color-prize: #FFCD29;
+  --color-bg-accent: #BECFEB;
+  --color-light-accent: #DEE7F6;
+
+  /* Special Values */
+  --shadow-main: #3C68AE40; /* 25% Opacity */
+
+  /* Gradients */
+  --gradient-main: linear-gradient(0deg, var(--color-main), var(--color-main-accent));
+  --gradient-light: linear-gradient(0deg, var(--color-white), var(--color-light-accent));
+  --gradient-pink: linear-gradient(0deg, var(--color-pink), var(--color-pink-accent));
+  --gradient-danger: linear-gradient(0deg, var(--color-danger), var(--color-red-accent));
+  --gradient-positive: linear-gradient(0deg, var(--color-green), var(--color-green-accent));
+  --gradient-gold: linear-gradient(0deg, #F0DB75, #B89C14);
+  --gradient-silver: linear-gradient(0deg, #BFBFBF, #737373);
+  --gradient-bronze: linear-gradient(0deg, #F0B375, #B86614);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Swap these when you have your Dark Mode palette */
+    --color-white: #121212; 
+    --color-text: #F5F8FC;
+    --color-field-text: #FFFFFF;
+    --color-whitespace: #1e293b;
+    --shadow-main: #00000060;
+  }
+}
+
+@theme {
+  --color-main: var(--color-main);
+  --color-brand-pink: var(--color-pink);
+  --color-danger: var(--color-danger);
+  --background-image-gold: var(--gradient-gold);
+  --background-image-main-grad: var(--gradient-main);
+}

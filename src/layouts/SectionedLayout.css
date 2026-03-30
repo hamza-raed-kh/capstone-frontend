@@ -1,0 +1,16 @@
+.sectioned-layout-container{
+    display: flex;
+    gap: 24px;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    /* min-height: 100vh; */
+    padding: 14px;
+}
+
+.sectioned-layout-main-section{
+    flex-grow: 5
+}
+
+.sectioned-layout-side-section{
+    flex-grow: 2
+}

@@ -1,4 +1,20 @@
-:root {
+/* Reset everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove default body spacing */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -50,10 +66,6 @@
   }
 }
 
-body {
-  margin: 0;
-}
-
 #root {
   width: 1126px;
   max-width: 100%;
@@ -64,6 +76,10 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
 }
 
 h1,
@@ -108,4 +124,4 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
+} */
