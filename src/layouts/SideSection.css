@@ -1,0 +1,14 @@
+.section-container{
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+.section-main{
+    flex-grow: 1;
+}
+
+.section-footer{
+    height: 58px;
+}

@@ -1,3 +1,7 @@
+import './App.css'
+import SectionedLayout from './layouts/SectionedLayout'
+import BoxLayout from './layouts/BoxLayout'
+
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Sandbox } from "./pages/Sandbox";
 
@@ -36,6 +40,19 @@ const router = createBrowserRouter([
  *
  * @returns {JSX.Element} The `RouterProvider` component with the configured router.
  */
-export default function App() {
-  return <RouterProvider router={router} />;
+function App() {
+  function selectSectionedLayout(){
+    return false
+  }
+  return (
+    <>
+      <RouterProvider router={router} />
+      {/* <div className="screen">
+        {selectSectionedLayout()? <SectionedLayout/>: <BoxLayout/>}
+      </div> */}
+    </>
+  );
+
 }
+
+export default App

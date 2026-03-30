@@ -1,27 +1,9 @@
-/* Reset everything */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Global CSS variable names as of now: */
 
-/* Remove default body spacing */
-html, body {
-  height: 100%;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-}
-
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
 :root {
   /* Light Mode */
-
-
-  /* font-family: ; */
-
   --color-main: #3C68AE;
   --color-main-accent: #7A9CD1;
   --color-green: #35B340;
@@ -47,15 +29,14 @@ body {
   --shadow-main: #3C68AE40; /* 25% Opacity */
 
   /* Gradients */
-  --gradient-main: linear-gradient(180deg, var(--color-main), var(--color-main-accent));
-  --gradient-light: linear-gradient(180deg, var(--color-white), var(--color-light-accent));
-  --gradient-pink: linear-gradient(180deg, var(--color-pink), var(--color-pink-accent));
-  --gradient-green: linear-gradient(180deg, var(--color-green), var(--color-green-accent));
-  --gradient-danger: linear-gradient(180deg, var(--color-danger), var(--color-red-accent));
-  --gradient-positive: linear-gradient(180deg, var(--color-green), var(--color-green-accent));
-  --gradient-gold: linear-gradient(180deg, #F0DB75, #B89C14);
-  --gradient-silver: linear-gradient(180deg, #BFBFBF, #737373);
-  --gradient-bronze: linear-gradient(180deg, #F0B375, #B86614);
+  --gradient-main: linear-gradient(0deg, var(--color-main), var(--color-main-accent));
+  --gradient-light: linear-gradient(0deg, var(--color-white), var(--color-light-accent));
+  --gradient-pink: linear-gradient(0deg, var(--color-pink), var(--color-pink-accent));
+  --gradient-danger: linear-gradient(0deg, var(--color-danger), var(--color-red-accent));
+  --gradient-positive: linear-gradient(0deg, var(--color-green), var(--color-green-accent));
+  --gradient-gold: linear-gradient(0deg, #F0DB75, #B89C14);
+  --gradient-silver: linear-gradient(0deg, #BFBFBF, #737373);
+  --gradient-bronze: linear-gradient(0deg, #F0B375, #B86614);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,12 +48,7 @@ body {
     --color-whitespace: #1e293b;
     --shadow-main: #00000060;
   }
-
-  body {
-    background-color: rgb(50, 50, 50);
-  }
 }
-
 
 @theme {
   --color-main: var(--color-main);
