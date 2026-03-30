@@ -1,10 +1,9 @@
-@import '../colors.css';
-
 .boxed-layout-container{
+    background-color: var(--color-light-accent);
     display: flex;
     gap: 0px;
     flex-flow: column nowrap;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .boxed-layout-header{
