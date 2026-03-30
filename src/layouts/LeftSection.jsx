@@ -1,5 +1,5 @@
 import Account from "../components/Account"
-import NavBar from "../components/NavBar"
+import NavBar from "../components/NavBar/NavBar"
 import './SideSection.css'
 
 function LeftSection(){

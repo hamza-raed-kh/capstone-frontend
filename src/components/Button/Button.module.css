@@ -39,7 +39,7 @@
 }
 
 .red-secondary {
-  color: var(--color-red-accent);
+  color: var(--color-danger);
 }
 
 .golden {

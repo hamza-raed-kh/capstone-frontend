@@ -1,9 +1,10 @@
 .sectioned-layout-container{
+    background-color: var(--color-light-accent);
     display: flex;
     gap: 24px;
     flex-flow: row nowrap;
     justify-content: space-evenly;
-    /* min-height: 100vh; */
+    min-height: 100vh;
     padding: 14px;
 }
 

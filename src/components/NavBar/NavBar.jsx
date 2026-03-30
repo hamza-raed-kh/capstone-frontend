@@ -1,8 +1,8 @@
-import Block from "./Block"
+import '../Block.css'
 
 function NavBar(){
     return <>
-        <Block text="NavBar"/>
+        <div className="block">NavBar</div>
     </>
 }
 
