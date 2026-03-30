@@ -1,0 +1,58 @@
+.btn {
+  padding: 0.5rem 1.5rem;
+  min-height: 45px;
+  min-width: 120px;
+  font-weight: bold;
+  border-radius: 50px;
+  color: white;
+  transition: 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.primary {
+  background: var(--gradient-main);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.secondary {
+  color: var(--color-text);
+}
+
+.red {
+  background: var(--gradient-danger);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.disabled {
+  background: var(--color-main-accent);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.green {
+  background: var(--gradient-green);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.red-secondary {
+  color: var(--color-red-accent);
+}
+
+.golden {
+  background: var(--gradient-gold);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.bronze {
+  background: var(--gradient-bronze);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
+
+.silver {
+  background: var(--gradient-silver);
+  box-shadow: 0 2px 8px var(--shadow-main);
+}
