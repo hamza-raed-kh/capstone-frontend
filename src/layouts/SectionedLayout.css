@@ -5,7 +5,7 @@
     flex-flow: row nowrap;
     justify-content: space-evenly;
     min-height: 100vh;
-    padding: 14px;
+    padding: 24px;
 }
 
 .sectioned-layout-main-section{

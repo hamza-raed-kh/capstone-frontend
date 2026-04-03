@@ -1,0 +1,105 @@
+.searchbar-container{
+    /* Search=true */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 12px;
+    gap: 12px;
+}
+
+.searchbar-center{
+    /* Search Bar */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 10px;
+    height: 53px;
+
+    background: var(--color-white);
+    border: 2px solid var(--color-main);
+    border-radius: 48px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 1;
+}
+
+.searchbar-placeholder-text{
+    /* Text */
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+    color: var(--color-text);
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.searchbar-search-text{
+    /* Text */
+
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+    color: var(--color-text-accent);
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.searchbar-search-icon{
+    /* Icon */
+
+    width: 24px;
+    height: 24px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.searchbar-right-icon{
+    /* Icon */
+    width: 32px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.searchbar-left-icon{
+    /* Inbox Icon */
+
+    width: 32px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
