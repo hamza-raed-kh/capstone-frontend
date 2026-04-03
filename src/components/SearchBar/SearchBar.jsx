@@ -1,5 +1,4 @@
 import './SearchBar.css'
-import Block from '../Block'
 import Icon from '../Icon/Icon';
 
 /**
