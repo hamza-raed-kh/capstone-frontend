@@ -1,8 +1,8 @@
 import SearchBar from "./SearchBar";
 
 /**
- * Storybook configuration for the `SearchBaar` component.
- * This file defines the stories for the `SearchBaar` component, which are used to
+ * Storybook configuration for the `SearchBar` component.
+ * This file defines the stories for the `SearchBar` component, which are used to
  * visualize and test the component in isolation. Each story represents a different
  * state or variation of the component.
  *
@@ -14,7 +14,7 @@ export default {
 }
 
 /**
- * The search variant of the `SearchBaar` component.
+ * The search variant of the `SearchBar` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
@@ -26,7 +26,7 @@ export const Search = {
 };
 
 /**
- * The placeholder variant of the `SearchBaar` component.
+ * The placeholder variant of the `SearchBar` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */

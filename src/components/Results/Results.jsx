@@ -14,6 +14,7 @@ function Results(){
     return (
         <>
             <div className="results">
+                <SectionHeader icon="1" text="Section ADN" category="DDD"/>
                 {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button}/>)}
             </div>
         </>
