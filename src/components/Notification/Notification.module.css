@@ -1,0 +1,44 @@
+.notificationCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 16px;
+  background-color: var(--color-white);
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-main);
+}
+
+.date {
+  font-size: 0.875rem;
+  color: var(--color-main-accent);
+  font-style: italic;
+}
+
+.content {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  margin-left: auto;
+}
+
+.actions button {
+  min-height: unset;
+  min-width: unset;
+
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
