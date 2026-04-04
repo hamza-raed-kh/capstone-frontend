@@ -1,4 +1,5 @@
 import { Button } from "../components/Button/Button";
+import Navigation from "../components/Navigation/Navigation";
 
 /**
  * A sandbox page for showcasing and testing various components.
@@ -20,6 +21,20 @@ export const Sandbox = () => {
           <Button variant="pink">Pink Gradient</Button>
           <Button variant="gold">Golden Prize</Button>
           <Button variant="danger">Danger</Button>
+        </div>
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <h2>Navigation Component</h2>
+        <div style={{ padding: "1rem", background: "var(--color-white, #fff)", width: "300px", borderRadius: "8px" }}>
+          <Navigation 
+            links={[
+              { to: "/home-test", label: "Home", icon: "mdi:home" },
+              { to: "/explore", label: "Explore", icon: "mdi:compass" },
+              { to: "/sandbox", label: "Sandbox (Active)", icon: "mdi:cube" },
+              { to: "/settings", label: "Settings", icon: "mdi:cog", disabled: true }
+            ]} 
+          />
         </div>
       </section>
     </div>
