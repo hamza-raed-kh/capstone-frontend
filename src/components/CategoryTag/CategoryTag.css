@@ -1,0 +1,43 @@
+.category{
+    /* Category */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 6px;
+    gap: 10px;
+
+    /* width: 39px;
+    height: 14px; */
+
+    border: 1px solid var(--color-main-accent);
+    border-radius: 24px;
+
+    /* Inside auto layout */
+    flex: none;
+    flex-grow: 0;
+}
+
+.category-text{
+    /* Text */
+
+    /* width: 27px;
+    height: 10px; */
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 10px;
+    /* identical to box height */
+
+    color: var(--color-text);
+
+
+    /* Inside auto layout */
+    flex: none;
+    flex-grow: 0;
+}

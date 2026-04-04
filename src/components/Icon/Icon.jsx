@@ -2,7 +2,9 @@ import './Icon.css'
 
 function Icon(){
     return <>
-        <div className="icon">Icon</div>
+        <div className="icon">
+            <div className="icon2"/>
+        </div>
     </>
 }
 

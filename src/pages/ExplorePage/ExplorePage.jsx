@@ -1,6 +1,6 @@
-import Filters from "../components/Filters"
-import Results from "../components/Results"
-import SearchBar from "../components/SearchBar/SearchBar"
+import Filters from "../../components/Filters"
+import Results from "../../components/Results/Results"
+import SearchBar from "../../components/SearchBar/SearchBar"
 import './ExplorePage.css'
 
 function ExplorePage(){
