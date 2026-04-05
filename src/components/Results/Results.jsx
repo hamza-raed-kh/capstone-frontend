@@ -1,0 +1,24 @@
+import EventCard from "../EventCard/EventCard"
+import SectionHeader from "../SectionHeader/SectionHeader"
+import './Results.css'
+
+function Results(){
+    let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
+    let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
+    let details = {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", location: "Location", categories: ["Crypto", "AI"]}
+    let button = {variant: "primary", children: "Apply"}
+
+    let eventcards = [{banner_url: banner_url, info: info, details: details, button: button}/*, {banner_url: banner_url, info: info, details: details, button: button}*/]
+
+    
+    return (
+        <>
+            <div className="results">
+                <SectionHeader icon="1" text="Section ADN" category="DDD"/>
+                {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button}/>)}
+            </div>
+        </>
+    );
+}
+
+export default Results

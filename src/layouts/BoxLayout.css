@@ -21,7 +21,6 @@
 
 .boxed-layout-footer{
     color: var(--color-text);
-    font-family: Inter;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,4 +1,4 @@
-import ExplorePage from "../pages/ExplorePage"
+import ExplorePage from "../pages/ExplorePage/ExplorePage"
 import LeftSection from "./LeftSection"
 import RightSection from "./RightSection"
 import "./SectionedLayout.css"
