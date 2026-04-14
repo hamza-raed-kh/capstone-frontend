@@ -1,0 +1,55 @@
+.formField{
+    /* Field */
+
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+
+    /* Inside auto layout */
+    flex: none;
+    flex-grow: 0;
+}
+
+.fieldLabel{
+    /* Label */
+
+    /* position: absolute; */
+    width: 165px;
+    left: 0px;
+    top: 8px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: var(--color-text);
+}
+
+.fieldText{
+    /* Text Field */
+
+    /* Auto layout */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 12px;
+
+    /* width: 519px;
+    height: 36px; */
+    left: 177px;
+    top: 8px;
+
+    background: var(--color-white);
+    color: var(--color-field-text);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
