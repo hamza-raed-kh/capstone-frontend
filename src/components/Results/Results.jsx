@@ -1,5 +1,4 @@
 import EventCard from "../EventCard/EventCard"
-import SectionHeader from "../SectionHeader/SectionHeader"
 import style from './Results.module.css'
 
 function Results({eventcards}){
@@ -10,7 +9,7 @@ function Results({eventcards}){
     let button = {variant: "primary", children: "Apply"}
     let onClick = {view: ''}
 
-    eventcards = eventcards || [{variant: 'main', banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}/*, {variant: 'main', banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}*/]
+    eventcards = eventcards || [{variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}/*, {variant: 'main', banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}*/]
 
     
     return (
