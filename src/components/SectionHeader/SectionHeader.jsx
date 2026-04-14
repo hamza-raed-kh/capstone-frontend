@@ -13,7 +13,7 @@ import style from './SectionHeader.module.css'
  * @param {string} props.category - The category name to be displayed after the section's name.
  * @returns {JSX.Element} The rendered sectionheader element.
  */
-function SectionHeader({variant="main", icon, text, category}){
+const SectionHeader = ({variant="main", icon, text, category}) => {
     return (
         <div className={`${style.sectionHeader} ${style[variant]}`}>
             {icon? <div className={`${style.sectionHeaderIcon}`}>

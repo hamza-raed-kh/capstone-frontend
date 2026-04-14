@@ -13,20 +13,20 @@ import { useState } from 'react';
  * @param {Function} props.onClick - The function to be called when the searchbar icon is clicked.
  * @returns {JSX.Element} The rendered searchbar element.
  */
-function SearchBar({ variant = 'search', children, onClick }){
+const SearchBar = ({ variant = 'search', children, onClick }) => {
     let [search, setSearch] = useState("");
 
-    let handleSearchChange = (e) => {
+    const handleSearchChange = (e) => {
         setSearch(e.target.value);
     }
 
-    let handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         alert(`Searching for: '${search}'\nIntegration from backend coming soon!`);
         //Body could use onClick?
     }
 
-    function searchBarSegment(){
+    const searchBarSegment = () => {
         switch(variant){
             case 'search':
                 return (

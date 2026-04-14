@@ -17,13 +17,8 @@ import CategoryTag from '../CategoryTag/CategoryTag';
  * @param {Object} props.onClick - The function to be called when the eventcard is clicked.
  * @returns {JSX.Element} The rendered eventcard element.
  */
-function EventCard({ variant = 'main', banner_url, info, details, button, onClick }){
-    // banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
-    // info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
-    // details = {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto"]}
-    // button = {variant: "primary", children: "Apply"}
-
-    function renderButtons(){
+const EventCard = ({ variant = 'main', banner_url, info, details, button, onClick }) => {
+    const renderButtons = () => {
         if (variant === 'main')
             return (
                 <Button variant={button.variant} children={button.children} onClick={ onClick !== undefined && "view" in onClick ? onClick.view : null }/>

@@ -1,7 +1,7 @@
 import EventCard from "../EventCard/EventCard"
 import style from './Results.module.css'
 
-function Results({eventcards}){
+const Results = ({eventcards}) => {
     let variant = 'main'
     let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
     let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
@@ -13,11 +13,9 @@ function Results({eventcards}){
 
     
     return (
-        <>
-            <div className={`${style.results}`}>
-                {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button} onClick={_.onClick}/>)}
-            </div>
-        </>
+        <div className={`${style.results}`}>
+            {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button} onClick={_.onClick}/>)}
+        </div>
     );
 }
 

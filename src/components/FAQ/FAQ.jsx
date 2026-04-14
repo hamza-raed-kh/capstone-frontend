@@ -11,20 +11,22 @@ import Icon from '../Icon/Icon'
  * @param {Function} props.answer - The answer to be desplayed inside the FAQ's body.
  * @returns {JSX.Element} The rendered FAQ element.
  */
-function FAQ({question, answer}){
-    return <div className={`${style.question}`}>
-        <div className={`${style.questionHeader}`}>
-            <div className={`${style.questionHeaderIcon}`}>
-                <Icon icon={'tdesign:icon-filled'} size={24}/>
+const FAQ = ({question, answer}) => {
+    return (
+        <div className={`${style.question}`}>
+            <div className={`${style.questionHeader}`}>
+                <div className={`${style.questionHeaderIcon}`}>
+                    <Icon icon={'tdesign:icon-filled'} size={24}/>
+                </div>
+                <p className={`${style.questionHeaderText}`}>
+                    {question}
+                </p>
             </div>
-            <p className={`${style.questionHeaderText}`}>
-                {question}
+            <p className={`${style.questionText}`}>
+                {answer}
             </p>
         </div>
-        <p className={`${style.questionText}`}>
-            {answer}
-        </p>
-    </div>
+    );
 }
 
 export default FAQ

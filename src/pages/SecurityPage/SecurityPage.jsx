@@ -13,14 +13,14 @@ import style from './SecurityPage.module.css'
  * @param {Function} props.onDelete - The function to be called when the "Delete Account" string is clicked.
  * @returns {JSX.Element} The rendered securitypage element.
  */
-function SecurityPage({ onDelete }){
+const SecurityPage = ({ onDelete }) => {
     let [password, setPassword] = useState("")
-    let handlePasswordChange = (event) => {
+    const handlePasswordChange = (event) => {
         setPassword(event.target.value)
     }
     
     let [confirm, setConfirm] = useState("")
-    let handleConfirmChange = (event) => {
+    const handleConfirmChange = (event) => {
         setConfirm(event.target.value)
     }
     

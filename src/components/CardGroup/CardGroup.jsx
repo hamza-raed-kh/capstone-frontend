@@ -12,7 +12,7 @@ import style from './CardGroup.module.css'
  * @param {Array<Object>} props.eventcards - The category name to be desplayed after the section header's name.
  * @returns {JSX.Element} The rendered cardgroup element.
  */
-function CardSection({icon, text, category, eventcards}){
+const CardSection = ({icon, text, category, eventcards}) => {
     return (
         <div className={`${style.cardGroup}`}>
             <SectionHeader icon={icon} text={text} category={category}/>

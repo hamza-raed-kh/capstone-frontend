@@ -7,14 +7,14 @@ import style from './CategoryTag.module.css'
  * @param {string} props.text - The category name to be displayed inside the tag.
  * @returns {JSX.Element} The rendered categorytag element.
  */
-function CategoryTag({text}){
-    return <>
+const CategoryTag = ({text}) => {
+    return(
         <div className={`${style.category}`}>
             <span className={`${style.categoryText}`}>
                 {text}
             </span>
         </div>
-    </>
+    );
 }
 
 export default CategoryTag

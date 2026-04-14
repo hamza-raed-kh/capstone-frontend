@@ -1,7 +1,6 @@
 import style from './TextField.module.css'
 
-function TextField({label, type = 'text', value, handler}){
-
+const TextField = ({label, type = 'text', value, handler}) => {
     return (
         <div className={`${style.formField}`}>
             <label for={label} className={`${style.fieldLabel}`}>
