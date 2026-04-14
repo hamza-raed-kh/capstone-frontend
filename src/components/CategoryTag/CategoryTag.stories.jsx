@@ -14,11 +14,11 @@ export default {
 }
 
 /**
- * The search variant of the `CategoryTag` component.
+ * The only variant of the `CategoryTag` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
-export const Crypto = {
+export const Example = {
   args: {
     text: "Crypto",
   },

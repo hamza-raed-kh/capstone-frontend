@@ -14,7 +14,7 @@ export default {
 }
 
 /**
- * The search variant of the `EventCard` component.
+ * The main variant of the `EventCard` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
@@ -30,7 +30,7 @@ export const Main = {
 };
 
 /**
- * The search variant of the `EventCard` component.
+ * The admin variant of the `EventCard` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
