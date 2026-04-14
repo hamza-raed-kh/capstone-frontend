@@ -14,11 +14,11 @@ export default {
 }
 
 /**
- * The search variant of the `FaqPage` component.
+ * The only variant of the `FaqPage` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
-export const main = {
+export const Example = {
   args: {
     faqs: [
         {
