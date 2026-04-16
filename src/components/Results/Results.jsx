@@ -9,9 +9,16 @@ const Results = ({eventcards}) => {
     let button = {variant: "primary", children: "Apply"}
     let onClick = {view: ''}
 
-    eventcards = eventcards || [{variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}/*, {variant: 'main', banner_url: banner_url, info: info, details: details, button: button, onClick: onClick}*/]
-
-    
+    eventcards = eventcards || [
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+          { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
+      ]
+  
     return (
         <div className={`${style.results}`}>
             {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button} onClick={_.onClick}/>)}

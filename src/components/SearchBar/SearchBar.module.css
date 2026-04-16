@@ -1,4 +1,4 @@
-.searchbarContainer{
+.searchbarContainer {
     /* Search=true */
     display: flex;
     flex-direction: row;
@@ -7,7 +7,7 @@
     gap: 12px;
 }
 
-.searchbarCenter{
+.searchbarCenter {
     /* Search Bar */
 
     box-sizing: border-box;
@@ -30,7 +30,7 @@
     flex-grow: 1;
 }
 
-.searchbarPlaceholderText{
+.searchbarPlaceholderText {
     /* Text */
 
     font-style: normal;
@@ -48,7 +48,7 @@
     flex-grow: 1;
 }
 
-.searchbarSearchText{
+.searchbarSearchText {
     /* Text */
 
     font-style: italic;
@@ -66,7 +66,7 @@
     flex-grow: 1;
 }
 
-.searchbarSearchIcon{
+.searchbarSearchIcon {
     /* Icon */
 
     width: 24px;
@@ -80,7 +80,7 @@
     flex-grow: 0;
 }
 
-.searchbarRightIcon{
+.searchbarRightIcon {
     /* Icon */
 
     width: 32px;
@@ -94,7 +94,7 @@
     flex-grow: 0;
 }
 
-.searchbarLeftIcon{
+.searchbarLeftIcon {
     /* Inbox Icon */
 
     width: 32px;

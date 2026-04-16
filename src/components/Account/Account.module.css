@@ -1,0 +1,26 @@
+.accountContainer {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-main);
+    background-color: var(--color-bg-accent);
+    border-radius: 24px;
+    justify-content: space-between;
+}
+
+.accountAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.accountName {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--color-main);
+}
+
+/* .accountArrow {
+} */

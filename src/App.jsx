@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Sandbox } from "./pages/Sandbox";
-import SectionedLayout from './layouts/SectionedLayout'
-import BoxLayout from './layouts/BoxLayout'
+import SectionedLayout from './layouts/SectionedLayout/SectionedLayout'
+import BoxLayout from './layouts/BoxLayout/BoxLayout'
+import ExplorePage from "./pages/ExplorePage/ExplorePage"
 
 /**
  * A layout component that wraps the main content of the application.
@@ -11,7 +12,7 @@ import BoxLayout from './layouts/BoxLayout'
  */
 const RootLayout = () => (
   <main>
-    <Outlet /> {}
+    <Outlet /> { }
   </main>
 );
 
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/explore",
-        element: <SectionedLayout/>,
+        element: <ExplorePage />,
       },
       {
         path: "/login",
-        element: <BoxLayout/>
+        element: <BoxLayout />
       },
     ],
   },
@@ -47,8 +48,8 @@ const router = createBrowserRouter([
  * @returns {JSX.Element} The `RouterProvider` component with the configured router.
  */
 export default function App() {
-  function selectSectionedLayout(){
+  function selectSectionedLayout() {
     return false
   }
-  return  <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 }

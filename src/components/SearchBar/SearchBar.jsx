@@ -1,4 +1,4 @@
-import style from './SearchBar.module.css'
+import styles from './SearchBar.module.css'
 import Icon from '../Icon/Icon';
 import { useState } from 'react';
 
@@ -30,21 +30,22 @@ const SearchBar = ({ variant = 'search', children, onClick }) => {
         switch(variant){
             case 'search':
                 return (
-                    <form className={`${style.searchbarCenter}`} onSubmit={handleSubmit}>
-                        <input className={`${style.searchbarSearchText}`} type="text" placeholder="Search the arena..." value={search} onChange={handleSearchChange}/>
-                        <button className={`${style.searchbarSearchIcon}`} type="submit">
+                    <form className={`${styles.searchbarCenter}`} onSubmit={handleSubmit}>
+                        <input className={`${styles.searchbarSearchText}`} type="text" placeholder="Search the arena..." value={search} onChange={handleSearchChange}/>
+                        <button className={`${styles.searchbarSearchIcon}`} type="submit">
                             <Icon icon={'icon-park-outline:search'}  size={24}/>
                         </button>
                     </form>
                 );
             case 'placeholder':
                 return (
-                    <div className={`${style.searchbarCenter}`}>
-                        <span className={`${style.searchbarPlaceholderText}`}>{children}</span>
+                    <div className={`${styles.searchbarCenter}`}>
+                        <span className={`${styles.searchbarPlaceholderText}`}>{children}</span>
                     </div>
                 );
         }
     }
+  }
 
     return (
         <div className={`${style.searchbarContainer}`}>

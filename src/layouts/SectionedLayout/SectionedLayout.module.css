@@ -1,0 +1,26 @@
+.sectionedLayoutContainer {
+    background-color: var(--color-light-accent);
+    display: flex;
+    gap: 24px;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.sectionedLayoutMainSection {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sectionedLayoutSideSection {
+    width: 300px;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
