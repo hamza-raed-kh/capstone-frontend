@@ -1,7 +1,7 @@
 import Icon from './Icon';
 
 export default {
-  title: 'Components/Icon',
+  title: 'Atoms/Icon',
   component: Icon,
   argTypes: {
     color: { control: 'color' },

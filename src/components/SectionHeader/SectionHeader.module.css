@@ -1,4 +1,4 @@
-.section-header{
+.sectionHeader{
     /* Header 2 */
 
     /* Auto layout */
@@ -12,7 +12,7 @@
     height: 58px;
 
     /* Main Gradient */
-    background: var(--gradient-main);
+    /* background: var(--gradient-main); */
     border-radius: 16px;
 
     /* Inside auto layout */
@@ -22,11 +22,18 @@
     flex-grow: 0;
 }
 
-.section-header-icon{
+.main{
+    background: var(--gradient-main);
+}
+
+.red{
+    background: var(--gradient-danger);
+}
+
+.sectionHeaderIcon{
     /* Icon */
 
-    width: 32px;
-    height: 32px;
+    color: var(--color-white);
 
 
     /* Inside auto layout */
@@ -35,7 +42,7 @@
     flex-grow: 0;
 }
 
-.section-header-name{
+.sectionHeaderName{
     /* Name */
 
     height: 34px;
@@ -55,7 +62,7 @@
     flex-grow: 0;
 }
 
-.section-header-category{
+.sectionHeaderCategory{
     /* Category */
 
     height: 24px;

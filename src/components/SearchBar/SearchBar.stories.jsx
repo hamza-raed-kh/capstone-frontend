@@ -1,15 +1,15 @@
 import SearchBar from "./SearchBar";
 
 /**
- * Storybook configuration for the `SearchBar` component.
- * This file defines the stories for the `SearchBar` component, which are used to
+ * Storybook configuration for the `searchbar` component.
+ * This file defines the stories for the `searchbar` component, which are used to
  * visualize and test the component in isolation. Each story represents a different
  * state or variation of the component.
  *
  * @type {import('@storybook/react').Meta}
  */
 export default {
-    title: "Atoms/SearchBar",
+    title: "Components/SearchBar",
     component: SearchBar,
 }
 

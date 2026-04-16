@@ -11,8 +11,8 @@
     padding: 2px 6px;
     gap: 10px;
 
-    /* width: 39px;
-    height: 14px; */
+    width: auto;
+    height: auto;
 
     border: 1px solid var(--color-main-accent);
     border-radius: 24px;
@@ -22,11 +22,11 @@
     flex-grow: 0;
 }
 
-.category-text{
+.categoryText{
     /* Text */
 
-    /* width: 27px;
-    height: 10px; */
+    width: auto;
+    height: auto;
 
     font-style: normal;
     font-weight: 600;

@@ -1,5 +1,6 @@
 import styles from './SearchBar.module.css'
 import Icon from '../Icon/Icon';
+import { useState } from 'react';
 
 /**
  * A searchbar component with different visual styles.
@@ -8,44 +9,55 @@ import Icon from '../Icon/Icon';
  *
  * @param {object} props - The properties for the searchbar.
  * @param {'search' | 'placeholder'} [props.variant='search'] - The visual variant of the searchbar.
- * @param {React.ReactNode} props.children - The content to be displayed inside the searchbar.
+ * @param {string} props.children - The string to be displayed inside the bar's 'placeholder' variant.
  * @param {Function} props.onClick - The function to be called when the searchbar icon is clicked.
  * @returns {JSX.Element} The rendered searchbar element.
  */
-function SearchBar({ variant = 'search', children, onClick }) {
-  function searchBarContent() {
-    switch (variant) {
-      case 'search':
-        return (
-          <>
-            <span className={styles.searchText}>Search the arena...</span>
-            <div className={styles.searchIcon}>
-              <Icon />
-            </div>
-          </>
-        );
-      case 'placeholder':
-        return (
-          <>
-            <span className={styles.placeholderText}>{children}</span>
-          </>
-        );
+const SearchBar = ({ variant = 'search', children, onClick }) => {
+    let [search, setSearch] = useState("");
+
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert(`Searching for: '${search}'\nIntegration from backend coming soon!`);
+        //Body could use onClick?
+    }
+
+    const searchBarSegment = () => {
+        switch(variant){
+            case 'search':
+                return (
+                    <form className={`${styles.searchbarCenter}`} onSubmit={handleSubmit}>
+                        <input className={`${styles.searchbarSearchText}`} type="text" placeholder="Search the arena..." value={search} onChange={handleSearchChange}/>
+                        <button className={`${styles.searchbarSearchIcon}`} type="submit">
+                            <Icon icon={'icon-park-outline:search'}  size={24}/>
+                        </button>
+                    </form>
+                );
+            case 'placeholder':
+                return (
+                    <div className={`${styles.searchbarCenter}`}>
+                        <span className={`${styles.searchbarPlaceholderText}`}>{children}</span>
+                    </div>
+                );
+        }
     }
   }
 
-  return (
-    <div className={styles.searchbarContainer}>
-      <div className={styles.searchbarRightIcon}>
-        <Icon size={32} icon="ci:hamburger-md" />
-      </div>
-      <div className={styles.searchbarCenter}>
-        {searchBarContent()}
-      </div>
-      <div className={styles.searchbarLeftIcon}>
-        <Icon size={32} icon='solar:inbox-bold' />
-      </div>
-    </div>
-  );
+    return (
+        <div className={`${style.searchbarContainer}`}>
+            <div className={`${style.searchbarRightIcon}`}>
+                <Icon icon={'garden:menu-fill-16'} size={32}/>
+            </div>
+            {searchBarSegment()}
+            <div className={`${style.searchbarLeftIcon}`}>
+                <Icon icon={'solar:inbox-bold'} size={32}/>
+            </div>
+        </div>
+    );
 }
 
 export default SearchBar
