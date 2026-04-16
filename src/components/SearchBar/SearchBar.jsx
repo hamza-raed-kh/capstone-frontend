@@ -1,4 +1,4 @@
-import './SearchBar.css'
+import styles from './SearchBar.module.css'
 import Icon from '../Icon/Icon';
 
 /**
@@ -12,40 +12,40 @@ import Icon from '../Icon/Icon';
  * @param {Function} props.onClick - The function to be called when the searchbar icon is clicked.
  * @returns {JSX.Element} The rendered searchbar element.
  */
-function SearchBar({ variant = 'search', children, onClick }){
-    function searchBarContent(){
-        switch(variant){
-            case 'search':
-                return (
-                    <>
-                        <span className="searchbar-search-text">Search the arena...</span>
-                        <div className="searchbar-search-icon">
-                            <Icon/>
-                        </div>
-                    </>
-                );
-            case 'placeholder':
-                return (
-                    <>
-                        <span className="searchbar-placeholder-text">{children}</span>
-                    </>
-                );
-        }
+function SearchBar({ variant = 'search', children, onClick }) {
+  function searchBarContent() {
+    switch (variant) {
+      case 'search':
+        return (
+          <>
+            <span className={styles.searchText}>Search the arena...</span>
+            <div className={styles.searchIcon}>
+              <Icon />
+            </div>
+          </>
+        );
+      case 'placeholder':
+        return (
+          <>
+            <span className={styles.placeholderText}>{children}</span>
+          </>
+        );
     }
+  }
 
-    return (
-        <div className="searchbar-container">
-            <div className="searchbar-right-icon">
-                <Icon/>
-            </div>
-            <div className="searchbar-center">
-                {searchBarContent()}
-            </div>
-            <div className="searchbar-left-icon">
-                <Icon/>
-            </div>
-        </div>
-    );
+  return (
+    <div className={styles.searchbarContainer}>
+      <div className={styles.searchbarRightIcon}>
+        <Icon size={32} icon="ci:hamburger-md" />
+      </div>
+      <div className={styles.searchbarCenter}>
+        {searchBarContent()}
+      </div>
+      <div className={styles.searchbarLeftIcon}>
+        <Icon size={32} icon='solar:inbox-bold' />
+      </div>
+    </div>
+  );
 }
 
 export default SearchBar
