@@ -45,15 +45,14 @@ const SearchBar = ({ variant = 'search', children, onClick }) => {
                 );
         }
     }
-  }
 
     return (
-        <div className={`${style.searchbarContainer}`}>
-            <div className={`${style.searchbarRightIcon}`}>
+        <div className={`${styles.searchbarContainer}`}>
+            <div className={`${styles.searchbarRightIcon}`}>
                 <Icon icon={'garden:menu-fill-16'} size={32}/>
             </div>
             {searchBarSegment()}
-            <div className={`${style.searchbarLeftIcon}`}>
+            <div className={`${styles.searchbarLeftIcon}`}>
                 <Icon icon={'solar:inbox-bold'} size={32}/>
             </div>
         </div>
