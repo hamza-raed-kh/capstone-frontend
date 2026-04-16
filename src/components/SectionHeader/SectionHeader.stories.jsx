@@ -1,33 +1,45 @@
 import SectionHeader from "./SectionHeader";
 
 /**
- * Storybook configuration for the `SectionHeader` component.
- * This file defines the stories for the `SectionHeader` component, which are used to
+ * Storybook configuration for the `sectionheader` component.
+ * This file defines the stories for the `sectionheader` component, which are used to
  * visualize and test the component in isolation. Each story represents a different
  * state or variation of the component.
  *
  * @type {import('@storybook/react').Meta}
  */
 export default {
-    title: "Atoms/SectionHeader",
+    title: "Components/SectionHeader",
     component: SectionHeader,
 }
 
 /**
- * The icon with category variant of the `SectionHeader` component.
+ * The red variant of the `SectionHeader` component.
+ *
+ * @type {import('@storybook/react').StoryObj}
+ */
+export const Danger = {
+  args: {
+    variant: "red",
+    text: "Section",
+  },
+};
+
+/**
+ * The with-icon & with-category variant of the `SectionHeader` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
 export const IconCategory = {
   args: {
-    icon: "1",
+    icon: "tdesign:icon-filled",
     text: "Section",
     category: "category",
   },
 };
 
 /**
- * The no icon with category variant of the `SectionHeader` component.
+ * The without-icon & with-category variant of the `SectionHeader` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
@@ -40,20 +52,20 @@ export const IconlessCategory = {
 };
 
 /**
- * The icon with no category variant of the `SectionHeader` component.
+ * The with-icon & without-category variant of the `SectionHeader` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
 export const IconCategoryless = {
   args: {
-    icon: "1",
+    icon: "tdesign:icon-filled",
     text: "Button",
     category: "",
   },
 };
 
 /**
- * The no icon with no category variant of the `SectionHeader` component.
+ * The without-icon & without-category variant of the `SectionHeader` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
