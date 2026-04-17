@@ -1,4 +1,4 @@
-import style from './FAQ.module.css'
+import styles from './FAQ.module.css'
 import Icon from '../Icon/Icon'
 
 /**
@@ -13,16 +13,16 @@ import Icon from '../Icon/Icon'
  */
 const FAQ = ({question, answer}) => {
     return (
-        <div className={`${style.question}`}>
-            <div className={`${style.questionHeader}`}>
-                <div className={`${style.questionHeaderIcon}`}>
+        <div className={`${styles.question}`}>
+            <div className={`${styles.questionHeader}`}>
+                <div className={`${styles.questionHeaderIcon}`}>
                     <Icon icon={'tdesign:icon-filled'} size={24}/>
                 </div>
-                <p className={`${style.questionHeaderText}`}>
+                <p className={`${styles.questionHeaderText}`}>
                     {question}
                 </p>
             </div>
-            <p className={`${style.questionText}`}>
+            <p className={`${styles.questionText}`}>
                 {answer}
             </p>
         </div>

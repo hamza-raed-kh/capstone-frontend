@@ -1,5 +1,5 @@
 import EventCard from "../EventCard/EventCard"
-import style from './Results.module.css'
+import styles from './Results.module.css'
 
 const Results = ({eventcards}) => {
     let variant = 'main'
@@ -20,7 +20,7 @@ const Results = ({eventcards}) => {
       ]
   
     return (
-        <div className={`${style.results}`}>
+        <div className={`${styles.results}`}>
             {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button} onClick={_.onClick}/>)}
         </div>
     );

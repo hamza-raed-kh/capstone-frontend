@@ -1,4 +1,4 @@
-import style from './CategoryTag.module.css'
+import styles from './CategoryTag.module.css'
 
 /**
  * A categorytag component with a single visual style.
@@ -9,8 +9,8 @@ import style from './CategoryTag.module.css'
  */
 const CategoryTag = ({text}) => {
     return(
-        <div className={`${style.category}`}>
-            <span className={`${style.categoryText}`}>
+        <div className={`${styles.category}`}>
+            <span className={`${styles.categoryText}`}>
                 {text}
             </span>
         </div>

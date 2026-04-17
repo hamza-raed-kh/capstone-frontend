@@ -1,12 +1,12 @@
-import style from './TextField.module.css'
+import styles from './TextField.module.css'
 
 const TextField = ({label, type = 'text', value, handler}) => {
     return (
-        <div className={`${style.formField}`}>
-            <label for={label} className={`${style.fieldLabel}`}>
+        <div className={`${styles.formField}`}>
+            <label for={label} className={`${styles.fieldLabel}`}>
                 {label}
             </label>
-            <input className={`${style.fieldText}`} type={type} id={label} name={label} value={value} onChange={handler}/>
+            <input className={`${styles.fieldText}`} type={type} id={label} name={label} value={value} onChange={handler}/>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import Icon from '../Icon/Icon';
-import style from './SectionHeader.module.css'
+import styles from './SectionHeader.module.css'
 
 /**
  * A sectionheader component with different visual styles.
@@ -15,16 +15,16 @@ import style from './SectionHeader.module.css'
  */
 const SectionHeader = ({variant="main", icon, text, category}) => {
     return (
-        <div className={`${style.sectionHeader} ${style[variant]}`}>
-            {icon? <div className={`${style.sectionHeaderIcon}`}>
+        <div className={`${styles.sectionHeader} ${styles[variant]}`}>
+            {icon? <div className={`${styles.sectionHeaderIcon}`}>
                 <Icon icon={icon} size={32}/>
             </div>: <></>}
-            <span className={`${style.sectionHeaderName}`}>
+            <span className={`${styles.sectionHeaderName}`}>
                 {text}
             </span>
             {category? <>
-                <span className={`${style.sectionHeaderCategory}`}>&gt;</span>
-                <span className={`${style.sectionHeaderCategory}`}>{category}</span>
+                <span className={`${styles.sectionHeaderCategory}`}>&gt;</span>
+                <span className={`${styles.sectionHeaderCategory}`}>{category}</span>
             </> : <></>}
         </div>
     );

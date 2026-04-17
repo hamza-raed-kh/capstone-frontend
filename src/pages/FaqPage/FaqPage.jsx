@@ -1,6 +1,6 @@
 import FAQ from '../../components/FAQ/FAQ';
 import SectionHeader from '../../components/SectionHeader/SectionHeader'
-import style from './FaqPage.module.css'
+import styles from './FaqPage.module.css'
 
 /**
  * An FaqPage component with a single visual style.
@@ -11,12 +11,12 @@ import style from './FaqPage.module.css'
  */
 const FaqPage = ({faqs}) => {
     return (
-        <div className={`${style.pageContainer}`}>
-            <div className={`${style.pageHeader}`}>
+        <div className={`${styles.pageContainer}`}>
+            <div className={`${styles.pageHeader}`}>
                 <SectionHeader icon={'tdesign:icon-filled'} text={'FAQ'} category={'Official'}/>
             </div>
             {Array.from(faqs, (_,i) =>
-                <div className={`${style.pageQuestion}`}>
+                <div className={`${styles.pageQuestion}`}>
                     <FAQ key={i} question={_.question} answer={_.answer}/>
                 </div>
             )}

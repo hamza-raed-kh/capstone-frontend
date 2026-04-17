@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '../../components/Button/Button'
 import SectionHeader from '../../components/SectionHeader/SectionHeader'
 import TextField from '../../components/TextField/TextField'
-import style from './SecurityPage.module.css'
+import styles from './SecurityPage.module.css'
 
 /**
  * A securitypage component with different visual styles.
@@ -49,28 +49,28 @@ const SecurityPage = ({ onDelete }) => {
     }
     
     return (
-        <div className={`${style.pageContainer}`}>
-            <div className={`${style.SectionSecurity}`}>
+        <div className={`${styles.pageContainer}`}>
+            <div className={`${styles.SectionSecurity}`}>
                 <SectionHeader icon={'tdesign:icon-filled'} text={'Security'}/>
                 <form onSubmit={handleSubmit}>
-                    <div className={`${style.SecurityFields}`}>
+                    <div className={`${styles.SecurityFields}`}>
                         <TextField label="New Password" type="textarea" value={password} handler={handlePasswordChange}/>
                         <TextField label="Confirm" type="password" value={confirm} handler={handleConfirmChange}/>
                     </div>
-                    <div className={`${style.SecurityButtons}`}>
-                        <div className={`${style.SecurityButtonsDiscard}`}>
+                    <div className={`${styles.SecurityButtons}`}>
+                        <div className={`${styles.SecurityButtonsDiscard}`}>
                             <Button variant={"red-secondary"} type="reset" children={"Discard"} onClick={handleDiscard}/>
                         </div>
-                        <div className={`${style.SecurityButtonsSave}`}>
+                        <div className={`${styles.SecurityButtonsSave}`}>
                             <Button variant={"primary"} type="submit" children={"Save"}/>
                         </div>
                     </div>
                 </form>
             </div>
-            <div className={`${style.SectionDanger}`}>
+            <div className={`${styles.SectionDanger}`}>
                 <SectionHeader variant={'red'} icon={'tdesign:icon-filled'} text={'Danger Zone'}/>
-                <div className={`${style.DangerDelete}`}>
-                    <div className={`${style.DangerDeleteButton}`}>
+                <div className={`${styles.DangerDelete}`}>
+                    <div className={`${styles.DangerDeleteButton}`}>
                         <Button variant={"red-secondary"} children={"Delete Account"} onClick={handleDelete}/>
                     </div>
                 </div>

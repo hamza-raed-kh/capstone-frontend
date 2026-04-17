@@ -1,6 +1,6 @@
 import EventCard from '../EventCard/EventCard'
 import SectionHeader from '../SectionHeader/SectionHeader'
-import style from './CardGroup.module.css'
+import styles from './CardGroup.module.css'
 
 /**
  * A cardgroup component with a single visual style.
@@ -14,9 +14,9 @@ import style from './CardGroup.module.css'
  */
 const CardSection = ({icon, text, category, eventcards}) => {
     return (
-        <div className={`${style.cardGroup}`}>
+        <div className={`${styles.cardGroup}`}>
             <SectionHeader icon={icon} text={text} category={category}/>
-            <div className={`${style.cards}`}>
+            <div className={`${styles.cards}`}>
                 {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button}/>)}
             </div>
         </div>
