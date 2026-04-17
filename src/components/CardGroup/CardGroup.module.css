@@ -21,11 +21,11 @@
     /* Cards */
 
     /* Auto layout */
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* flex-wrap: wrap; */
+    /* align-items: flex-start; */
+    /* align-content: flex-start; */
     justify-content: space-between;
     padding: 0px;
     gap: 16px;
