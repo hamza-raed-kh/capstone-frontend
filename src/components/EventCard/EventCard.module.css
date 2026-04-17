@@ -1,4 +1,4 @@
-.eventcard{
+.eventcard {
     /* Event Card */
 
     /* Auto layout */
@@ -7,6 +7,7 @@
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
+    cursor: pointer;
 
     width: 100%;
 
@@ -15,7 +16,7 @@
     border-radius: 24px;
 }
 
-.eventcardBanner{
+.eventcardBanner {
     /* Banner */
 
     /* Auto layout */
@@ -36,7 +37,7 @@
     flex-grow: 0;
 }
 
-.eventcardInfo{
+.eventcardInfo {
     /* Info */
 
     /* Auto layout */
@@ -56,7 +57,7 @@
     flex-grow: 0;
 }
 
-.eventcardInfoTitle{
+.eventcardInfoTitle {
     /* Title */
 
     width: 100%;
@@ -77,7 +78,7 @@
     flex-grow: 0;
 }
 
-.eventcardInfoDescription{
+.eventcardInfoDescription {
     /* Description */
 
     width: 100%;
@@ -98,7 +99,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetails{
+.eventcardDetails {
     /* Details */
 
     /* Auto layout */
@@ -118,7 +119,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsFirst{
+.eventcardDetailsFirst {
     /* Row 1 */
 
     /* Auto layout */
@@ -138,7 +139,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsPrize{
+.eventcardDetailsPrize {
     /* Prize */
 
     /* Auto layout */
@@ -155,7 +156,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsPrizeIcon{
+.eventcardDetailsPrizeIcon {
     /* Icon */
 
     width: 14px;
@@ -170,7 +171,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsPrizeText{
+.eventcardDetailsPrizeText {
     /* Text */
 
     font-style: normal;
@@ -187,7 +188,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsParticipants{
+.eventcardDetailsParticipants {
     /* Participants */
 
     /* Auto layout */
@@ -204,7 +205,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsParticipantsIcon{
+.eventcardDetailsParticipantsIcon {
     /* People */
 
     width: 14px;
@@ -219,7 +220,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsParticipantsText{
+.eventcardDetailsParticipantsText {
     /* Text */
 
     font-style: normal;
@@ -236,7 +237,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsDates{
+.eventcardDetailsDates {
     /* Dates */
 
     /* Auto layout */
@@ -256,7 +257,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsDatesIcon{
+.eventcardDetailsDatesIcon {
     /* Calendar */
 
     width: 14px;
@@ -271,7 +272,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsDatesText{
+.eventcardDetailsDatesText {
     /* Text */
 
     font-style: normal;
@@ -288,7 +289,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsLocation{
+.eventcardDetailsLocation {
     /* Location */
 
     /* Auto layout */
@@ -308,7 +309,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsLocationIcon{
+.eventcardDetailsLocationIcon {
     /* Location */
 
     width: 14px;
@@ -323,7 +324,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsLocationText{
+.eventcardDetailsLocationText {
     /* Text */
 
     font-style: normal;
@@ -340,7 +341,7 @@
     flex-grow: 0;
 }
 
-.eventcardDetailsCategories{
+.eventcardDetailsCategories {
     /* Categories */
 
     /* Auto layout */
@@ -361,7 +362,7 @@
     flex-grow: 0;
 }
 
-.eventcardButtons{
+.eventcardButtons {
     /* Buttons */
 
     /* Auto layout */
@@ -382,7 +383,7 @@
     flex-grow: 0;
 }
 
-.eventcardButtonsReject{
+.eventcardButtonsReject {
     /* Main Button */
 
     /* Auto layout */
@@ -405,7 +406,7 @@
     flex-grow: 0;
 }
 
-.eventcardButtonsApprove{
+.eventcardButtonsApprove {
     /* Main Button */
 
     /* Auto layout */
@@ -428,7 +429,7 @@
     flex-grow: 0;
 }
 
-.eventcardButtonsView{
+.eventcardButtonsView {
     /* Main Button */
 
     /* Auto layout */
