@@ -1,4 +1,4 @@
-import EventCard from "../EventCard/EventCard"
+import CardGroup from "../CardGroup/CardGroup"
 import styles from './Results.module.css'
 
 const Results = ({eventcards}) => {
@@ -7,7 +7,7 @@ const Results = ({eventcards}) => {
     let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
     let details = {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]}
     let button = {variant: "primary", children: "Apply"}
-    let onClick = {view: ''}
+    let onClick = {view: function(){}}
 
     eventcards = eventcards || [
           { variant: variant, banner_url: banner_url, info: info, details: details, button: button, onClick: onClick },
@@ -21,7 +21,7 @@ const Results = ({eventcards}) => {
   
     return (
         <div className={`${styles.results}`}>
-            {Array.from(eventcards, (_,i) => <EventCard key={i} banner_url={_.banner_url} info={_.info} details={_.details} button={_.button} onClick={_.onClick}/>)}
+            <CardGroup eventcards={eventcards}/>
         </div>
     );
 }
