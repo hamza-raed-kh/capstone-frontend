@@ -2,11 +2,11 @@ import LeftSection from "../../components/LeftSection/LeftSection"
 import RightSection from "../../components/RightSection/RightSection"
 import styles from "./SectionedLayout.module.css"
 
-function SectionedLayout({ children, leftType = 'navbar', leftLinks = [] }) {
+function SectionedLayout({ children, preset }) {
 
     return <div className={styles.sectionedLayoutContainer}>
         <div className={styles.sectionedLayoutSideSection}>
-            <LeftSection type={leftType} links={leftLinks} />
+            <LeftSection preset={preset} />
         </div>
         <div className={styles.sectionedLayoutMainSection}>
             {children}
