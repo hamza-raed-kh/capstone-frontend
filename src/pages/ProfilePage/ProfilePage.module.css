@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+    min-height: 0;
+}
+
+.search {
+    height: 53px;
+    flex: none;
+}
+
+.content {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 24px;
+    background-color: var(--color-bg-accent);
+    padding: 24px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.profileHeader {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 24px;
+}
+
+.profileHeader>button {
+    color: var(--color-text-accent);
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    width: auto;
+}
+
+.profileDetails {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: none;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 4px;
+    background: var(--gradient-main);
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    /* gap: 8px; */
+    flex-grow: 1;
+}
+
+.name {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.year {
+    font-size: 20px;
+    color: var(--color-white);
+    margin: 0;
+    background: var(--gradient-main);
+    width: fit-content;
+    padding: 2px 12px;
+    border-radius: 80px;
+}
+
+.year .smurf {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.year .ofYear {
+    font-style: italic;
+}
+
+.eventList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: none;
+}
+
+.profileBio {
+    background-color: var(--color-white);
+    padding: 12px;
+    border-radius: 16px;
+    color: var(--color-text);
+}
+
+.profileBio h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
