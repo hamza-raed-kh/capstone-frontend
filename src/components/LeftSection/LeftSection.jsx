@@ -3,15 +3,11 @@ import Navigation from "../Navigation/Navigation"
 import SideSection from "../../layouts/SideSection/SideSection"
 import Block from "../Block/Block"
 
-function LeftSection({ type = 'navbar', links = [] }) {
+function LeftSection({ preset }) {
     return (
         <SideSection footer={<Account />}>
             <Block>
-                {type === 'community' ? (
-                    <div className="placeholder" style={{ opacity: 0.5 }}>Community Features Soon</div>
-                ) : (
-                    <Navigation links={links} />
-                )}
+                <Navigation preset={preset} />
             </Block>
         </SideSection>
     )
