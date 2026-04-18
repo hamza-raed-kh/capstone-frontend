@@ -16,12 +16,24 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./assets/Background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
 @import "tailwindcss";
 
 :root {
   /* Light Mode */
-
-
   /* font-family: ; */
 
   --color-main: #3C68AE;
@@ -62,10 +74,10 @@ body {
 }
 
 
-@theme {
+/* @theme {
   --color-main: var(--color-main);
   --color-brand-pink: var(--color-pink);
   --color-danger: var(--color-danger);
   --background-image-gold: var(--gradient-gold);
   --background-image-main-grad: var(--gradient-main);
-}
+} */

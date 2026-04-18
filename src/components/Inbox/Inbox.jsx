@@ -1,33 +1,30 @@
 import styles from "./Inbox.module.css"
 import Icon from "../Icon/Icon"
 import Notification from "../Notification/Notification"
+import { useDispatch } from "react-redux"
+import { toggleRightSidebar } from "../../features/layout/layoutSlice"
 
 function Inbox() {
+    const dispatch = useDispatch();
 
     const notifs = [
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
         },
         {
             date: "Today",
             children: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest",
-            onAccept: true,
             onReject: true
         },
         {
             date: "Today",
             children: "test",
             onAccept: true,
-            onReject: true
         },
         {
             date: "Today",
@@ -57,7 +54,9 @@ function Inbox() {
 
     return <div className={styles.inboxContainer}>
         <div className={styles.inboxHeader}>
-            <Icon size={24} icon="solar:inbox-bold" />
+            <div onClick={() => dispatch(toggleRightSidebar())} style={{ cursor: 'pointer', display: 'flex' }}>
+                <Icon size={24} icon="solar:inbox-bold" />
+            </div>
             <h1 className={styles.inboxTitle}>Inbox</h1>
         </div>
         <div className={styles.inboxList}>

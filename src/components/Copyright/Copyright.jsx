@@ -1,9 +1,11 @@
-import Block from "../Block/Block"
+import styles from "./Copyright.module.css"
 
 function Copyright() {
-    return <>
-        <Block text="Copyright" />
-    </>
+
+    return <div className={styles.container}>
+        <p>© 2026 Sanfoor Arena</p>
+        <p>All Rights Reserved</p>
+    </div>
 }
 
 export default Copyright

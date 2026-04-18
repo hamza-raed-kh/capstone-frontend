@@ -11,12 +11,17 @@ import styles from './SectionHeader.module.css'
  * @param {string} props.icon - The string name of the section's icon (e.g., 'mdi:home').
  * @param {string} props.text - The string name of section to be displayed inside the header.
  * @param {string} props.category - The category name to be displayed after the section's name.
+ * @param {Function} [props.onIconClick] - Optional click handler for the icon.
  * @returns {JSX.Element} The rendered sectionheader element.
  */
-const SectionHeader = ({variant="main", icon, text, category}) => {
+const SectionHeader = ({variant="main", icon, text, category, onIconClick}) => {
     return (
         <div className={`${styles.sectionHeader} ${styles[variant]}`}>
-            {icon? <div className={`${styles.sectionHeaderIcon}`}>
+            {icon? <div 
+                className={`${styles.sectionHeaderIcon}`} 
+                onClick={onIconClick}
+                style={onIconClick ? { cursor: 'pointer' } : {}}
+            >
                 <Icon icon={icon} size={32}/>
             </div>: <></>}
             <span className={`${styles.sectionHeaderName}`}>

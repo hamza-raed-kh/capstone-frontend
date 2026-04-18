@@ -3,67 +3,48 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     padding: 0px 12px;
     gap: 12px;
+
+    width: 100%;
 }
 
 .searchbarCenter {
     /* Search Bar */
 
-    box-sizing: border-box;
-
-    /* Auto layout */
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 12px 24px;
+    padding: 8px 16px;
     gap: 10px;
-    height: 53px;
 
     background: var(--color-white);
     border: 2px solid var(--color-main);
     border-radius: 48px;
 
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
-    flex-grow: 1;
-}
-
-.searchbarPlaceholderText {
-    /* Text */
-
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    /* identical to box height */
-
-    color: var(--color-text);
-
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 1;
+    flex: 1;
 }
 
 .searchbarSearchText {
     /* Text */
+    font-size: 20px;
+    color: var(--color-text);
+    width: 100%;
+}
 
+.searchbarSearchText::placeholder {
     font-style: italic;
     font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 20px;
     /* identical to box height */
 
     color: var(--color-text-accent);
+    opacity: 50%;
+}
 
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 1;
+.searchbarSearchText:focus {
+    outline: transparent;
 }
 
 .searchbarSearchIcon {
