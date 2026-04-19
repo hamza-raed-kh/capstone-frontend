@@ -1,6 +1,6 @@
 import styles from './EventCard.module.css'
 import Icon from '../Icon/Icon';
-import { Button } from '../Button/Button';
+import { Button } from '../inputs/Button/Button';
 import CategoryTag from '../CategoryTag/CategoryTag';
 
 /**
@@ -21,26 +21,26 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
     const renderButtons = () => {
         if (variant === 'main')
             return (
-                <Button variant={button.variant} children={button.children} onClick={ onClick !== undefined && "view" in onClick ? onClick.view : null }/>
+                <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "view" in onClick ? onClick.view : null} />
             );
         else if (variant === 'admin')
             return (
                 <>
                     <div className={`${styles.eventcardButtonsReject}`}>
-                        <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject}/>
+                        <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject} />
                     </div>
                     <div className={`${styles.eventcardButtonsApprove}`}>
-                        <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve}/>
+                        <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve} />
                     </div>
                     <div className={`${styles.eventcardButtonsView}`}>
-                        <Button variant={"primary"} children={"View"} onClick={onClick.view}/>
+                        <Button variant={"primary"} children={"View"} onClick={onClick.view} />
                     </div>
                 </>
             );
     }
 
     return (
-        <div className={`${styles.eventcard}`} onClick={ onClick.view }>
+        <div className={`${styles.eventcard}`} onClick={onClick.view}>
             <img className={`${styles.eventcardBanner}`} src={banner_url} alt="" />
             <div className={`${styles.eventcardInfo}`}>
                 <p className={`${styles.eventcardInfoTitle}`}>{info.title}</p>
@@ -50,37 +50,37 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
                 <div className={`${styles.eventcardDetailsFirst}`}>
                     <div className={`${styles.eventcardDetailsPrize}`}>
                         <div className={`${styles.eventcardDetailsPrizeIcon}`}>
-                            <Icon icon={"solar:cup-star-bold"} size={14}/>
+                            <Icon icon={"solar:cup-star-bold"} size={14} />
                         </div>
                         <span className={`${styles.eventcardDetailsPrizeText}`}>{details.prize}</span>
                     </div>
                     <div className={`${styles.eventcardDetailsParticipants}`}>
                         <div className={`${styles.eventcardDetailsParticipantsIcon}`}>
-                            <Icon icon={"ic:round-people"} size={14}/>
+                            <Icon icon={"ic:round-people"} size={14} />
                         </div>
                         <span className={`${styles.eventcardDetailsParticipantsText}`}>{details.participants_now}/{details.participants_max}</span>
                     </div>
                 </div>
                 <div className={`${styles.eventcardDetailsDates}`}>
                     <div className={`${styles.eventcardDetailsDatesIcon}`}>
-                        <Icon icon={"fluent:calendar-24-filled"} size={14}/>
+                        <Icon icon={"fluent:calendar-24-filled"} size={14} />
                     </div>
                     <span className={`${styles.eventcardDetailsDatesText}`}>{details.date_start} - {details.date_end}</span>
                 </div>
                 <div className={`${styles.eventcardDetailsLocation}`}>
                     <div className={`${styles.eventcardDetailsLocationIcon}`}>
-                        <Icon icon={"mingcute:location-fill"} size={14}/>
+                        <Icon icon={"mingcute:location-fill"} size={14} />
                     </div>
                     <span className={`${styles.eventcardDetailsLocationText}`}>
-                        {details.virtual? "Virtual" : details.location}
+                        {details.virtual ? "Virtual" : details.location}
                     </span>
                 </div>
                 <div className={`${styles.eventcardDetailsCategories}`}>
-                    {Array.from(details.categories, (_,i) => <CategoryTag key={i} text={_}/>)}
+                    {Array.from(details.categories, (_, i) => <CategoryTag key={i} text={_} />)}
                 </div>
             </div>
             <div className={`${styles.eventcardButtons}`}>
-                { renderButtons() }
+                {renderButtons()}
             </div>
         </div>
     );

@@ -2,8 +2,8 @@ import React from 'react';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Popover from '@radix-ui/react-popover';
 import Icon from '../Icon/Icon';
-import SelectInput from '../SelectInput/SelectInput';
-import DateInput from '../DateInput/DateInput';
+import SelectInput from '../inputs/SelectInput/SelectInput';
+import DateInput from '../inputs/DateInput/DateInput';
 import styles from './FilterPill.module.css';
 
 /**

@@ -1,4 +1,4 @@
-import Account from "../Account/Account"
+import AccountBox from "../AccountBox/AccountBox"
 import Navigation from "../Navigation/Navigation"
 import SideSection from "../../layouts/SideSection/SideSection"
 import { useDispatch } from "react-redux"
@@ -10,7 +10,7 @@ function LeftSection({ preset }) {
     const dispatch = useDispatch();
 
     return (
-        <SideSection footer={<Account />}>
+        <SideSection footer={<AccountBox />}>
             <div className={styles.menuSection}>
                 <div className={styles.menuHeader}>
                     <div onClick={() => dispatch(toggleLeftSidebar())} style={{ cursor: 'pointer', display: 'flex' }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '../Icon/Icon';
-import { Button } from '../Button/Button';
+import { Button } from '../inputs/Button/Button';
 import styles from './Notification.module.css';
 
 /**
