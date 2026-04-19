@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* flex-wrap: wrap; */
+
+    -webkit-mask-image: 
+        linear-gradient(to right, transparent, black),
+        linear-gradient(black, black),
+        linear-gradient(to left, transparent, black);
+    mask-image: 
+        linear-gradient(to right, transparent, black),
+        linear-gradient(black, black),
+        linear-gradient(to left, transparent, black);
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    transition: 
+        mask-size 0.3s ease-in-out, 
+        mask-position 0.3s ease-in-out, 
+        -webkit-mask-size 0.3s ease-in-out, 
+        -webkit-mask-position 0.3s ease-in-out;
+}
+
+.container[data-fade="both"] {
+    -webkit-mask-size: 2rem 100%, calc(100% - 4rem) 100%, 2rem 100%;
+    -webkit-mask-position: 0 0, 2rem 0, 100% 0;
+    mask-size: 2rem 100%, calc(100% - 4rem) 100%, 2rem 100%;
+    mask-position: 0 0, 2rem 0, 100% 0;
+}
+
+.container[data-fade="left"] {
+    -webkit-mask-size: 2rem 100%, calc(100% - 2rem) 100%, 0px 100%;
+    -webkit-mask-position: 0 0, 2rem 0, 100% 0;
+    mask-size: 2rem 100%, calc(100% - 2rem) 100%, 0px 100%;
+    mask-position: 0 0, 2rem 0, 100% 0;
+}
+
+.container[data-fade="right"] {
+    -webkit-mask-size: 0px 100%, calc(100% - 2rem) 100%, 2rem 100%;
+    -webkit-mask-position: 0 0, 0 0, 100% 0;
+    mask-size: 0px 100%, calc(100% - 2rem) 100%, 2rem 100%;
+    mask-position: 0 0, 0 0, 100% 0;
+}
+
+.container[data-fade="none"] {
+    -webkit-mask-size: 0px 100%, 100% 100%, 0px 100%;
+    -webkit-mask-position: 0 0, 0 0, 100% 0;
+    mask-size: 0px 100%, 100% 100%, 0px 100%;
+    mask-position: 0 0, 0 0, 100% 0;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}

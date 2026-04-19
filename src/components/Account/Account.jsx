@@ -7,7 +7,7 @@ function Account() {
         name: 'Hamza Khattab'
     }
 
-    return <div className={styles.accountContainer}>
+    return <div className={styles.container}>
         <img className={styles.accountAvatar} src={profile.avatar} alt={profile.name} />
         <p className={styles.accountName}>{profile.name}</p>
         <Icon size={28} icon="iconamoon:arrow-right-2-bold" className={styles.accountArrow} />

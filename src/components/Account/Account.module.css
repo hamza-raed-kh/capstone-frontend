@@ -1,12 +1,14 @@
-.accountContainer {
+.container {
     padding: 12px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: var(--color-main);
-    background-color: var(--color-bg-accent);
-    border-radius: 24px;
     justify-content: space-between;
+    height: 58px;
+    background-color: var(--color-bg-accent);
+    color: var(--color-text);
+    border-radius: 1.5rem;
+    font-size: 12px;
 }
 
 .accountAvatar {

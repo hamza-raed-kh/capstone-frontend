@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../features/api/apiSlice";
+import layoutReducer from "../features/layout/layoutSlice";
+import filtersReducer from "../features/filters/filtersSlice";
 
 /**
  * The main Redux store for the application.
@@ -12,6 +14,8 @@ import { apiSlice } from "../features/api/apiSlice";
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
+    layout: layoutReducer,
+    filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
