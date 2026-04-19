@@ -11,7 +11,9 @@
 }
 
 .pageFiltersSection {
-    height: 40px;
+    height: auto;
+    /* overflow-x: scroll;
+    scrollbar-width: none; */
 }
 
 .pageResultsSection {
@@ -21,7 +23,7 @@
     flex-direction: column;
 }
 
-.pageResultsSection > * {
+.pageResultsSection>* {
     flex-grow: 1;
     min-height: 0;
     overflow: scroll;

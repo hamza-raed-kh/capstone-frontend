@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Sandbox } from "./pages/Sandbox";
-import SectionedLayout from './layouts/SectionedLayout/SectionedLayout'
 import BoxLayout from './layouts/BoxLayout/BoxLayout'
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
+import ProfilePage from "./pages/ProfilePage/ProfilePage"
 
 /**
  * A layout component that wraps the main content of the application.
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <BoxLayout />
       },
+      {
+        path: "/profile",
+        element: <ProfilePage />
+      }
     ],
   },
 ]);

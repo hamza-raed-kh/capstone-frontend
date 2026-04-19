@@ -1,12 +1,11 @@
 .sectionedLayoutContainer {
-    background-color: var(--color-light-accent);
     display: flex;
     gap: 24px;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
     height: 100vh;
     padding: 24px;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .sectionedLayoutMainSection {
@@ -15,6 +14,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .sectionedLayoutSideSection {
@@ -23,4 +23,30 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        margin 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.minimizedLeft {
+    width: 0;
+    margin-right: -24px;
+    /* Counteract the flex gap to pull main section seamlessly */
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+    /* Prevent clicks while invisible */
+}
+
+.minimizedRight {
+    width: 0;
+    margin-left: -24px;
+    /* Counteract the flex gap to pull main section seamlessly */
+    opacity: 0;
+    transform: translateX(100%);
+    pointer-events: none;
+    /* Prevent clicks while invisible */
 }
