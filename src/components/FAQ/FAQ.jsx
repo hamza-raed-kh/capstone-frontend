@@ -16,7 +16,7 @@ const FAQ = ({question, answer}) => {
         <div className={`${styles.question}`}>
             <div className={`${styles.questionHeader}`}>
                 <div className={`${styles.questionHeaderIcon}`}>
-                    <Icon icon={'tdesign:icon-filled'} size={24}/>
+                    <Icon icon={'material-symbols:question-mark-rounded'} size={24}/>
                 </div>
                 <p className={`${styles.questionHeaderText}`}>
                     {question}
