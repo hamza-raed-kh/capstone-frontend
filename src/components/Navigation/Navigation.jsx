@@ -1,6 +1,7 @@
 import React from 'react';
 import NavLink from '../NavLink/NavLink';
 import styles from './Navigation.module.css';
+import Icon from '../Icon/Icon';
 
 const PRESETS = {
   home: [
@@ -11,7 +12,7 @@ const PRESETS = {
     { label: "History", to: "/history", icon: "material-symbols:history-rounded" },
   ],
   account: [
-    { label: "Account", to: "/account", icon: "ic:round-people" },
+    { label: "Account", to: "/account/profile", icon: "ic:round-people" },
     { label: "Security", to: "/account/security", icon: "iconamoon:shield-yes-fill" },
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },
     { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
@@ -35,15 +36,56 @@ const PRESETS = {
  * Selects from predefined preset configurations.
  *
  * @param {Object} props
- * @param {string} [props.preset] - Configuration preset to use (e.g., 'main', 'preset2').
+ * @param {'home' | 'comunity' | 'account' | 'organizer' | 'admin'} [props.preset] - Configuration of preset links to use.
+ * @param {(seperator_name): {Array<{lable: string, to: string, icon: string}>}} [props.community_link] - Non-preset links to be used in the case of community.
  */
-const Navigation = ({ preset }) => {
+const Navigation = ({ preset, community_links }) => {
   const activeLinks = PRESETS[preset];
+
+  community_links = community_links || {
+    official: [
+      { label: "Announcements", to: "/announcements", icon: "fluent:megaphone-24-filled" },
+      { label: "FAQ", to: "/faq", icon: "material-symbols:question-mark-rounded" },
+    ],
+    private: [
+      { label: "Organizer DM", to: "/dm", icon: "material-symbols:lock" },
+      { label: "Team Chat", to: "/teamchat", icon: "material-symbols:lock" },
+    ],
+    event: [
+      { label: "General", to: "/general", icon: "tabler:hash" },
+    ],
+    public: [
+      { label: "General", to: "/public", icon: "tabler:hash" },
+    ],
+  }
 
   return (
     <nav className={styles.navWrapper}>
+      <div className={styles.navCommunityHeader}>
+        <div className={styles.navCommunityIcon}>
+          <Icon icon="fluent:chat-24-filled"/>
+        </div>
+        <span className={styles.navCommunityText}>Channels</span>
+      </div>
       <ul className={styles.navList}>
-        {activeLinks.map((link, index) => (
+        {preset === "community"?
+        (Object.entries(community_links).map(([category, links], index) => (
+          <>
+            <div className={styles.separator}>
+              { category } <hr className={styles.separatorLine}/>
+            </div>
+            {links.map((link, index) => (
+              <NavLink
+                key={index}
+                to={link.to}
+                label={link.label}
+                icon={link.icon}
+                disabled={link.disabled}
+              />
+            ))}
+          </>
+        ))) :
+        (activeLinks.map((link, index) => (
           <NavLink
             key={index}
             to={link.to}
@@ -51,7 +93,7 @@ const Navigation = ({ preset }) => {
             icon={link.icon}
             disabled={link.disabled}
           />
-        ))}
+        )))}
       </ul>
     </nav>
   );

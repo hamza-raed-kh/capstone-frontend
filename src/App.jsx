@@ -3,6 +3,8 @@ import { Sandbox } from "./pages/Sandbox";
 import SectionedLayout from './layouts/SectionedLayout/SectionedLayout'
 import BoxLayout from './layouts/BoxLayout/BoxLayout'
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
+import FaqPage from "./pages/FaqPage/FaqPage";
+import SecurityPage from "./pages/SecurityPage/SecurityPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/explore",
         element: <ExplorePage />,
+      },
+      {
+        path: "/faq",
+        element: <FaqPage />,
+      },
+      {
+        path: "/account/security",
+        element: <SecurityPage />,
       },
       {
         path: "/login",
