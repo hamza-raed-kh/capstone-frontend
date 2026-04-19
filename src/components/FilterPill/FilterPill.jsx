@@ -1,12 +1,10 @@
 import React from 'react';
-import * as Select from '@radix-ui/react-select';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Popover from '@radix-ui/react-popover';
-import { DayPicker } from 'react-day-picker';
-import { format } from 'date-fns';
 import Icon from '../Icon/Icon';
+import SelectInput from '../SelectInput/SelectInput';
+import DateInput from '../DateInput/DateInput';
 import styles from './FilterPill.module.css';
-import 'react-day-picker/style.css'; 
 
 /**
  * An abstract filter pill component relying on Radix UI primitives for Shadcn-like popovers and animations.
@@ -89,66 +87,35 @@ const FilterPill = ({ type, label, options = [], value, onChange, checked, disab
 
   if (type === 'dropdown') {
     return (
-      <Select.Root value={value} onValueChange={onChange}>
-        <Select.Trigger className={styles.pillTrigger}>
-          <span className={styles.labelSpan}>{label}</span>
-          <span className={styles.divider}></span>
-          <Select.Value placeholder="Select..." />
-          <Select.Icon className={styles.triggerIcon}>
-            <Icon icon="mdi:chevron-down" size={18} />
-          </Select.Icon>
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Content className={`${styles.popoverContent} ${styles.dropdownContent}`} position="popper" sideOffset={8}>
-            <Select.Viewport className={styles.selectViewport}>
-              {options.map((opt) => (
-                <Select.Item key={opt.value} value={opt.value} className={styles.selectItem}>
-                  <Select.ItemText>{opt.label}</Select.ItemText>
-                  <Select.ItemIndicator className={styles.selectItemIndicator}>
-                    <Icon icon="mdi:check" size={16} />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
-            </Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+      <SelectInput
+        variant="filter"
+        label={label}
+        options={options}
+        value={value}
+        onChange={onChange}
+      />
     );
   }
 
   if (type === 'date') {
     return (
-      <Popover.Root>
-        <Popover.Trigger className={styles.pillTrigger}>
-          <span className={styles.labelSpan}>{label}</span>
-          <span className={styles.divider}></span>
-          <span className={styles.valueSpan}>
-            {value ? format(value, 'MMM d, yyyy') : 'Pick a date'}
-          </span>
-          <Icon icon="mdi:calendar" size={18} className={styles.staticIcon} />
-        </Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Content className={styles.popoverContent} sideOffset={8}>
-            <DayPicker 
-              mode="single" 
-              selected={value} 
-              onSelect={onChange} 
-              disabled={disabled} 
-              modifiers={highlightRange?.from && highlightRange?.to ? { 
-                rangeMiddle: highlightRange,
-                rangeStart: [highlightRange.from],
-                rangeEnd: [highlightRange.to]
-              } : undefined}
-              modifiersClassNames={{ 
-                rangeMiddle: styles.rangeMiddle,
-                rangeStart: styles.rangeStart,
-                rangeEnd: styles.rangeEnd
-              }}
-            />
-            <Popover.Arrow className={styles.popoverArrow} />
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
+      <DateInput
+        variant="filter"
+        label={label}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        modifiers={highlightRange?.from && highlightRange?.to ? {
+          rangeMiddle: highlightRange,
+          rangeStart: [highlightRange.from],
+          rangeEnd: [highlightRange.to]
+        } : undefined}
+        modifiersClassNames={{
+          rangeMiddle: 'rangeMiddle',
+          rangeStart: 'rangeStart',
+          rangeEnd: 'rangeEnd'
+        }}
+      />
     );
   }
 

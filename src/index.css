@@ -1,3 +1,6 @@
+@import "react-day-picker/style.css";
+@import "tailwindcss";
+
 /* Reset everything */
 * {
   margin: 0;
@@ -29,8 +32,6 @@ body::before {
   background-repeat: no-repeat;
   z-index: -1;
 }
-
-@import "tailwindcss";
 
 :root {
   /* Light Mode */
@@ -71,6 +72,10 @@ body::before {
   --gradient-gold: linear-gradient(180deg, #F0DB75, #B89C14);
   --gradient-silver: linear-gradient(180deg, #BFBFBF, #737373);
   --gradient-bronze: linear-gradient(180deg, #F0B375, #B86614);
+
+  /* Shared Animations */
+  --animation-slide-up-fade: slideUpAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-scale-in: scaleIn 0.2s ease-out;
 }
 
 
@@ -81,3 +86,83 @@ body::before {
   --background-image-gold: var(--gradient-gold);
   --background-image-main-grad: var(--gradient-main);
 } */
+
+/* --- Global Popover & DayPicker Styles --- */
+
+/* Animations using Radix data-states */
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* React DayPicker Global Overrides */
+.rdp {
+  --rdp-accent-color: var(--color-main);
+  --rdp-background-color-dark: var(--color-main);
+}
+
+.rdp-selected button {
+  background-color: var(--color-main) !important;
+  color: var(--color-white) !important;
+  border: 1px solid var(--color-main) !important;
+}
+
+.rdp-today button {
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.rdp-day {
+  transition: all 0.2s ease-in-out;
+}
+
+.rdp-day:not(.rdp-selected):hover {
+  background-color: var(--color-light-accent) !important;
+  border-radius: 50rem !important;
+}
+
+.rdp-chevron {
+  fill: var(--color-main);
+}
+
+/* DayPicker Custom Range Modifiers */
+.rangeMiddle:not(.rdp-day_selected),
+.rangeStart:not(.rdp-day_selected),
+.rangeEnd:not(.rdp-day_selected) {
+  background-color: var(--color-light-accent);
+  color: var(--color-main);
+  border-top: 4px solid var(--color-white);
+  border-bottom: 4px solid var(--color-white);
+  border-radius: 50rem;
+}
+
+.rangeMiddle:not(.rdp-day_selected) {
+  border-radius: 0;
+}
+
+.rangeStart:not(.rdp-day_selected) {
+  border-top-left-radius: 50rem;
+  border-bottom-left-radius: 50rem;
+}
+
+.rangeEnd:not(.rdp-day_selected) {
+  border-top-right-radius: 50rem;
+  border-bottom-right-radius: 50rem;
+}
