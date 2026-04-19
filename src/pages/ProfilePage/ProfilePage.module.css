@@ -87,13 +87,6 @@
     font-style: italic;
 }
 
-.eventList {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: none;
-}
-
 .profileBio {
     background-color: var(--color-white);
     padding: 12px;
@@ -105,4 +98,10 @@
     font-size: 20px;
     font-weight: 700;
     margin: 0;
+}
+
+.eventList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+    gap: 16px;
 }
