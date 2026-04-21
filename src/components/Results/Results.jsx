@@ -30,7 +30,12 @@ const Results = ({ cardgroups }) => {
     return (
         <div className={`${styles.results}`}>
             {cardgroups.map((_, index) => (
-                <CardGroup key={index} icon={_.icon} title={_.title} category={_.category} eventcards={_.eventcards}/>
+                <CardGroup
+                key={index}
+                icon={_.icon}
+                title={_.title}
+                category={_.category}
+                eventcards={_.eventcards}/>
             ))}
         </div>
     );

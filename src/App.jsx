@@ -3,9 +3,11 @@ import { Sandbox } from "./pages/Sandbox";
 import BoxLayout from './layouts/BoxLayout/BoxLayout'
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
 import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage"
+import ChangeRequestPage from "./pages/admin/ChangeRequestPage/ChangeRequestPage"
 import FaqPage from "./pages/FaqPage/FaqPage";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
+import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -55,7 +57,15 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfilePage />
-      }
+      },
+      {
+        path: "/manage/edit-requests",
+        element: <ChangeRequestPage />
+      },
+      {
+        path: "/manage/draft-submissions",
+        element: <DraftSubmissionPage />
+      },
     ],
   },
 ]);

@@ -61,6 +61,11 @@
     flex-grow: 0;
 }
 
+.searchbarSearchIcon:hover {
+    /* Icon */
+    cursor: pointer;
+}
+
 .searchbarRightIcon {
     /* Icon */
 
