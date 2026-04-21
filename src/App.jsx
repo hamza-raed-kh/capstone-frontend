@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Sandbox } from "./pages/Sandbox";
 import BoxLayout from './layouts/BoxLayout/BoxLayout'
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
+import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage"
 import FaqPage from "./pages/FaqPage/FaqPage";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/explore",
         element: <ExplorePage />,
+      },
+      {
+        path: "/applications",
+        element: <MyApplicationsPage />,
       },
       {
         path: "/faq",
