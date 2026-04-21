@@ -61,39 +61,41 @@ const Navigation = ({ preset, community_links }) => {
 
   return (
     <nav className={styles.navWrapper}>
-      <div className={styles.navCommunityHeader}>
-        <div className={styles.navCommunityIcon}>
-          <Icon icon="fluent:chat-24-filled"/>
+      {preset === "community" &&
+        <div className={styles.navCommunityHeader}>
+          <div className={styles.navCommunityIcon}>
+            <Icon icon="fluent:chat-24-filled" size={24} />
+          </div>
+          <span className={styles.navCommunityText}>Channels</span>
         </div>
-        <span className={styles.navCommunityText}>Channels</span>
-      </div>
+      }
       <ul className={styles.navList}>
-        {preset === "community"?
-        (Object.entries(community_links).map(([category, links], index) => (
-          <>
-            <div className={styles.separator}>
-              { category } <hr className={styles.separatorLine}/>
-            </div>
-            {links.map((link, index) => (
-              <NavLink
-                key={index}
-                to={link.to}
-                label={link.label}
-                icon={link.icon}
-                disabled={link.disabled}
-              />
-            ))}
-          </>
-        ))) :
-        (activeLinks.map((link, index) => (
-          <NavLink
-            key={index}
-            to={link.to}
-            label={link.label}
-            icon={link.icon}
-            disabled={link.disabled}
-          />
-        )))}
+        {preset === "community" ?
+          (Object.entries(community_links).map(([category, links], index) => (
+            <>
+              <div className={styles.separator}>
+                {category} <hr className={styles.separatorLine} />
+              </div>
+              {links.map((link, index) => (
+                <NavLink
+                  key={index}
+                  to={link.to}
+                  label={link.label}
+                  icon={link.icon}
+                  disabled={link.disabled}
+                />
+              ))}
+            </>
+          ))) :
+          (activeLinks.map((link, index) => (
+            <NavLink
+              key={index}
+              to={link.to}
+              label={link.label}
+              icon={link.icon}
+              disabled={link.disabled}
+            />
+          )))}
       </ul>
     </nav>
   );

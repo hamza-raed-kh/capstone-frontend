@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
-import Icon from '../Icon/Icon';
+import Icon from '../../Icon/Icon';
 import styles from './DateInput.module.css';
 
 const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", ...props }) => {
@@ -27,13 +27,13 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Content className={styles.popoverContent} sideOffset={8}>
-            <DayPicker 
-              mode="single" 
-              selected={value} 
+            <DayPicker
+              mode="single"
+              selected={value}
               onSelect={(date) => {
                 if (onChange) onChange(date);
-              }} 
-              disabled={disabled} 
+              }}
+              disabled={disabled}
               {...props}
             />
             <Popover.Arrow className={styles.popoverArrow} />

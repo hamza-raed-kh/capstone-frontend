@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import Icon from '../Icon/Icon';
+import Icon from '../../Icon/Icon';
 import styles from './FileInput.module.css';
 
 const FileInput = ({ label, onChange, accept, variant = "dropzone", ...props }) => {
@@ -21,9 +21,9 @@ const FileInput = ({ label, onChange, accept, variant = "dropzone", ...props }) 
   return (
     <div className={styles.container}>
       {label && <label className={styles.label}>{label}</label>}
-      
-      <div 
-        className={isPill ? styles.pillButton : styles.dropzone} 
+
+      <div
+        className={isPill ? styles.pillButton : styles.dropzone}
         onClick={() => inputRef.current?.click()}
       >
         {isPill ? (
@@ -48,9 +48,9 @@ const FileInput = ({ label, onChange, accept, variant = "dropzone", ...props }) 
         )}
       </div>
 
-      <input 
-        type="file" 
-        className={styles.hiddenInput} 
+      <input
+        type="file"
+        className={styles.hiddenInput}
         ref={inputRef}
         onChange={handleFileChange}
         accept={accept}

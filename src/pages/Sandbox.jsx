@@ -1,4 +1,4 @@
-import { Button } from "../components/Button/Button";
+import { Button } from "../components/inputs/Button/Button";
 import Navigation from "../components/Navigation/Navigation";
 
 /**
@@ -27,13 +27,13 @@ export const Sandbox = () => {
       <section style={{ marginTop: "2rem" }}>
         <h2>Navigation Component</h2>
         <div style={{ padding: "1rem", background: "var(--color-white, #fff)", width: "300px", borderRadius: "8px" }}>
-          <Navigation 
+          <Navigation
             links={[
               { to: "/home-test", label: "Home", icon: "mdi:home" },
               { to: "/explore", label: "Explore", icon: "mdi:compass" },
               { to: "/sandbox", label: "Sandbox (Active)", icon: "mdi:cube" },
               { to: "/settings", label: "Settings", icon: "mdi:cog", disabled: true }
-            ]} 
+            ]}
           />
         </div>
       </section>

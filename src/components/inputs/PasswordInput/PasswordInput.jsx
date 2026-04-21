@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '../Icon/Icon';
+import Icon from '../../Icon/Icon';
 import styles from './PasswordInput.module.css';
 
 const PasswordInput = ({ label, placeholder, value, onChange, ...props }) => {
@@ -9,17 +9,17 @@ const PasswordInput = ({ label, placeholder, value, onChange, ...props }) => {
     <div className={styles.container}>
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.inputWrapper}>
-        <input 
-          type={showPassword ? "text" : "password"} 
-          className={styles.input} 
+        <input
+          type={showPassword ? "text" : "password"}
+          className={styles.input}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           {...props}
         />
-        <button 
+        <button
           type="button"
-          className={styles.toggleButton} 
+          className={styles.toggleButton}
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? "Hide password" : "Show password"}
         >

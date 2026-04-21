@@ -3,7 +3,7 @@ import SearchBar from "../../components/SearchBar/SearchBar"
 import SectionHeader from "../../components/SectionHeader/SectionHeader"
 import EventCard from "../../components/EventCard/EventCard"
 import styles from './ProfilePage.module.css'
-import { Button } from '../../components/Button/Button'
+import { Button } from '../../components/inputs/Button/Button'
 
 function ProfilePage() {
   const profile = {
