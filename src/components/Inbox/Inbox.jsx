@@ -19,36 +19,36 @@ function Inbox() {
         {
             date: "Today",
             children: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest",
-            onReject: true
+            onReject: function(){},
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
+            onAccept: function(){},
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
+            onAccept: function(){},
+            onReject: function(){}
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
+            onAccept: function(){},
+            onReject: function(){}
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
+            onAccept: function(){},
+            onReject: function(){}
         },
         {
             date: "Today",
             children: "test",
-            onAccept: true,
-            onReject: true
+            onAccept: function(){},
+            onReject: function(){}
         },
     ]
 
