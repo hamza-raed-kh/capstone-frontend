@@ -2,6 +2,7 @@ import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SectionHeader from "../../components/SectionHeader/SectionHeader"
 import EventCard from "../../components/EventCard/EventCard"
+import CardGroup from "../../components/CardGroup/CardGroup"
 import styles from './ProfilePage.module.css'
 import { Button } from '../../components/inputs/Button/Button'
 
@@ -76,16 +77,11 @@ function ProfilePage() {
             This is a bio.
           </div>
 
-          <SectionHeader
+          <CardGroup
             icon="material-symbols:history-rounded"
-            text="Recent Activity"
+            title="Recent Activity"
+            eventcards={recentEvents}
           />
-
-          <div className={styles.eventList}>
-            {recentEvents.map(event => (
-              <EventCard key={event.id} {...event} />
-            ))}
-          </div>
         </div>
       </div>
     </SectionedLayout>

@@ -14,23 +14,39 @@ import styles from './SectionHeader.module.css'
  * @param {Function} [props.onIconClick] - Optional click handler for the icon.
  * @returns {JSX.Element} The rendered sectionheader element.
  */
-const SectionHeader = ({variant="main", icon, title, category, onIconClick}) => {
+const SectionHeader = ({variant="main", icon, title, category, opened}) => {
     return (
-        <div className={`${styles.sectionHeader} ${styles[variant]}`}>
-            {icon? <div 
-                className={`${styles.sectionHeaderIcon}`} 
-                onClick={onIconClick}
-                style={onIconClick ? { cursor: 'pointer' } : {}}
-            >
-                <Icon icon={icon} size={32}/>
-            </div>: <></>}
-            <span className={`${styles.sectionHeaderName}`}>
-                {title}
-            </span>
-            {category? <>
-                <span className={`${styles.sectionHeaderCategory}`}>&gt;</span>
-                <span className={`${styles.sectionHeaderCategory}`}>{category}</span>
-            </> : <></>}
+        <div className={`${styles.sectionHeader} ${styles[variant]}`} onClick={opened.handleToggleOpen}>
+            <div className={styles.sectionHeaderMain}>
+                {icon?
+                    (<div className={`${styles.sectionHeaderIcon}`}>
+                        <Icon icon={icon} size={32}/>
+                    </div>) :
+                    (<></>)
+                }
+                <span className={`${styles.sectionHeaderName}`}>
+                    {title}
+                </span>
+                
+                {category?
+                    (<>
+                        <span className={`${styles.sectionHeaderCategory}`}>&gt;</span>
+                        <span className={`${styles.sectionHeaderCategory}`}>{category}</span>
+                    </>) :
+                    (<></>)
+                }
+            </div>
+            
+            {opened?
+                (<div className={`${styles.sectionHeaderCollapseIcon} `} onClick={opened.handleToggleOpen}>
+                    {opened.open === true?
+                        <Icon icon={"iconamoon:arrow-down-2"} size={24}/> :
+                        <Icon icon={"iconamoon:arrow-right-2"} size={24}/>
+                    }
+                </div>):
+                (<></>)
+            }
+            
         </div>
     );
 }

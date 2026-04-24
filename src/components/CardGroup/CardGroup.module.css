@@ -22,7 +22,7 @@
 
     /* Auto layout */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
     /* flex-wrap: wrap; */
     /* align-items: flex-start; */
     /* align-content: flex-start; */
