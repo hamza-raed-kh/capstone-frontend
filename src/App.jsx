@@ -17,7 +17,7 @@ import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissi
  */
 const RootLayout = () => (
   <main>
-    <Outlet /> { }
+    <Outlet />
   </main>
 );
 
