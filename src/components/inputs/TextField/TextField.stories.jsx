@@ -9,7 +9,7 @@ import TextField from "./TextField";
  * @type {import('@storybook/react').Meta}
  */
 export default {
-    title: "Components/TextField",
+    title: "Components/Inputs/TextField",
     component: TextField,
 }
 
