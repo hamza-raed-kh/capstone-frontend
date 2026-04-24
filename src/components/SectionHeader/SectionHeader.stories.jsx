@@ -21,7 +21,7 @@ export default {
 export const Danger = {
   args: {
     variant: "red",
-    text: "Section",
+    title: "Section",
   },
 };
 
@@ -33,7 +33,7 @@ export const Danger = {
 export const IconCategory = {
   args: {
     icon: "tdesign:icon-filled",
-    text: "Section",
+    title: "Section",
     category: "category",
   },
 };
@@ -46,7 +46,7 @@ export const IconCategory = {
 export const IconlessCategory = {
   args: {
     icon: "",
-    text: "Section",
+    title: "Section",
     category: "category",
   },
 };
@@ -59,7 +59,7 @@ export const IconlessCategory = {
 export const IconCategoryless = {
   args: {
     icon: "tdesign:icon-filled",
-    text: "Button",
+    title: "Button",
     category: "",
   },
 };
@@ -72,7 +72,7 @@ export const IconCategoryless = {
 export const IconlessCategoryless = {
   args: {
     icon: "",
-    text: "Placeholder",
+    title: "Placeholder",
     category: "",
   },
 };

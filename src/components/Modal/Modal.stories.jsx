@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { Button } from '../Button/Button';
-import TextInput from '../TextInput/TextInput';
-import FileInput from '../FileInput/FileInput';
+import { Button } from '../inputs/Button/Button';
+import TextInput from '../inputs/TextInput/TextInput';
+import FileInput from '../inputs/FileInput/FileInput';
 
 export default {
   title: 'Components/Modal',

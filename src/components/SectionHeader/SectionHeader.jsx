@@ -16,7 +16,7 @@ import styles from './SectionHeader.module.css'
  */
 const SectionHeader = ({variant="main", icon, title, category, opened}) => {
     return (
-        <div className={`${styles.sectionHeader} ${styles[variant]}`} onClick={opened.handleToggleOpen}>
+        <div className={`${styles.sectionHeader} ${styles[variant]}`} onClick={opened && opened.handleToggleOpen}>
             <div className={styles.sectionHeaderMain}>
                 {icon?
                     (<div className={`${styles.sectionHeaderIcon}`}>
@@ -38,7 +38,7 @@ const SectionHeader = ({variant="main", icon, title, category, opened}) => {
             </div>
             
             {opened?
-                (<div className={`${styles.sectionHeaderCollapseIcon} `} onClick={opened.handleToggleOpen}>
+                (<div className={`${styles.sectionHeaderCollapseIcon} `}>
                     {opened.open === true?
                         <Icon icon={"iconamoon:arrow-down-2"} size={24}/> :
                         <Icon icon={"iconamoon:arrow-right-2"} size={24}/>
