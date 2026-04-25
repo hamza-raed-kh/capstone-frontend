@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.textareaWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem; /* 1rem instead of 50rem for textareas */
+  border: 1px solid var(--color-main);
+  outline: none;
+  background: var(--color-white);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  min-height: 100px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  resize: none; /* Native resize disabled to support custom JS resizer */
+  font-family: inherit;
+  width: 100%;
+}
+
+.textarea:focus {
+  border-color: var(--color-main);
+  box-shadow: 0 0 0 2px var(--color-light-accent);
+}
+
+.customResizer {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-white);
+  color: var(--color-inactive);
+  pointer-events: auto; /* Enable dragging */
+  cursor: ns-resize; /* Show vertical resize cursor */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 2px;
+  padding-left: 2px;
+  border-bottom-right-radius: 14px;
+  z-index: 10;
+}
