@@ -58,7 +58,7 @@ const SecurityPage = ({ onDelete }) => {
                 </div>
                 <div className={`${styles.bodyContainer}`}>
                     <div className={`${styles.SectionSecurity}`}>
-                        <SectionHeader icon={'tdesign:icon-filled'} text={'Security'} />
+                        <SectionHeader icon={'tdesign:icon-filled'} title={'Security'} />
                         <form className={styles.SecurityForm} onSubmit={handleSubmit}>
                             <div className={`${styles.SecurityFields}`}>
                                 <TextField label="New Password" type="textarea" value={password} handler={handlePasswordChange} />
@@ -75,7 +75,7 @@ const SecurityPage = ({ onDelete }) => {
                         </form>
                     </div>
                     <div className={`${styles.SectionDanger}`}>
-                        <SectionHeader variant={'red'} icon={'tdesign:icon-filled'} text={'Danger Zone'} />
+                        <SectionHeader variant={'red'} icon={'tdesign:icon-filled'} title={'Danger Zone'} />
                         <div className={`${styles.DangerDelete}`}>
                             <div className={`${styles.DangerDeleteButton}`}>
                                 <Button variant={"red-secondary"} children={"Delete Account"} onClick={handleDelete} />
