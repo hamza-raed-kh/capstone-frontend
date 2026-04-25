@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+}
+
+.button {
+  padding: 0.375rem 1.25rem;
+  border-radius: 50rem;
+  border: 1px solid var(--color-inactive);
+  background: var(--color-white);
+  color: var(--color-inactive);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.button:hover[data-state="unchecked"] {
+  border-color: var(--color-main);
+  color: var(--color-main);
+  background-color: #f8fafc;
+}
+
+.button:hover[data-state="unchecked"][data-value="female"] {
+  border-color: var(--color-pink);
+  color: var(--color-pink);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-light-accent);
+}
+
+/* Selected States */
+.button[data-state="checked"][data-value="male"] {
+  background: var(--gradient-main);
+  border-color: transparent;
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(60, 104, 174, 0.3);
+  transform: translateY(-1px);
+}
+
+.button[data-state="checked"][data-value="female"] {
+  background: var(--gradient-pink);
+  border-color: transparent;
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(168, 61, 139, 0.3);
+  transform: translateY(-1px);
+}
+
+.orText {
+  color: var(--color-main-accent);
+  /* font-weight: 500; */
+  font-size: 0.875rem;
+  font-style: italic;
+  user-select: none;
+}

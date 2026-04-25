@@ -32,3 +32,27 @@ export const Group = () => {
     </CheckboxGroup>
   );
 };
+
+export const SecondaryStandalone = {
+  args: {
+    label: 'Tag Checkbox',
+    variant: 'secondary',
+  },
+};
+
+export const SecondaryGroup = () => {
+  const [selected, setSelected] = useState(['apple']);
+  
+  return (
+    <CheckboxGroup 
+      label="Select Fruits (Tags)" 
+      value={selected} 
+      onChange={setSelected}
+      direction="row"
+    >
+      <CheckboxInput variant="secondary" label="Apple" value="apple" />
+      <CheckboxInput variant="secondary" label="Banana" value="banana" />
+      <CheckboxInput variant="secondary" label="Cherry" value="cherry" />
+    </CheckboxGroup>
+  );
+};

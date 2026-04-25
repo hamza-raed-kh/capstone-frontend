@@ -54,7 +54,7 @@ export const CheckboxGroup = ({
   );
 };
 
-export const CheckboxInput = ({ label, value, checked, onChange, disabled, ...props }) => {
+export const CheckboxInput = ({ label, value, checked, onChange, disabled, variant = 'primary', ...props }) => {
   const groupContext = useContext(CheckboxGroupContext);
   
   if (groupContext) {
@@ -62,7 +62,7 @@ export const CheckboxInput = ({ label, value, checked, onChange, disabled, ...pr
     const isDisabled = disabled || (groupContext.maxReached && !isChecked);
     
     return (
-      <label className={styles.itemContainer}>
+      <label className={styles.itemContainer} data-variant={variant} data-state={isChecked ? 'checked' : 'unchecked'}>
         <Checkbox.Root
           className={styles.checkboxRoot}
           checked={isChecked}
@@ -85,7 +85,7 @@ export const CheckboxInput = ({ label, value, checked, onChange, disabled, ...pr
   }
 
   return (
-    <label className={styles.itemContainer}>
+    <label className={styles.itemContainer} data-variant={variant} data-state={checked ? 'checked' : 'unchecked'}>
       <Checkbox.Root
         className={styles.checkboxRoot}
         checked={checked}
