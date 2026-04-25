@@ -63,7 +63,7 @@ const FaqPage = ({ comp_name, faqs}) => {
                         <SectionHeader icon={'material-symbols:question-mark-rounded'} title={'FAQ'} category={'Official'}/>
                     </div>
                     <div className={styles.bodyQuestionList}>
-                        {Array.from(faqs, (_,i) =>
+                        {faqs.map((_,i) =>
                             <div className={`${styles.bodyQuestion}`}>
                                 <FAQ key={i} question={_.question} answer={_.answer}/>
                             </div>

@@ -37,7 +37,7 @@ const CardSection = ({variant = "open", icon, title, category, eventcards}) => {
             }
             <div className={`${styles.cards}`}>
                 {open?
-                    Array.from(eventcards, (_,i) => 
+                    eventcards.map((_,i) => 
                         <EventCard
                             key={i}
                             banner_url={_.banner_url}
