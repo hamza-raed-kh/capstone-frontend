@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import styles from './TextArea.module.css';
 
-const TextArea = ({ label, placeholder, value, onChange, rows = 4, ...props }) => {
+const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel = false, ...props }) => {
   const textareaRef = useRef(null);
+  const resolvedPlaceholder = inlineLabel ? label : placeholder;
 
   const handlePointerDown = (e) => {
     e.preventDefault();
@@ -26,13 +27,13 @@ const TextArea = ({ label, placeholder, value, onChange, rows = 4, ...props }) =
 
   return (
     <div className={styles.container}>
-      {label && <label className={styles.label} htmlFor={label}>{label}</label>}
+      {label && !inlineLabel && <label className={styles.label} htmlFor={label}>{label}</label>}
       <div className={styles.textareaWrapper}>
         <textarea
           ref={textareaRef}
           id={label} 
           className={styles.textarea} 
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           value={value}
           onChange={onChange}
           rows={rows}

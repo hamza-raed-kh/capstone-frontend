@@ -9,6 +9,10 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
+
 /**
  * A layout component that wraps the main content of the application.
  * It uses the `Outlet` component from `react-router-dom` to render nested routes.
@@ -52,7 +56,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <BoxLayout />
+        element: <LoginPage />
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />
+      },
+      {
+        path: "/onboarding",
+        element: <OnboardingPage />
       },
       {
         path: "/profile",

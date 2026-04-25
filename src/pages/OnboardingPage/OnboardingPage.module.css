@@ -1,0 +1,50 @@
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  /* text-align: center; */
+}
+
+.subtitle {
+  color: var(--color-inactive);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.submitButton {
+  background: var(--gradient-main);
+  color: white;
+  border: none;
+  border-radius: 50rem;
+  padding: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  box-shadow: 0 4px 10px rgba(60, 104, 174, 0.3);
+  transition: transform 0.2s;
+  font-size: 1rem;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.buttonWrapper>* {
+  width: fit-content;
+  padding: 0rem 2rem;
+}

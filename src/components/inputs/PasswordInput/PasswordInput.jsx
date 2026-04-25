@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import Icon from '../../Icon/Icon';
 import styles from './PasswordInput.module.css';
 
-const PasswordInput = ({ label, placeholder, value, onChange, ...props }) => {
+const PasswordInput = ({ label, placeholder, value, onChange, inlineLabel = false, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const resolvedPlaceholder = inlineLabel ? label : placeholder;
 
   return (
     <div className={styles.container}>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && !inlineLabel && <label className={styles.label}>{label}</label>}
       <div className={styles.inputWrapper}>
         <input
           type={showPassword ? "text" : "password"}
           className={styles.input}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           value={value}
           onChange={onChange}
           {...props}

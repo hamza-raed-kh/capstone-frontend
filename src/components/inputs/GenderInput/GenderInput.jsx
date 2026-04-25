@@ -2,12 +2,12 @@ import React from 'react';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import styles from './GenderInput.module.css';
 
-const GenderInput = ({ label, value, onChange, className, ...props }) => {
+const GenderInput = ({ label, value, onChange, className, inlineLabel = false, ...props }) => {
   return (
-    <div className={`${styles.container} ${className || ''}`}>
+    <div className={`${styles.container} ${inlineLabel ? styles.inlineContainer : ''} ${className || ''}`}>
       {label && <span className={styles.label}>{label}</span>}
       <RadioGroup.Root 
-        className={styles.buttonsWrapper}
+        className={`${styles.buttonsWrapper} ${inlineLabel ? styles.inlineButtons : ''}`}
         value={value}
         onValueChange={onChange}
         {...props}

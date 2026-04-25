@@ -78,7 +78,7 @@
   transition: all 0.2s ease;
   gap: 0.3rem;
   align-items: center;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  opacity: 70%;
 }
 
 .itemContainer[data-variant="secondary"]:hover {
@@ -87,6 +87,8 @@
 
 .itemContainer[data-variant="secondary"][data-state="checked"] {
   border-color: var(--color-main);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  opacity: 100%;
 }
 
 .itemContainer[data-variant="secondary"] .checkboxRoot {

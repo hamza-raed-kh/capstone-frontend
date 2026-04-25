@@ -4,8 +4,15 @@
   gap: 8px;
 }
 
+.inlineContainer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+}
+
 .label {
-  font-weight: 700;
+  /* font-weight: 700; */
   color: var(--color-text);
   margin-bottom: 4px;
 }
@@ -13,16 +20,17 @@
 .buttonsWrapper {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  width: fit-content;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: auto;
 }
 
 .button {
   padding: 0.375rem 1.25rem;
   border-radius: 50rem;
-  border: 1px solid var(--color-inactive);
+  border: 1px solid var(--color-main);
   background: var(--color-white);
-  color: var(--color-inactive);
+  color: var(--color-main-accent);
   font-weight: 600;
   font-size: 0.875rem;
   cursor: pointer;

@@ -1,14 +1,16 @@
 import styles from './TextInput.module.css';
 
-const TextInput = ({ label, placeholder, value, onChange, type = "text", ...props }) => {
+const TextInput = ({ label, placeholder, value, onChange, type = "text", inlineLabel = false, ...props }) => {
+  const resolvedPlaceholder = inlineLabel ? label : placeholder;
+
   return (
     <div className={styles.container}>
-      {label && <label className={styles.label} htmlFor={label}>{label}</label>}
+      {label && !inlineLabel && <label className={styles.label} htmlFor={label}>{label}</label>}
       <input 
         type={type} 
         id={label} 
         className={styles.input} 
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         value={value}
         onChange={onChange}
         {...props}
