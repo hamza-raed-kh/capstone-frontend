@@ -13,8 +13,8 @@ const LoginPage = () => {
       {/* <p className={styles.subtitle}>Log in to continue to Sanfoor Arena</p> */}
 
       <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-        <TextInput label="Email" placeholder="Enter your email" type="email" />
-        <PasswordInput label="Password" placeholder="Enter your password" />
+        <TextInput label="Email" inlineLabel type="email" />
+        <PasswordInput label="Password" inlineLabel />
 
         {/* <div className={styles.options}>
           <CheckboxInput label="Remember me" variant="primary" />

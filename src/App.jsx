@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 
 import LoginPage from "./pages/LoginPage/LoginPage";
+import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
 
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />
+      },
+      {
+        path: "/admin/login",
+        element: <AdminLoginPage />
       },
       {
         path: "/signup",
