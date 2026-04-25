@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../features/api/apiSlice";
 import layoutReducer from "../features/layout/layoutSlice";
 import filtersReducer from "../features/filters/filtersSlice";
+import userReducer from "../features/user/userSlice";
+import toastReducer from "../features/toast/toastSlice";
 
 /**
  * The main Redux store for the application.
@@ -16,6 +18,8 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     layout: layoutReducer,
     filters: filtersReducer,
+    user: userReducer,
+    toast: toastReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

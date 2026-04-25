@@ -33,7 +33,11 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
               selected={value}
               onSelect={(date) => {
                 if (onChange) onChange(date);
+                setIsOpen(false);
               }}
+              captionLayout="dropdown"
+              startMonth={new Date(1900, 0)}
+              endMonth={new Date()}
               disabled={disabled}
               {...props}
             />

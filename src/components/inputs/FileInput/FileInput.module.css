@@ -102,3 +102,56 @@
   flex-shrink: 0;
   margin-left: 8px;
 }
+
+/* Avatar Variant */
+.avatarWrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.avatarWrapper:hover {
+  transform: scale(1.05);
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-light-accent);
+  border: 2px solid var(--color-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--color-light-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-inactive);
+  border: 2px solid var(--color-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatarEditIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--gradient-main);
+  color: var(--color-white);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+

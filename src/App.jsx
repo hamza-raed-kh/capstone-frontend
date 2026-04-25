@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Sandbox } from "./pages/Sandbox";
-import BoxLayout from './layouts/BoxLayout/BoxLayout'
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
 import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage"
 import ChangeRequestPage from "./pages/admin/ChangeRequestPage/ChangeRequestPage"
@@ -13,6 +12,8 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
+import YourInfoPage from "./pages/YourInfoPage/YourInfoPage";
+import ToastContainer from "./components/Toast/Toast";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -21,9 +22,12 @@ import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
  * @returns {JSX.Element} The rendered layout with a `main` element and an `Outlet`.
  */
 const RootLayout = () => (
-  <main>
-    <Outlet />
-  </main>
+  <>
+    <ToastContainer />
+    <main>
+      <Outlet />
+    </main>
+  </>
 );
 
 const router = createBrowserRouter([
@@ -82,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/manage/draft-submissions",
         element: <DraftSubmissionPage />
+      },
+      {
+        path: "/account/profile",
+        element: <YourInfoPage />
       },
     ],
   },
