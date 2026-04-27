@@ -1,0 +1,86 @@
+.inputContainer {
+  /* Text Box */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+
+  width: 100%;
+  height: 60px;
+
+  background: var(--color-white);
+  border: 2px solid var(--color-main);
+  border-radius: 48px;
+  
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.inputText {
+  /* Send a message... */
+
+  margin: 0 auto;
+  width: 0px;
+  height: 29px;
+
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+
+  /* identical to box height */
+  color: var(--color-text);
+
+  /* display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; */
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.inputText::placeholder {
+  font-style: italic;
+  color: var(--color-text-accent);
+}
+
+.inputText:focus {
+  outline: transparent;
+}
+
+.inputIcon {
+  /* Icon */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 20px;
+  gap: 10px;
+
+  margin: 0 auto;
+  width: 63.98px;
+  height: 40px;
+
+  /* Main Gradient */
+  background: var(--gradient-main);
+  border-radius: 24px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}

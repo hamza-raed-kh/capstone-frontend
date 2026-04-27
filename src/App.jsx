@@ -8,6 +8,7 @@ import FaqPage from "./pages/FaqPage/FaqPage";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -43,8 +44,12 @@ const router = createBrowserRouter([
         element: <MyApplicationsPage />,
       },
       {
-        path: "/faq",
+        path: "community/faq",
         element: <FaqPage />,
+      },
+      {
+        path: "community/general",
+        element: <ChatPage />,
       },
       {
         path: "/account/security",
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
         element: <BoxLayout />
       },
       {
-        path: "/profile",
+        path: "/account/profile",
         element: <ProfilePage />
       },
       {
