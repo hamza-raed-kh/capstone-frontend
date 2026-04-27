@@ -11,15 +11,24 @@ function ChangeRequestPage() {
     let details = {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]}
     let button = {variant: "primary", children: "Apply"}
     let onClick = {view: function(){}}
-
+    
     let eventcards = [
-          { variant, banner_url, info, details, button, onClick },
-          { variant, banner_url, info, details, button, onClick },
-          { variant, banner_url, info, details, button, onClick },
-      ]
+        { variant, banner_url, info, details, button, onClick },
+        { variant, banner_url, info, details, button, onClick },
+        { variant, banner_url, info, details, button, onClick },
+    ]
+
+    let admin_variant = 'admin'
+    let admin_onClick = {view: function(){}, approve: function(){}, reject: function(){}}
+
+    let admin_eventcards = [
+        { variant: admin_variant, banner_url, info, details, button, onClick: admin_onClick },
+        { variant: admin_variant, banner_url, info, details, button, onClick: admin_onClick },
+        { variant: admin_variant, banner_url, info, details, button, onClick: admin_onClick },
+    ]
     
     let cardgroups =[
-        {icon: 'mage:edit-pen-fill', title: 'Change Requests', category: '', eventcards},
+        {icon: 'mage:edit-pen-fill', title: 'Change Requests', category: '', eventcards: admin_eventcards},
         {icon: 'material-symbols:history-rounded', title: 'History', category: '', eventcards},
     ]
 

@@ -40,6 +40,7 @@ const CardSection = ({variant = "open", icon, title, category, eventcards}) => {
                     eventcards.map((_,i) => 
                         <EventCard
                             key={i}
+                            variant={_.variant}
                             banner_url={_.banner_url}
                             info={_.info}
                             details={_.details}
