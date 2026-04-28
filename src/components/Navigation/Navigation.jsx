@@ -12,7 +12,7 @@ const PRESETS = {
   ],
   account: [
     { label: "Account", to: "/account/profile", icon: "ic:round-people" },
-    { label: "Following", to: "account/following", icon: "ic:round-people" },
+    { label: "Following", to: "/account/following", icon: "ic:round-people" },
     { label: "Security", to: "/account/security", icon: "iconamoon:shield-yes-fill" },
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },
     { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
