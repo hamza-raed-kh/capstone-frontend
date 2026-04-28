@@ -8,7 +8,7 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 import ChatPage from "./pages/ChatPage/ChatPage";
-import FollowersPage from "./pages/FollowersPage/FollowersPage";
+import FollowingPage from "./pages/FollowingPage/FollowingPage";
 
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
@@ -75,6 +75,18 @@ const router = createBrowserRouter([
         element: <h1>Home Page</h1>,
       },
       {
+        path: "/login",
+        element: <LoginPage />
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />
+      },
+      {
+        path: "/onboarding",
+        element: <OnboardingPage />
+      },
+      {
         path: "/explore",
         element: <ExplorePage />,
       },
@@ -99,40 +111,28 @@ const router = createBrowserRouter([
         element: <SecurityPage />,
       },
       {
-        path: "/login",
-        element: <LoginPage />
-      },
-      {
-        path: "/admin/login",
-        element: <AdminLoginPage />
-      },
-      {
-        path: "/signup",
-        element: <SignupPage />
-      },
-      {
-        path: "/onboarding",
-        element: <OnboardingPage />
-      },
-      {
-        path: "/account/follower-management",
-        element: <FollowersPage />
-      },
-      {
-        path: "/manage/edit-requests",
-        element: <ChangeRequestPage />
-      },
-      {
-        path: "/manage/draft-submissions",
-        element: <DraftSubmissionPage />
-      },
-      {
         path: "/account/profile",
         element: <YourInfoPage />
       },
       {
         path: "/account/preferences",
         element: <PersonalizationPage />
+      },
+      {
+        path: "/account/follower-management",
+        element: <FollowingPage />
+      },
+      {
+        path: "/admin/login",
+        element: <AdminLoginPage />
+      },
+      {
+        path: "/admin/edit-requests",
+        element: <ChangeRequestPage />
+      },
+      {
+        path: "/admin/draft-submissions",
+        element: <DraftSubmissionPage />
       },
     ],
   },
