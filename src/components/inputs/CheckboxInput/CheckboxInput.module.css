@@ -82,7 +82,7 @@
 }
 
 .itemContainer[data-variant="secondary"]:hover {
-  background-color: #f8fafc;
+  background-color: var(--color-light-accent);
 }
 
 .itemContainer[data-variant="secondary"][data-state="checked"] {

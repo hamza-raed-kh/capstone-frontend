@@ -9,6 +9,8 @@ const initialState = {
     "Passionate developer and UI designer working on the next generation of web applications.",
   gender: "male",
   dateOfBirth: "2000-01-15",
+  interests: ["tech", "sports"],
+  theme: "light",
 };
 
 const userSlice = createSlice({
@@ -36,6 +38,12 @@ const userSlice = createSlice({
     setDateOfBirth: (state, action) => {
       state.dateOfBirth = action.payload;
     },
+    setInterests: (state, action) => {
+      state.interests = action.payload;
+    },
+    setTheme: (state, action) => {
+      state.theme = action.payload;
+    },
     /**
      * Applies a bulk update of user profile fields.
      * Useful for pre-filling from an API response.
@@ -58,6 +66,8 @@ export const {
   setAboutMe,
   setGender,
   setDateOfBirth,
+  setInterests,
+  setTheme,
   setUserProfile,
   resetUser,
 } = userSlice.actions;
@@ -71,5 +81,7 @@ export const selectLastName = (state) => state.user.lastName;
 export const selectAboutMe = (state) => state.user.aboutMe;
 export const selectGender = (state) => state.user.gender;
 export const selectDateOfBirth = (state) => state.user.dateOfBirth;
+export const selectInterests = (state) => state.user.interests;
+export const selectTheme = (state) => state.user.theme;
 
 export default userSlice.reducer;

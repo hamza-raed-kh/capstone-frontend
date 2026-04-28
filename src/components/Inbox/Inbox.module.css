@@ -12,7 +12,7 @@
     height: 100%;
     min-height: 0;
 
-    background: #BECFEB;
+    background: var(--color-bg-accent);
     border-radius: 24px;
 
     /* Inside auto layout */

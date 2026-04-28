@@ -11,7 +11,7 @@
   border-radius: 50rem;
   text-decoration: none;
   color: var(--color-main);
-  background: white;
+  background: var(--color-white);
   transition: all 0.2s ease;
   width: 100%;
   box-sizing: border-box;

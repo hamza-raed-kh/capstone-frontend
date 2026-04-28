@@ -20,7 +20,7 @@
 
 .date {
   font-size: 0.875rem;
-  color: var(--color-main-accent);
+  color: var(--color-text-accent);
   font-style: italic;
 }
 

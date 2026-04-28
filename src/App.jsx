@@ -13,7 +13,11 @@ import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
 import YourInfoPage from "./pages/YourInfoPage/YourInfoPage";
+import React from "react";
+import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/Toast/Toast";
+import { useSelector } from "react-redux";
+import { selectTheme } from "./features/user/userSlice";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -21,14 +25,43 @@ import ToastContainer from "./components/Toast/Toast";
  *
  * @returns {JSX.Element} The rendered layout with a `main` element and an `Outlet`.
  */
-const RootLayout = () => (
-  <>
-    <ToastContainer />
-    <main>
-      <Outlet />
-    </main>
-  </>
-);
+const RootLayout = () => {
+  const theme = useSelector(selectTheme);
+
+  // Sync theme to the document element for CSS variables
+  React.useEffect(() => {
+    const root = document.documentElement;
+    
+    const applyTheme = () => {
+      if (theme === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } else {
+        root.setAttribute('data-theme', theme);
+      }
+    };
+
+    applyTheme();
+
+    if (theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const listener = (e) => {
+        root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      };
+      mediaQuery.addEventListener('change', listener);
+      return () => mediaQuery.removeEventListener('change', listener);
+    }
+  }, [theme]);
+
+  return (
+    <>
+      <ToastContainer />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -90,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "/account/profile",
         element: <YourInfoPage />
+      },
+      {
+        path: "/account/preferences",
+        element: <PersonalizationPage />
       },
     ],
   },
