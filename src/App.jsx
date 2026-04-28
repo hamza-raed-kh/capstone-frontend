@@ -9,6 +9,7 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 import ChatPage from "./pages/ChatPage/ChatPage";
+import FollowersPage from "./pages/FollowersPage/FollowersPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -52,16 +53,20 @@ const router = createBrowserRouter([
         element: <ChatPage />,
       },
       {
+        path: "/account/profile",
+        element: <ProfilePage />
+      },
+      {
         path: "/account/security",
         element: <SecurityPage />,
       },
       {
-        path: "/login",
-        element: <BoxLayout />
+        path: "/account/follower-management",
+        element: <FollowersPage />
       },
       {
-        path: "/account/profile",
-        element: <ProfilePage />
+        path: "/login",
+        element: <BoxLayout />
       },
       {
         path: "/manage/edit-requests",
