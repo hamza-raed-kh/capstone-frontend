@@ -3,6 +3,7 @@
   min-height: 45px;
   /* min-width: 87px; */
   width: 100%;
+  min-width: auto;
   font-weight: bold;
   border-radius: 50px;
   color: var(--color-white);
