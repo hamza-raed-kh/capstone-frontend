@@ -74,6 +74,8 @@ const router = createBrowserRouter([
         index: true,
         element: <h1>Home Page</h1>,
       },
+
+      // Login & Onboarding pages
       {
         path: "/login",
         element: <LoginPage />
@@ -86,6 +88,8 @@ const router = createBrowserRouter([
         path: "/onboarding",
         element: <OnboardingPage />
       },
+      
+      // Home Navbar pages
       {
         path: "/explore",
         element: <ExplorePage />,
@@ -95,6 +99,12 @@ const router = createBrowserRouter([
         element: <MyApplicationsPage />,
       },
       {
+        path: "/profile",
+        element: <ProfilePage />
+      },
+      
+      // Community Navbar pages
+      {
         path: "community/faq",
         element: <FaqPage />,
       },
@@ -102,26 +112,26 @@ const router = createBrowserRouter([
         path: "community/general",
         element: <ChatPage />,
       },
+      
+      // Account Navbar pages
       {
-        path: "/profile",
-        element: <ProfilePage />
+        path: "/account/profile",
+        element: <YourInfoPage />
+      },
+      {
+        path: "/account/following",
+        element: <FollowingPage />
       },
       {
         path: "/account/security",
         element: <SecurityPage />,
       },
       {
-        path: "/account/profile",
-        element: <YourInfoPage />
-      },
-      {
         path: "/account/preferences",
         element: <PersonalizationPage />
       },
-      {
-        path: "/account/follower-management",
-        element: <FollowingPage />
-      },
+      
+      // Admin Navbar pages
       {
         path: "/admin/login",
         element: <AdminLoginPage />

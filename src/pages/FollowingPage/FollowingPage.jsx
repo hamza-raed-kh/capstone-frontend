@@ -28,8 +28,6 @@ function FollowingPage() {
         },
     ]
 
-
-    
     let banned_userrecords = [
         {
             variant: "banned",
@@ -58,9 +56,8 @@ function FollowingPage() {
         {icon: '', title: 'Banned', category: '', userrecords: banned_userrecords},
     ]
 
-
     return (
-        <SectionedLayout preset="admin">
+        <SectionedLayout preset="account">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
