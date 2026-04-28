@@ -18,7 +18,7 @@ const PRESETS = {
     { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
   ],
   organizer: [
-    { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
+    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
     { label: "Create/Edit", to: "/organizer/create", icon: "mage:edit-pen-fill" },
     { label: "Form Management", to: "/organizer/forms", icon: "mdi:form-outline" },
     { label: "Participant Management", to: "/organizer/participants", icon: "ic:round-people" },

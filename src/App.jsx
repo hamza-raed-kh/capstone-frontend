@@ -78,15 +78,15 @@ const router = createBrowserRouter([
       // Login & Onboarding pages
       {
         path: "login",
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       {
         path: "signup",
-        element: <SignupPage />
+        element: <SignupPage />,
       },
       {
         path: "onboarding",
-        element: <OnboardingPage />
+        element: <OnboardingPage />,
       },
       
       // Home Navbar pages
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfilePage />
+        element: <ProfilePage />,
       },
       
       // Community Navbar pages
@@ -125,7 +125,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <YourInfoPage />
+            element: <YourInfoPage />,
           },
           {
             path: "following",
@@ -137,7 +137,18 @@ const router = createBrowserRouter([
           },
           {
             path: "preferences",
-            element: <PersonalizationPage />
+            element: <PersonalizationPage />,
+          },
+        ],
+      },
+
+      // Organized Navbar pages
+      {
+        path: "organizer",
+        children: [
+          {
+            path: "competitions",
+            element: {/*<YourInfoPage />*/},
           },
         ],
       },
@@ -148,15 +159,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            element: <AdminLoginPage />
+            element: <AdminLoginPage />,
           },
           {
             path: "edit-requests",
-            element: <ChangeRequestPage />
+            element: <ChangeRequestPage />,
           },
           {
             path: "draft-submissions",
-            element: <DraftSubmissionPage />
+            element: <DraftSubmissionPage />,
           },
         ],
       },
