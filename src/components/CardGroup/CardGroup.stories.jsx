@@ -18,8 +18,46 @@ export default {
  *
  * @type {import('@storybook/react').StoryObj}
  */
-export const Example = {
+export const Closeable = {
   args: {
+    variant: 'closeable',
+    title: 'Group',
+    text: "General",
+    eventcards: [
+        {
+            banner_url: "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000",
+            info: {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"},
+            details: {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]},
+            button: {variant: "primary", children: "Apply"},
+            onClick: {view: function(){}}
+        },
+        {
+            banner_url: "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000",
+            info: {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"},
+            details: {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]},
+            button: {variant: "primary", children: "Apply"},
+            onClick: {view: function(){}}
+        },
+        {
+            banner_url: "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000",
+            info: {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"},
+            details: {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]},
+            button: {variant: "primary", children: "Apply"},
+            onClick: {view: function(){}}
+        },
+    ],
+  },
+};
+
+/**
+ * The only variant of the `CardGroup` component.
+ *
+ * @type {import('@storybook/react').StoryObj}
+ */
+export const Open = {
+  args: {
+    variant: 'open',
+    title: 'Group',
     text: "General",
     eventcards: [
         {

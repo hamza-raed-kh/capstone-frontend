@@ -7,6 +7,8 @@ import FaqPage from "./pages/FaqPage/FaqPage";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
+import FollowersPage from "./pages/FollowersPage/FollowersPage";
 
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
@@ -73,10 +75,6 @@ const router = createBrowserRouter([
         element: <h1>Home Page</h1>,
       },
       {
-        path: "/sandbox",
-        element: <Sandbox />,
-      },
-      {
         path: "/explore",
         element: <ExplorePage />,
       },
@@ -85,8 +83,16 @@ const router = createBrowserRouter([
         element: <MyApplicationsPage />,
       },
       {
-        path: "/faq",
+        path: "community/faq",
         element: <FaqPage />,
+      },
+      {
+        path: "community/general",
+        element: <ChatPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />
       },
       {
         path: "/account/security",
@@ -109,8 +115,8 @@ const router = createBrowserRouter([
         element: <OnboardingPage />
       },
       {
-        path: "/profile",
-        element: <ProfilePage />
+        path: "/account/follower-management",
+        element: <FollowersPage />
       },
       {
         path: "/manage/edit-requests",

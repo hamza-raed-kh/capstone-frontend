@@ -1,22 +1,22 @@
 import { useState } from 'react'
-import EventCard from '../EventCard/EventCard'
 import SectionHeader from '../SectionHeader/SectionHeader'
-import styles from './CardGroup.module.css'
+import UserRecord from '../UserRecord/UserRecord'
+import styles from './UserList.module.css'
 
 /**
- * A cardgroup component with different visual styles.
+ * A userlist component with different visual styles.
  * This component supports various `variants` that apply different CSS classes
- * to the cardgroup, allowing for a consistent look and feel across the application.
+ * to the userlist, allowing for a consistent look and feel across the application.
  *
  * @param {object} props - The properties for the cardgroup.
- * @param {"open" | "closeable"?} [props.variant = "open"] - The visual variant of the card group.
+ * @param {"open" | "closable"?} [props.variant = "closeable"] - The visual variant of the card group.
  * @param {string?} props.icon - The string name of the section's icon (e.g., 'mdi:home').
  * @param {string?} props.title - The string name of section to be displayed inside the header.
  * @param {string?} props.category - The category name to be desplayed after the section header's name.
- * @param {Array<Object>} props.eventcards - The list of card objects that need to be rendered.
+ * @param {Array<Object>} props.userrecords - The list of card objects that need to be rendered.
  * @returns {JSX.Element} The rendered cardgroup element.
  */
-const CardGroup = ({variant = "open", icon, title, category, eventcards}) => {
+const UserList = ({ variant = "closeable", icon, title, category, userrecords }) => {
     let [open, setOpen] = useState(true)
 
     const handleToggleOpen = (e) => {
@@ -24,7 +24,7 @@ const CardGroup = ({variant = "open", icon, title, category, eventcards}) => {
     }
 
     return (
-        <div className={`${styles.cardGroup}`}>
+        <div className={`${styles.userList}`}>
             {icon || title || category?
                 (<SectionHeader
                     icon={icon}
@@ -34,17 +34,14 @@ const CardGroup = ({variant = "open", icon, title, category, eventcards}) => {
                 />):
                 (<></>)
             }
-            <div className={`${styles.cards}`}>
+            <div className={`${styles.userrecords}`}>
                 {open?
-                    eventcards.map((_,i) => 
-                        <EventCard
+                    userrecords.map((_,i) => 
+                        <UserRecord
                             key={i}
                             variant={_.variant}
-                            banner_url={_.banner_url}
-                            info={_.info}
-                            details={_.details}
-                            button={_.button}
-                            onClick={_.onClick}
+                            avatar={_.avatar}
+                            username={_.username}
                         />
                     ) :
                     (<></>)
@@ -54,4 +51,4 @@ const CardGroup = ({variant = "open", icon, title, category, eventcards}) => {
     );
 }
 
-export default CardGroup
+export default UserList

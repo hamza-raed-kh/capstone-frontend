@@ -18,7 +18,7 @@ function LeftSection({ preset }) {
                     </div>
                     <h1 className={styles.menuTitle}>Sanfoor Arena</h1>
                 </div>
-                <Navigation preset={preset} />
+                <Navigation preset={preset}/>
             </div>
         </SideSection>
     )

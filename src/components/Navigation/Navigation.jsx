@@ -44,18 +44,18 @@ const Navigation = ({ preset, community_links }) => {
 
   community_links = community_links || {
     official: [
-      { label: "Announcements", to: "/announcements", icon: "fluent:megaphone-24-filled" },
-      { label: "FAQ", to: "/faq", icon: "material-symbols:question-mark-rounded" },
+      { label: "Announcements", to: "/community/announcements", icon: "fluent:megaphone-24-filled" },
+      { label: "FAQ", to: "/community/faq", icon: "material-symbols:question-mark-rounded" },
     ],
     private: [
-      { label: "Organizer DM", to: "/dm", icon: "material-symbols:lock" },
-      { label: "Team Chat", to: "/teamchat", icon: "material-symbols:lock" },
+      { label: "Organizer DM", to: "/community/dm", icon: "material-symbols:lock" },
+      { label: "Team Chat", to: "/community/teamchat", icon: "material-symbols:lock" },
     ],
     event: [
-      { label: "General", to: "/general", icon: "tabler:hash" },
+      { label: "General", to: "/community/general", icon: "tabler:hash" },
     ],
     public: [
-      { label: "General", to: "/public", icon: "tabler:hash" },
+      { label: "General", to: "/community/public", icon: "tabler:hash" },
     ],
   }
 

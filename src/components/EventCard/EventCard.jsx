@@ -76,7 +76,7 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
                     </span>
                 </div>
                 <div className={`${styles.eventcardDetailsCategories}`}>
-                    {Array.from(details.categories, (_, i) => <CategoryTag key={i} text={_} />)}
+                    {details.categories.map((_, i) => <CategoryTag key={i} text={_} />)}
                 </div>
             </div>
             <div className={`${styles.eventcardButtons}`}>

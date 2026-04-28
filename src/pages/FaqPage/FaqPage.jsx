@@ -56,14 +56,14 @@ const FaqPage = ({ comp_name, faqs}) => {
         <SectionedLayout preset="community">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
+                    <SearchBar variant="placeholder">{comp_name || "dsd\nd\newdsdjdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}</SearchBar>
                 </div>
                 <div className={`${styles.bodyContainer}`}>
                     <div className={`${styles.bodyHeader}`}>
-                        <SectionHeader icon={'material-symbols:question-mark-rounded'} text={'FAQ'} category={'Official'}/>
+                        <SectionHeader icon={'material-symbols:question-mark-rounded'} title={'FAQ'} category={'Official'}/>
                     </div>
                     <div className={styles.bodyQuestionList}>
-                        {Array.from(faqs, (_,i) =>
+                        {faqs.map((_,i) =>
                             <div className={`${styles.bodyQuestion}`}>
                                 <FAQ key={i} question={_.question} answer={_.answer}/>
                             </div>
