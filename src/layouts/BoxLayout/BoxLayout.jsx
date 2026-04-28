@@ -1,15 +1,27 @@
-import './BoxLayout.css'
+import Logo from '../../assets/Logo.svg';
+import styles from './BoxLayout.module.css';
 
-function BoxLayout(props){
-    return (
-        <div className="boxed-layout-container">
-            <header className="boxed-layout-header"><span>Logo</span></header>
-            <main className="boxed-layout-main">
-            {/* <Page/> */}
-            </main>
-            <footer className="boxed-layout-footer"><p>© 2025 Sanfoor Arena. All Rights Reserved.</p></footer>
+function BoxLayout({ children, image }) {
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <img src={Logo} alt="Logo" className={styles.logo} />
+      </header>
+      <main className={styles.main}>
+        <div className={`${styles.boxWrapper} ${image ? styles.withImage : ''}`}>
+          {image && (
+            <div className={styles.imageContainer}>
+              <img src={image} alt="Layout Graphic" className={styles.image} />
+            </div>
+          )}
+          <div className={styles.content}>
+            {children}
+          </div>
         </div>
-    )
+      </main>
+      <footer className={styles.footer}><p>© 2026 Nizal. All Rights Reserved.</p></footer>
+    </div>
+  )
 }
 
-export default BoxLayout
+export default BoxLayout;

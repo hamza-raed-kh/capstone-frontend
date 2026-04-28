@@ -53,7 +53,7 @@
 .sectionHeaderIcon {
     /* Icon */
 
-    color: var(--color-white);
+    color: white;
 
 
     /* Inside auto layout */
@@ -73,7 +73,7 @@
     line-height: 34px;
     /* identical to box height */
 
-    color: var(--color-white);
+    color: white;
 
 
     /* Inside auto layout */

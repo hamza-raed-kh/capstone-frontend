@@ -118,3 +118,11 @@
     order: 2;
     flex-grow: 0;
 }
+
+.searchbarPlaceholderText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--color-text);
+}

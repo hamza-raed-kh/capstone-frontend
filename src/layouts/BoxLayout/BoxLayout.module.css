@@ -1,0 +1,80 @@
+.container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1.5rem 2rem;
+    z-index: 10;
+}
+
+.logo {
+    height: 48px;
+    width: auto;
+}
+
+.main {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem 0 2rem;
+}
+
+.boxWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4rem;
+    width: 100%;
+    max-width: 800px;
+    transition: max-width 0.3s ease;
+}
+
+.boxWrapper.withImage {
+    max-width: 1000px;
+}
+
+.imageContainer {
+    flex: 1;
+    display: none;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .imageContainer {
+        display: block;
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 3.5rem;
+    background: var(--color-white);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 450px;
+    min-height: 500px;
+}
+
+.footer {
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+}

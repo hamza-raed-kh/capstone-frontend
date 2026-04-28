@@ -1,0 +1,138 @@
+.pageContainer {
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+    min-height: 0;
+}
+
+.pageSearchSection {
+    height: 53px;
+}
+
+.bodyContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: var(--color-bg-accent);
+    border-radius: 24px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionContent {
+    padding-left: 8px;
+}
+
+.sectionDescription {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    opacity: 0.7;
+    margin-bottom: 16px;
+}
+
+.interestsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Theme Grid */
+.themeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+}
+
+.themeCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: var(--color-white);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.themeCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.themeCard[data-state='checked'] {
+    border-color: var(--color-main);
+    background: var(--color-light-accent);
+}
+
+.themeIconWrapper {
+    width: 36px;
+    height: 36px;
+    background: var(--color-whitespace);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-main);
+    transition: all 0.2s;
+}
+
+.themeCard[data-state='checked'] .themeIconWrapper {
+    background: var(--color-main);
+    color: var(--color-white);
+}
+
+.themeLabel {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: var(--color-text);
+}
+
+.themeIndicator {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: var(--color-main);
+}
+
+/* Action Row */
+.actionRow {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+}
+
+.actionRow>button {
+    width: fit-content;
+    padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+    .actionRow {
+        justify-content: space-between;
+    }
+
+    .actionRow>button {
+        flex: 1;
+    }
+}

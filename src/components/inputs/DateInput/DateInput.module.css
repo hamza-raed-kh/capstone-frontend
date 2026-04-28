@@ -27,7 +27,8 @@
   text-align: left;
 }
 
-.trigger:focus, .trigger[data-state="open"] {
+.trigger:focus,
+.trigger[data-state="open"] {
   border-color: var(--color-main);
   box-shadow: 0 0 0 2px var(--color-light-accent);
 }
@@ -80,7 +81,8 @@
 }
 
 .placeholderText {
-  color: var(--color-inactive);
+  color: var(--color-text);
+  opacity: 0.5;
 }
 
 .icon {

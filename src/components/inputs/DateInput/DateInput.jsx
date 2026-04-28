@@ -5,13 +5,14 @@ import { format } from 'date-fns';
 import Icon from '../../Icon/Icon';
 import styles from './DateInput.module.css';
 
-const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", ...props }) => {
+const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", inlineLabel = false, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const isFilter = variant === 'filter';
+  const resolvedPlaceholder = inlineLabel ? label : placeholder;
 
   return (
     <div className={isFilter ? styles.filterContainer : styles.container}>
-      {!isFilter && label && <label className={styles.label}>{label}</label>}
+      {!isFilter && label && !inlineLabel && <label className={styles.label}>{label}</label>}
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger className={isFilter ? styles.filterTrigger : styles.trigger}>
           {isFilter && (
@@ -21,7 +22,7 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
             </>
           )}
           <span className={value ? styles.valueText : styles.placeholderText}>
-            {value ? format(value, 'MMM d, yyyy') : placeholder}
+            {value ? format(value, 'MMM d, yyyy') : resolvedPlaceholder}
           </span>
           <Icon icon="mdi:calendar" size={isFilter ? 18 : 20} className={styles.icon} />
         </Popover.Trigger>
@@ -32,7 +33,11 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
               selected={value}
               onSelect={(date) => {
                 if (onChange) onChange(date);
+                setIsOpen(false);
               }}
+              captionLayout="dropdown"
+              startMonth={new Date(1900, 0)}
+              endMonth={new Date()}
               disabled={disabled}
               {...props}
             />

@@ -1,0 +1,122 @@
+.groupContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.groupContainer[data-direction="column"] {
+  flex-direction: column;
+}
+
+.groupContainer[data-direction="row"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.groupLabel {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.itemContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.checkboxRoot {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid var(--color-inactive);
+  transition: all 0.2s ease;
+  cursor: inherit;
+  padding: 0;
+}
+
+.checkboxRoot[data-state="checked"] {
+  background-color: var(--color-main);
+  border-color: var(--color-main);
+  color: white;
+}
+
+.checkboxRoot[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkboxIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: var(--animation-scale-in);
+}
+
+.itemLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: inherit;
+  user-select: none;
+}
+
+.itemLabel[data-disabled] {
+  opacity: 0.5;
+}
+
+/* --- Secondary Variant --- */
+.itemContainer[data-variant="secondary"] {
+  border-radius: 50rem;
+  border: 2px solid var(--color-inactive);
+  background-color: var(--color-white);
+  padding: 0.2rem 0.5rem 0.2rem 0.3rem;
+  transition: all 0.2s ease;
+  gap: 0.3rem;
+  align-items: center;
+  opacity: 70%;
+}
+
+.itemContainer[data-variant="secondary"]:hover {
+  background-color: var(--color-light-accent);
+}
+
+.itemContainer[data-variant="secondary"][data-state="checked"] {
+  border-color: var(--color-main);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  opacity: 100%;
+}
+
+.itemContainer[data-variant="secondary"] .checkboxRoot {
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--color-inactive);
+  background-color: var(--color-inactive);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.itemContainer[data-variant="secondary"][data-state="checked"] .checkboxRoot {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+}
+
+.itemContainer[data-variant="secondary"] .checkboxIndicator {
+  display: none;
+}
+
+.itemContainer[data-variant="secondary"] .itemLabel {
+  color: var(--color-inactive);
+  transition: color 0.2s ease;
+  font-weight: 600;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.itemContainer[data-variant="secondary"][data-state="checked"] .itemLabel {
+  color: var(--color-text);
+}

@@ -58,6 +58,14 @@ body::before {
   --color-bg-accent: #BECFEB;
   --color-light-accent: #DEE7F6;
 
+  /* Toast Colors */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-info: var(--color-main);
+
+  --toast-bg: rgba(255, 255, 255, 0.75);
+  --toast-border: rgba(226, 232, 240, 0.8);
+
   /* Special Values */
   --shadow-main: #3C68AE40;
   /* 25% Opacity */
@@ -78,14 +86,55 @@ body::before {
   --animation-scale-in: scaleIn 0.2s ease-out;
 }
 
+[data-theme='dark'] {
+  --color-whitespace: #0F172A;
+  --color-white: #1E293B;
+  --color-text: #eaf5ff;
+  --color-text-accent: #9babc2;
+  --color-field-text: #FFFFFF;
+  --color-bg-accent: #111827;
+  --color-light-accent: #334155;
+  --color-inactive: #64748B;
 
-/* @theme {
-  --color-main: var(--color-main);
-  --color-brand-pink: var(--color-pink);
-  --color-danger: var(--color-danger);
-  --background-image-gold: var(--gradient-gold);
-  --background-image-main-grad: var(--gradient-main);
-} */
+  /* Brand Colors - Shifted for Dark Backgrounds */
+  --color-main: #60A5FA;
+  --color-main-accent: #14539b;
+  --color-green: #4ADE80;
+  --color-green-accent: #86EFAC;
+  --color-pink: #F472B6;
+  --color-pink-accent: #F9A8D4;
+  --color-danger: #F87171;
+  --color-red-accent: #FCA5A5;
+
+  --color-checked: #3B82F6;
+  --color-prize: #FBBF24;
+
+  /* Overriding hardcoded gradients for dark mode */
+  --gradient-gold: linear-gradient(180deg, #FDE68A, #D97706);
+  --gradient-silver: linear-gradient(180deg, #E2E8F0, #64748B);
+  --gradient-bronze: linear-gradient(180deg, #FDBA74, #92400E);
+
+  --shadow-main: rgba(0, 0, 0, 0.4);
+
+  /* Toast Colors Dark */
+  --color-success: #34d399;
+  --color-error: #f87171;
+  --color-info: var(--color-main);
+
+  --toast-bg: rgba(15, 23, 42, 0.75);
+  --toast-border: rgba(51, 65, 85, 0.8);
+}
+
+
+/* Dim background image in dark mode */
+[data-theme='dark'] body::before {
+  filter: brightness(0.2) contrast(1.55) saturate(5);
+}
+
+[data-theme='dark'] body {
+  background-color: #0F172A;
+}
+
 
 /* --- Global Popover & DayPicker Styles --- */
 
@@ -95,6 +144,7 @@ body::before {
     opacity: 0;
     transform: translateY(4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -106,6 +156,7 @@ body::before {
     opacity: 0;
     transform: scale(0.8);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
