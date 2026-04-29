@@ -20,6 +20,7 @@ import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage
 import ToastContainer from "./components/Toast/Toast";
 import { useSelector } from "react-redux";
 import { selectTheme } from "./features/user/userSlice";
+import OrganizedCompsPage from "./pages/organizer/OrganizedCompsPage/OrganizedCompsPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -148,7 +149,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "competitions",
-            element: {/*<YourInfoPage />*/},
+            element: <OrganizedCompsPage />,
           },
         ],
       },
