@@ -20,7 +20,7 @@ import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage
 import ToastContainer from "./components/Toast/Toast";
 import { useSelector } from "react-redux";
 import { selectTheme } from "./features/user/userSlice";
-import OrganizerCenter from "./pages/organizer/OrganizerCenter/OrganizerCenter";
+import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
 
 /**
@@ -150,7 +150,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "competitions",
-            element: <OrganizerCenter />,
+            element: <OrganizerCenterPage />,
           },
           {
             path: "participants",

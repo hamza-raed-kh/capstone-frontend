@@ -2,9 +2,9 @@ import FilterRow from "../../../components/FilterRow/FilterRow"
 import Results from "../../../components/Results/Results"
 import SearchBar from "../../../components/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
-import styles from './OrganizeCenterPage.module.css'
+import styles from './OrganizerCenterPage.module.css'
 
-function OrganizeCenterPage() {
+function OrganizerCenterPage() {
     let variant = 'main'
     let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
     let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
@@ -43,4 +43,4 @@ function OrganizeCenterPage() {
     )
 }
 
-export default OrganizeCenterPage
+export default OrganizerCenterPage
