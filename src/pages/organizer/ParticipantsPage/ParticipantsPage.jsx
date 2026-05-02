@@ -1,16 +1,16 @@
-import FilterRow from "../../components/FilterRow/FilterRow"
-import Results from "../../components/Results/Results"
-import SearchBar from "../../components/SearchBar/SearchBar"
-import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
-import styles from './FollowingPage.module.css'
+import FilterRow from "../../../components/FilterRow/FilterRow"
+import Results from "../../../components/Results/Results"
+import SearchBar from "../../../components/SearchBar/SearchBar"
+import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
+import styles from './ParticipantsPage.module.css'
 
-function FollowingPage() {
+function ParticipantsPage() {
     let single_userrecord = {
             variant: "invited",
             avatar: "https://imgs.search.brave.com/Nu92Ba-Z_C_AJh8giZUFnICO6fmpksx3f_IwdQ58Srk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c3RvY2t2YXVsdC5u/ZXQvZGF0YS8yMDE1/LzA5LzA2LzE3Nzk1/OC90aHVtYjE2Lmpw/Zw",
             username: "Simon",
     }
-    
+
     let userrecords = [
         single_userrecord,
         single_userrecord,
@@ -19,20 +19,30 @@ function FollowingPage() {
     ]
     
     let userlists =[
-        {icon: '', title: 'Followed', category: '', userrecords: userrecords.map(obj => ({
+        {icon: '', title: 'Invited', category: '', userrecords: userrecords.map(obj => ({
                 ...obj,
-                variant: "followed",
+                variant: "invited",
             }))
         },
-        {icon: '', title: 'Banned', category: '', userrecords: userrecords.map(obj => ({
+        {icon: '', title: 'Applied', category: '', userrecords: userrecords.map(obj => ({
                 ...obj,
-                variant: "banned",
+                variant: "applied",
+            }))
+        },
+        {icon: '', title: 'Participants/Teams', category: '', userrecords: userrecords.map(obj => ({
+                ...obj,
+                variant: "participant",
+            }))
+        },
+        {icon: '', title: 'Disqualified', category: '', userrecords: userrecords.map(obj => ({
+                ...obj,
+                variant: "disqualified",
             }))
         },
     ]
 
     return (
-        <SectionedLayout preset="account">
+        <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
@@ -48,4 +58,4 @@ function FollowingPage() {
     )
 }
 
-export default FollowingPage
+export default ParticipantsPage

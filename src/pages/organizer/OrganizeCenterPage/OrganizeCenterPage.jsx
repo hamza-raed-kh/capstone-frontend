@@ -2,9 +2,9 @@ import FilterRow from "../../../components/FilterRow/FilterRow"
 import Results from "../../../components/Results/Results"
 import SearchBar from "../../../components/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
-import styles from './OrganizedCompsPage.module.css'
+import styles from './OrganizeCenterPage.module.css'
 
-function OrganizedCompsPage() {
+function OrganizeCenterPage() {
     let variant = 'main'
     let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
     let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
@@ -27,7 +27,7 @@ function OrganizedCompsPage() {
 
 
     return (
-        <SectionedLayout preset="home">
+        <SectionedLayout preset="account">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
@@ -36,11 +36,11 @@ function OrganizedCompsPage() {
                     <FilterRow />
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <Results cardgroups={cardgroups}/>
+                    <Results variant={'cardgroups'} sections={cardgroups}/>
                 </div>
             </div>
         </SectionedLayout>
     )
 }
 
-export default OrganizedCompsPage
+export default OrganizeCenterPage
