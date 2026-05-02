@@ -66,7 +66,7 @@ function FollowingPage() {
                     <FilterRow />
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <UserResults userlists={userlists}/>
+                    <Results variant={'userlists'} sections={userlists}/>
                 </div>
             </div>
         </SectionedLayout>
