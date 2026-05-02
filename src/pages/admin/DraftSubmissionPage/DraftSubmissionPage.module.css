@@ -7,13 +7,11 @@
 }
 
 .pageSearchSection {
-    height: 53px;
+    height: 48;
 }
 
 .pageFiltersSection {
     height: auto;
-    /* overflow-x: scroll;
-    scrollbar-width: none; */
 }
 
 .pageResultsSection {

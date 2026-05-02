@@ -5,6 +5,26 @@ import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
 import styles from './ExplorePage.module.css'
 
 function ExplorePage() {
+    let card_variant = 'main'
+    let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
+    let info = {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"}
+    let details = {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]}
+    let button = {variant: "primary", children: "Apply"}
+    let onClick = {view: function(){}}
+
+    let eventcards = [
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+          { variant: card_variant, banner_url, info, details, button, onClick },
+      ]
+    
+    let sections = [
+        {icon: '', title: '', category: '', eventcards},
+    ]
     return (
         <SectionedLayout preset="home">
             <div className={styles.pageContainer}>
@@ -15,7 +35,7 @@ function ExplorePage() {
                     <FilterRow />
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <Results />
+                    <Results variant={'cardgroups'} sections={sections}/>
                 </div>
             </div>
         </SectionedLayout>

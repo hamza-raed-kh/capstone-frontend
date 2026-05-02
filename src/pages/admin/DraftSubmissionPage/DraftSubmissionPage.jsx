@@ -28,7 +28,7 @@ function DraftSubmissionPage() {
     ]
     
     let cardgroups =[
-        {icon: 'mage:edit-pen-fill', title: 'Change Requests', category: '', eventcards: admin_eventcards},
+        {icon: 'fluent:calendar-24-filled', title: 'Draft Submissions', category: '', eventcards: admin_eventcards},
         {icon: 'material-symbols:history-rounded', title: 'History', category: '', eventcards},
     ]
 
@@ -43,7 +43,7 @@ function DraftSubmissionPage() {
                     <FilterRow />
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <Results cardgroups={cardgroups}/>
+                    <Results variant={'cardgroups'} sections={cardgroups}/>
                 </div>
             </div>
         </SectionedLayout>

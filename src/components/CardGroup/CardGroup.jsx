@@ -16,7 +16,7 @@ import styles from './CardGroup.module.css'
  * @param {Array<Object>} props.eventcards - The list of card objects that need to be rendered.
  * @returns {JSX.Element} The rendered cardgroup element.
  */
-const CardGroup = ({variant = "open", icon, title, category, eventcards}) => {
+const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) => {
     let [open, setOpen] = useState(true)
 
     const handleToggleOpen = (e) => {

@@ -38,7 +38,7 @@ function MyApplicationsPage() {
                     <FilterRow />
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <Results cardgroups={cardgroups}/>
+                    <Results variant={'cardgroups'} sections={cardgroups}/>
                 </div>
             </div>
         </SectionedLayout>
