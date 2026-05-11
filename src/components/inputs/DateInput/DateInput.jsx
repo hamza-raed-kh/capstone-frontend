@@ -5,14 +5,27 @@ import { format } from 'date-fns';
 import Icon from '../../Icon/Icon';
 import styles from './DateInput.module.css';
 
-const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", inlineLabel = false, ...props }) => {
+const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", inlineLabel = false, readOnly = false, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const isFilter = variant === 'filter';
   const resolvedPlaceholder = inlineLabel ? label : placeholder;
 
   return (
-    <div className={isFilter ? styles.filterContainer : styles.container}>
+    <div className={`${isFilter ? styles.filterContainer : styles.container} ${readOnly ? styles.readOnly : ''}`}>
       {!isFilter && label && !inlineLabel && <label className={styles.label}>{label}</label>}
+      {readOnly ? (
+        <div className={isFilter ? styles.filterTrigger : styles.trigger}>
+          {isFilter && (
+            <>
+              <span className={styles.labelSpan}>{label}</span>
+              <span className={styles.divider}></span>
+            </>
+          )}
+          <span className={value ? styles.valueText : styles.placeholderText}>
+            {value ? format(value, 'MMM d, yyyy') : resolvedPlaceholder}
+          </span>
+        </div>
+      ) : (
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger className={isFilter ? styles.filterTrigger : styles.trigger}>
           {isFilter && (
@@ -45,6 +58,7 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
+      )}
     </div>
   );
 };

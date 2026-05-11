@@ -38,3 +38,16 @@ export const RowDirection = () => {
     </RadioGroup>
   );
 };
+
+export const ReadOnly = () => (
+  <RadioGroup 
+    label="Favorite Fruit (read-only)" 
+    value="banana"
+    readOnly
+    direction="column"
+  >
+    <RadioInput label="Apple" value="apple" />
+    <RadioInput label="Banana" value="banana" />
+    <RadioInput label="Cherry" value="cherry" />
+  </RadioGroup>
+);

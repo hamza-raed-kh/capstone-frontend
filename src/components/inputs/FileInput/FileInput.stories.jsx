@@ -20,3 +20,10 @@ export const Pill = () => (
     <FileInput label="Upload Document" variant="pill" />
   </div>
 );
+
+export const ReadOnly = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '400px' }}>
+    <FileInput label="Document (read-only)" variant="dropzone" readOnly />
+    <FileInput label="File (read-only)" variant="pill" readOnly />
+  </div>
+);

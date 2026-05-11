@@ -47,3 +47,32 @@ export const Filter = () => {
     />
   );
 };
+
+export const ReadOnly = () => (
+  <div style={{ width: '400px', maxWidth: '100%' }}>
+    <SelectInput 
+      label="Role" 
+      value="admin"
+      readOnly
+      options={[
+        { label: 'Administrator', value: 'admin' },
+        { label: 'Moderator', value: 'mod' },
+        { label: 'Standard User', value: 'user' }
+      ]} 
+    />
+  </div>
+);
+
+export const ReadOnlyFilter = () => (
+  <SelectInput 
+    variant="filter"
+    label="Status" 
+    value="active"
+    readOnly
+    options={[
+      { label: 'Active', value: 'active' },
+      { label: 'Pending', value: 'pending' },
+      { label: 'Closed', value: 'closed' }
+    ]} 
+  />
+);

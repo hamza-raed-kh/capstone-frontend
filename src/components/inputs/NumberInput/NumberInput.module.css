@@ -70,3 +70,8 @@
 .spinButton:hover {
   color: var(--color-main);
 }
+
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}

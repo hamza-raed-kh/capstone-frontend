@@ -120,3 +120,8 @@
 .itemContainer[data-variant="secondary"][data-state="checked"] .itemLabel {
   color: var(--color-text);
 }
+
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}

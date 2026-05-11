@@ -36,3 +36,12 @@ export const FemaleSelected = {
     label: 'Gender',
   },
 };
+
+export const ReadOnly = {
+  render: (args) => <GenderInput {...args} />,
+  args: {
+    label: 'Gender',
+    value: 'male',
+    readOnly: true,
+  },
+};

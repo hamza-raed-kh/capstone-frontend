@@ -2,7 +2,7 @@ import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react'
 import Icon from '../../Icon/Icon';
 import styles from './FileInput.module.css';
 
-const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", placeholder, previewUrl, ...props }, ref) => {
+const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", placeholder, previewUrl, readOnly = false, ...props }, ref) => {
   const inputRef = useRef(null);
   const [fileName, setFileName] = useState('');
   const [internalPreview, setInternalPreview] = useState(null);
@@ -31,10 +31,14 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
   const displayPlaceholder = placeholder || (isPill ? 'Upload File' : (isAvatar ? 'Upload photo' : 'Click to upload a file'));
   const currentPreview = internalPreview || previewUrl;
 
+  const handleClick = () => {
+    if (!readOnly) inputRef.current?.click();
+  };
+
   const renderContent = () => {
     if (isAvatar) {
       return (
-        <div className={styles.avatarWrapper} onClick={() => inputRef.current?.click()}>
+        <div className={styles.avatarWrapper} onClick={handleClick}>
           {currentPreview ? (
             <img src={currentPreview} alt="Avatar Preview" className={styles.avatarImage} />
           ) : (
@@ -42,9 +46,11 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
               <Icon icon="mdi:account-circle" size={48} />
             </div>
           )}
+          {!readOnly && (
           <div className={styles.avatarEditIcon}>
             <Icon icon="mdi:camera" size={16} />
           </div>
+          )}
         </div>
       );
     }
@@ -52,7 +58,7 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
     return (
       <div
         className={isPill ? styles.pillButton : styles.dropzone}
-        onClick={() => inputRef.current?.click()}
+        onClick={handleClick}
       >
         {isPill ? (
           <>
@@ -79,7 +85,7 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${readOnly ? styles.readOnly : ''}`}>
       {label && <label className={styles.label}>{label}</label>}
       {renderContent()}
       <input

@@ -23,3 +23,14 @@ export const Basic = {
     children: "Button",
   },
 };
+
+/**
+ * The read-only variant of the `ChatInput` component.
+ *
+ * @type {import('@storybook/react').StoryObj}
+ */
+export const ReadOnly = {
+  args: {
+    readOnly: true,
+  },
+};

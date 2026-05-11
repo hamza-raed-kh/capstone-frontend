@@ -77,6 +77,11 @@
   transform: translateY(-1px);
 }
 
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .orText {
   color: var(--color-main-accent);
   /* font-weight: 500; */

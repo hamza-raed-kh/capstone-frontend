@@ -36,6 +36,11 @@
   box-shadow: 0 0 0 2px var(--color-light-accent);
 }
 
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .customResizer {
   position: absolute;
   bottom: 1px;

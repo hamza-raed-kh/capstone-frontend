@@ -10,17 +10,19 @@ export const RadioGroup = ({
   onChange, 
   direction = 'column', 
   className,
+  readOnly = false,
   ...props 
 }) => {
   return (
-    <div className={className}>
+    <div className={`${className || ''} ${readOnly ? styles.readOnly : ''}`}>
       {label && <div className={styles.groupLabel}>{label}</div>}
       <RadioGroupPrimitive.Root
         className={styles.groupContainer}
         data-direction={direction}
         value={value}
         defaultValue={defaultValue}
-        onValueChange={onChange}
+        onValueChange={readOnly ? undefined : onChange}
+        disabled={readOnly}
         {...props}
       >
         {children}
@@ -29,20 +31,20 @@ export const RadioGroup = ({
   );
 };
 
-export const RadioInput = ({ label, value, disabled, ...props }) => {
+export const RadioInput = ({ label, value, disabled, readOnly = false, ...props }) => {
   return (
-    <label className={styles.itemContainer}>
+    <label className={`${styles.itemContainer} ${readOnly ? styles.readOnly : ''}`}>
       <RadioGroupPrimitive.Item
         className={styles.radioRoot}
         value={value}
-        disabled={disabled}
+        disabled={disabled || readOnly}
         id={`radio-${value}`}
         {...props}
       >
         <RadioGroupPrimitive.Indicator className={styles.radioIndicator} />
       </RadioGroupPrimitive.Item>
       {label && (
-        <span className={styles.itemLabel} data-disabled={disabled ? '' : undefined}>
+        <span className={styles.itemLabel} data-disabled={(disabled || readOnly) ? '' : undefined}>
           {label}
         </span>
       )}
