@@ -10,6 +10,7 @@ import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissi
 import ChatPage from "./pages/ChatPage/ChatPage";
 import FollowersPage from "./pages/FollowersPage/FollowersPage";
 
+import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
       {
         path: "/account/preferences",
         element: <PersonalizationPage />
+      },
+      {
+        path: "/competition/:id",
+        element: <CompetitionDetailPage />
       },
     ],
   },

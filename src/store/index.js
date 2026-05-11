@@ -4,6 +4,7 @@ import layoutReducer from "../features/layout/layoutSlice";
 import filtersReducer from "../features/filters/filtersSlice";
 import userReducer from "../features/user/userSlice";
 import toastReducer from "../features/toast/toastSlice";
+import competitionReducer from "../features/competition/competitionSlice";
 
 /**
  * The main Redux store for the application.
@@ -20,6 +21,7 @@ export const store = configureStore({
     filters: filtersReducer,
     user: userReducer,
     toast: toastReducer,
+    competition: competitionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

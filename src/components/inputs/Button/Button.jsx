@@ -11,9 +11,9 @@ import styles from "./Button.module.css";
  * @param {Function} props.onClick - The function to be called when the button is clicked.
  * @returns {JSX.Element} The rendered button element.
  */
-export const Button = ({ variant = "primary", type = "button", children, onClick }) => {
+export const Button = ({ variant = "primary", type = "button", children, onClick, className }) => {
   return (
-    <button className={`${styles.btn} ${styles[variant]}`} type={type} onClick={onClick}>
+    <button className={`${styles.btn} ${styles[variant]} ${className || ''}`} type={type} onClick={onClick}>
       {children}
     </button>
   );
