@@ -16,7 +16,7 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
-      if (variant === 'avatar' || props.showPreview) {
+      if (variant === 'avatar' || variant === 'banner' || props.showPreview) {
         setInternalPreview(URL.createObjectURL(file));
       }
     } else {
@@ -28,7 +28,8 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
 
   const isPill = variant === 'pill';
   const isAvatar = variant === 'avatar';
-  const displayPlaceholder = placeholder || (isPill ? 'Upload File' : (isAvatar ? 'Upload photo' : 'Click to upload a file'));
+  const isBanner = variant === 'banner';
+  const displayPlaceholder = placeholder || (isPill ? 'Upload File' : (isAvatar ? 'Upload photo' : (isBanner ? 'Upload banner' : 'Click to upload a file')));
   const currentPreview = internalPreview || previewUrl;
 
   const handleClick = () => {
@@ -51,6 +52,21 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
             <Icon icon="mdi:camera" size={16} />
           </div>
           )}
+        </div>
+      );
+    }
+
+    if (isBanner) {
+      return (
+        <div
+          className={styles.banner}
+          onClick={handleClick}
+          style={currentPreview ? { backgroundImage: `url(${currentPreview})` } : {}}
+        >
+          <div className={`${styles.bannerUploadBtn} ${currentPreview ? styles.bannerUploadBtnOverlay : ''}`}>
+            <Icon icon="mdi:upload" size={24} />
+            <span>{displayPlaceholder}</span>
+          </div>
         </div>
       );
     }

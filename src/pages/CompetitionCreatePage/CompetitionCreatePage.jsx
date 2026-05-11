@@ -1,0 +1,19 @@
+import SearchBar from "../../components/SearchBar/SearchBar"
+import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
+import CompetitionForm from "../../components/CompetitionForm/CompetitionForm"
+import styles from "./CompetitionCreatePage.module.css"
+
+function CompetitionCreatePage() {
+    return (
+        <SectionedLayout preset="home">
+            <div className={styles.pageWrap}>
+                <div className={styles.pageSearchSection}>
+                    <SearchBar />
+                </div>
+                <CompetitionForm isEdit={false} />
+            </div>
+        </SectionedLayout>
+    )
+}
+
+export default CompetitionCreatePage
