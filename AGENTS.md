@@ -8,6 +8,7 @@ pnpm dev           # Vite dev server
 pnpm build         # production build to dist/
 pnpm lint          # ESLint (flat config)
 pnpm storybook     # Storybook dev on :6006
+pnpm preview       # serve production build from dist/ locally
 pnpm vitest        # storybook+vitetest browser tests (requires Playwright browsers)
 ```
 
@@ -17,10 +18,11 @@ No `test` script in package.json — run `pnpm vitest` directly.
 
 - **Framework:** React 19, JSX (no TypeScript), Vite 8, pnpm
 - **Routing:** `react-router-dom` v7 with `createBrowserRouter` — all routes defined in `src/App.jsx`
-- **State:** Redux Toolkit (`src/store/index.js`): slices for `api`, `layout`, `filters`, `user`, `toast`
+- **State:** Redux Toolkit (`src/store/index.js`): slices for `api`, `layout`, `filters`, `user`, `toast`, `competition`
 - **API layer:** RTK Query (`src/features/api/apiSlice.js`) — base URL hardcoded to `http://localhost:8000/api/`
 - **Styling:** Tailwind v4 (`@import "tailwindcss"` in `src/index.css`) + CSS Modules (`*.module.css`) + global CSS custom properties
 - **UI primitives:** Radix UI (Checkbox, Dialog, Popover, RadioGroup, Select), Iconify for icons
+- **Notable deps:** `date-fns` (dates), `react-day-picker` (date picker), `prop-types` (runtime validation, no TypeScript)
 - **Theme:** `data-theme` attribute on `<html>`, system preference detection in `App.jsx`, CSS variables in `src/index.css`
 
 ## Testing
