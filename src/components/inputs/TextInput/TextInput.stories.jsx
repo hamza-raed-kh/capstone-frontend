@@ -14,3 +14,9 @@ export const Default = () => (
     <TextInput label="First Name" placeholder="Enter your first name" />
   </div>
 );
+
+export const ReadOnly = () => (
+  <div style={{ width: '400px', maxWidth: '100%' }}>
+    <TextInput label="First Name" value="Hamza" readOnly />
+  </div>
+);

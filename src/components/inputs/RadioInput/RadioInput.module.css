@@ -77,3 +77,8 @@
 .itemLabel[data-disabled] {
   opacity: 0.5;
 }
+
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}

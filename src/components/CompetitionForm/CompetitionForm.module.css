@@ -1,0 +1,206 @@
+.pageContainer {
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+    min-height: 0;
+}
+
+.contentContainer {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-accent);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.contentContainer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(transparent, var(--color-bg-accent));
+    pointer-events: none;
+    z-index: 1;
+}
+
+.pageBody {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-main-accent) transparent;
+    padding-bottom: 24px;
+}
+
+.pageBody::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pageBody::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pageBody::-webkit-scrollbar-thumb {
+    background: var(--color-main-accent);
+    border-radius: 3px;
+}
+
+.bannerContainer {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.bannerOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    pointer-events: none;
+}
+
+.bannerOverlay > * {
+    pointer-events: auto;
+}
+
+.bannerTopRight {
+    align-self: flex-end;
+}
+
+.bannerBottomRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.bannerBottomLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bannerTitleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.bannerHost {
+    font-size: 0.875rem;
+    color: var(--color-white);
+    opacity: 0.85;
+}
+
+.bannerBottomRight {
+    display: flex;
+    align-items: center;
+}
+
+.buttonGroup {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 50px;
+    background: var(--color-light-accent);
+}
+
+.applyBtn {
+    min-height: 40px;
+    width: auto;
+    padding: 0 24px;
+    border-radius: 50px 0 0 50px;
+}
+
+.messageBtn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+    transition: filter 0.2s;
+    border-radius: 0 50px 50px 0;
+    padding-right: 4px;
+    opacity: 0.6;
+}
+
+.detailsContainer {
+    margin: 20px 20px 0;
+    padding: 16px;
+    background: var(--color-white);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detailsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.detailsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.descriptionContainer {
+    margin: 20px 20px 0;
+    padding: 16px;
+    background: var(--color-white);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.descriptionHeading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.withdrawBtn {
+    margin: 20px;
+    align-self: flex-start;
+    width: auto;
+    padding: 6px 12px;
+}
+
+.formActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-light-accent);
+}
+
+.formActionsLeft,
+.formActionsRight {
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+}
+
+.formActionBtn {
+    padding: 6px 12px !important;
+}

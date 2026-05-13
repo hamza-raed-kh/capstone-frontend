@@ -56,3 +56,20 @@ export const SecondaryGroup = () => {
     </CheckboxGroup>
   );
 };
+
+export const ReadOnly = () => (
+  <CheckboxInput label="Accept Terms" checked readOnly />
+);
+
+export const ReadOnlyGroup = () => (
+  <CheckboxGroup 
+    label="Frozen Selections" 
+    value={['apple', 'cherry']} 
+    readOnly
+    direction="row"
+  >
+    <CheckboxInput label="Apple" value="apple" />
+    <CheckboxInput label="Banana" value="banana" />
+    <CheckboxInput label="Cherry" value="cherry" />
+  </CheckboxGroup>
+);

@@ -10,6 +10,10 @@ import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissi
 import ChatPage from "./pages/ChatPage/ChatPage";
 import FollowingPage from "./pages/FollowingPage/FollowingPage";
 
+import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
+import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
+import CompetitionEditPage from "./pages/CompetitionEditPage/CompetitionEditPage";
+import AdminCompetitionReviewPage from "./pages/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -176,6 +180,22 @@ const router = createBrowserRouter([
             element: <DraftSubmissionPage />,
           },
         ],
+      },
+      {
+        path: "/admin/competition/:id/review",
+        element: <AdminCompetitionReviewPage />
+      },
+      {
+        path: "/competition/create",
+        element: <CompetitionCreatePage />
+      },
+      {
+        path: "/competition/:id/edit",
+        element: <CompetitionEditPage />
+      },
+      {
+        path: "/competition/:id",
+        element: <CompetitionDetailPage />
       },
     ],
   },

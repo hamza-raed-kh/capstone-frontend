@@ -12,20 +12,22 @@ import styles from './Modal.module.css';
  * @param {string} props.title - The title of the modal
  * @param {React.ReactNode} props.children - The content to render inside the modal
  */
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ isOpen, onClose, title, children, hideHeader }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay} />
         <Dialog.Content className={styles.content} aria-describedby={undefined}>
-          <div className={styles.header}>
-            <Dialog.Title className={styles.title}>{title}</Dialog.Title>
-            <Dialog.Close asChild>
-              <button className={styles.closeButton} aria-label="Close">
-                <Icon icon="mdi:close" size={24} />
-              </button>
-            </Dialog.Close>
-          </div>
+          {!hideHeader && (
+            <div className={styles.header}>
+              <Dialog.Title className={styles.title}>{title}</Dialog.Title>
+              <Dialog.Close asChild>
+                <button className={styles.closeButton} aria-label="Close">
+                  <Icon icon="mdi:close" size={24} />
+                </button>
+              </Dialog.Close>
+            </div>
+          )}
           <div className={styles.body}>
             {children}
           </div>

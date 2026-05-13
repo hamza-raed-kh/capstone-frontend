@@ -35,3 +35,16 @@ export const Password = {
     type: "password",
   },
 };
+
+/**
+ * The read-only variant of the `TextField` component.
+ *
+ * @type {import('@storybook/react').StoryObj}
+ */
+export const ReadOnly = {
+  args: {
+    label: "Full Name",
+    value: "Hamza Raed",
+    readOnly: true,
+  },
+};

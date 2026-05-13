@@ -2,14 +2,15 @@ import React from 'react';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import styles from './GenderInput.module.css';
 
-const GenderInput = ({ label, value, onChange, className, inlineLabel = false, ...props }) => {
+const GenderInput = ({ label, value, onChange, className, inlineLabel = false, readOnly = false, ...props }) => {
   return (
-    <div className={`${styles.container} ${inlineLabel ? styles.inlineContainer : ''} ${className || ''}`}>
+    <div className={`${styles.container}${inlineLabel ? ` ${styles.inlineContainer}` : ''}${readOnly ? ` ${styles.readOnly}` : ''} ${className || ''}`}>
       {label && <span className={styles.label}>{label}</span>}
       <RadioGroup.Root 
         className={`${styles.buttonsWrapper} ${inlineLabel ? styles.inlineButtons : ''}`}
         value={value}
-        onValueChange={onChange}
+        onValueChange={readOnly ? undefined : onChange}
+        disabled={readOnly}
         {...props}
       >
         <RadioGroup.Item 

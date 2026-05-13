@@ -23,3 +23,11 @@ export const WithValue = {
     label: 'Quantity',
   },
 };
+
+export const ReadOnly = {
+  args: {
+    label: 'Quantity',
+    value: 42,
+    readOnly: true,
+  },
+};

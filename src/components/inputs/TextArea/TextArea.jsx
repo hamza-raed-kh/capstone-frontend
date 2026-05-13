@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styles from './TextArea.module.css';
 
-const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel = false, ...props }) => {
+const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel = false, readOnly = false, ...props }) => {
   const textareaRef = useRef(null);
   const resolvedPlaceholder = inlineLabel ? label : placeholder;
 
@@ -26,7 +26,7 @@ const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel =
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${readOnly ? styles.readOnly : ''}`}>
       {label && !inlineLabel && <label className={styles.label} htmlFor={label}>{label}</label>}
       <div className={styles.textareaWrapper}>
         <textarea
@@ -37,8 +37,10 @@ const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel =
           value={value}
           onChange={onChange}
           rows={rows}
+          readOnly={readOnly}
           {...props}
         />
+        {!readOnly && (
         <div 
           className={styles.customResizer}
           onPointerDown={handlePointerDown}
@@ -47,6 +49,7 @@ const TextArea = ({ label, placeholder, value, onChange, rows = 4, inlineLabel =
             <path fill="currentColor" d="M22 22H20V20H22V22ZM22 18H20V16H22V18ZM18 22H16V20H18V22ZM18 18H16V16H18V18ZM14 22H12V20H14V22Z"/>
           </svg>
         </div>
+        )}
       </div>
     </div>
   );
