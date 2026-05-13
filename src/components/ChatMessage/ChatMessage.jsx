@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './ChatMessage.module.css'
 
 /**
@@ -14,6 +15,12 @@ import styles from './ChatMessage.module.css'
  * @returns {JSX.Element} The rendered chatmessage element.
  */
 const ChatMessage = ({ variant = 'default', avatar, username, timestamp, body }) => {
+  const navigate = useNavigate();
+
+  const redirectProfile = () => {
+    navigate('/profile');
+  }
+
     const timeSent = () => {
         const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         // timestamp.setDate(timestamp.getDate() - 1);
@@ -40,12 +47,12 @@ const ChatMessage = ({ variant = 'default', avatar, username, timestamp, body })
     return (
         <div className={`${styles.messageContainer} ${variant == 'brief'? '' : styles.topMessage}`}>
             <div className={`${styles.messageAvatarContainer}`}>
-                {variant === 'default'? <img className={`${styles.messageAvatar}`} src={avatar} alt={'Name'}/> : ''}
+                {variant === 'default'? <img className={`${styles.messageAvatar}`} src={avatar} alt={'Name'} onClick={redirectProfile}/> : ''}
             </div>
             <div className={`${styles.messageBlock}`}>
                 {variant === 'default'?
                 (<div className={`${styles.messageHeader}`}>
-                    <span className={`${styles.messageUsername}`}>{username}</span>
+                    <span className={`${styles.messageUsername}`} onClick={redirectProfile}>{username}</span>
                     <span className={`${styles.messageTimeStamp}`}>{timeSent()}</span>
                 </div>) : ''}
                 <p className={`${styles.messageBody}`}>{body}</p>

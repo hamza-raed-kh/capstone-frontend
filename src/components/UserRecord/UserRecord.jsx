@@ -1,4 +1,5 @@
 import { Button } from '../inputs/Button/Button'
+import { useNavigate } from 'react-router-dom'
 import styles from './UserRecord.module.css'
 
 /**
@@ -13,6 +14,12 @@ import styles from './UserRecord.module.css'
  * @returns {JSX.Element} The rendered userrecord element.
  */
 const UserRecord = ({ variant = 'invited', avatar, username }) => {
+  const navigate = useNavigate();
+
+  const redirectProfile = () => {
+    navigate('/profile');
+  }
+
   const handleUninvite = () => {
 
   }
@@ -43,7 +50,7 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
   
   return (
     <div className={`${styles.userRecordContainer}`}>
-      <div className={`${styles.userRecordUser}`}>
+      <div className={`${styles.userRecordUser}`} onClick={redirectProfile}>
         <img className={`${styles.userRecordAvatar}`} src={avatar} alt={'Name'}/>
         <p className={`${styles.userRecordUsername}`}>
           {username}
