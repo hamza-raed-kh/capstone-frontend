@@ -1,0 +1,25 @@
+.answerRuleLine {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.inactive {
+    opacity: 65%;
+}
+
+.answerRuleLineLeft {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: var(--color-text);
+}
+
+.answerRuleLineRight {
+    display: flex;
+    align-items: center;
+    width: 100px;
+}

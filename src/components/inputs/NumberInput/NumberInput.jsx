@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Icon from '../../Icon/Icon';
 import styles from './NumberInput.module.css';
 
-const NumberInput = ({ label, placeholder, value, onChange, min, max, step, ...props }) => {
+const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange, min = 1, max, step = 1, ...props }) => {
   const inputRef = useRef(null);
 
   const handleStep = (direction, e) => {
@@ -26,7 +26,7 @@ const NumberInput = ({ label, placeholder, value, onChange, min, max, step, ...p
 
   return (
     <div className={styles.container}>
-      {label && <label className={styles.label} htmlFor={label}>{label}</label>}
+      {label && !inlineLabel && <label className={styles.label} htmlFor={label}>{label}</label>}
       <div className={styles.inputWrapper}>
         <input 
           ref={inputRef}

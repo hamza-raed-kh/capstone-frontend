@@ -1,0 +1,155 @@
+.pageHeader {
+    /* Page Header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 12px;
+    gap: 10px;
+
+    width: 100%;
+
+    background: var(--gradient-main);
+    color: var(--color-white);
+    border-radius: 16px;
+}
+
+.pageHeaderFirst {
+    /* Header */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+
+    width: 100%;
+    /* height: 32px; */
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.pageHeaderFirstLeft {
+    /* Page Number */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+
+    /* margin: 0 auto; */
+    width: auto;
+    height: auto;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.pageHeaderFirstLeftIcon {
+    /* Icon */
+
+    width: 32px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.pageHeaderFirstLeftNumber {
+    /* Form Field */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.pageHeaderFirstLeftNumber > label,
+.pageHeaderFirstLeftNumber > span {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.pageHeaderFirstLeftField {
+    width: 75px;
+}
+
+.pageHeaderFirstRight {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+
+    width: 24px;
+    height: 24px;
+    
+    cursor: pointer;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.pageHeaderSecond {
+    /* Form Field */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    gap: 12px;
+
+    width: 100%;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.rowLabel {
+    /* Text */
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.pageHeaderSecond> :last-child:not(.rowLabel) {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    justify-content: flex-start;
+}
