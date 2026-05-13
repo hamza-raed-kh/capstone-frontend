@@ -108,6 +108,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <ProfilePage />,
       },
+      {
+        path: "/competition/:id",
+        element: <CompetitionDetailPage />
+      },
       
       // Community Navbar pages
       {
@@ -160,6 +164,14 @@ const router = createBrowserRouter([
             path: "participants",
             element: <ParticipantsPage />,
           },
+          {
+            path: "create",
+            element: <CompetitionCreatePage />
+          },
+          {
+            path: ":id/edit",
+            element: <CompetitionEditPage />
+          },
         ],
       },
       
@@ -179,23 +191,11 @@ const router = createBrowserRouter([
             path: "draft-submissions",
             element: <DraftSubmissionPage />,
           },
+          {
+            path: "competition/:id/review",
+            element: <AdminCompetitionReviewPage />
+          },
         ],
-      },
-      {
-        path: "/admin/competition/:id/review",
-        element: <AdminCompetitionReviewPage />
-      },
-      {
-        path: "/competition/create",
-        element: <CompetitionCreatePage />
-      },
-      {
-        path: "/competition/:id/edit",
-        element: <CompetitionEditPage />
-      },
-      {
-        path: "/competition/:id",
-        element: <CompetitionDetailPage />
       },
     ],
   },
