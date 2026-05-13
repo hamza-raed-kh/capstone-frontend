@@ -38,6 +38,8 @@
 
     background: var(--color-main);
     border-radius: 24px;
+    
+    cursor: pointer;
 }
 
 .messageBlock {
@@ -83,9 +85,6 @@
 .messageUsername {
     /* Name */
 
-    /* width: 179px; */
-    /* height: 29px; */
-
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -93,6 +92,7 @@
     /* identical to box height */
 
     color: var(--color-field-text);
+    cursor: pointer;
 
 
     /* Inside auto layout */

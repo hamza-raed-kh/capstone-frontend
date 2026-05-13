@@ -49,7 +49,7 @@ function ProfilePage() {
   ];
 
   return (
-    <SectionedLayout preset="account">
+    <SectionedLayout preset="home">
       <div className={styles.container}>
         <div className={styles.search}>
           <SearchBar />

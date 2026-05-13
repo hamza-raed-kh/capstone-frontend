@@ -8,7 +8,7 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 import ChatPage from "./pages/ChatPage/ChatPage";
-import FollowersPage from "./pages/FollowersPage/FollowersPage";
+import FollowingPage from "./pages/FollowingPage/FollowingPage";
 
 import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
@@ -24,6 +24,8 @@ import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage
 import ToastContainer from "./components/Toast/Toast";
 import { useSelector } from "react-redux";
 import { selectTheme } from "./features/user/userSlice";
+import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
+import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -78,65 +80,106 @@ const router = createBrowserRouter([
         index: true,
         element: <h1>Home Page</h1>,
       },
+
+      // Login & Onboarding pages
       {
-        path: "/explore",
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "onboarding",
+        element: <OnboardingPage />,
+      },
+      
+      // Home Navbar pages
+      {
+        path: "explore",
         element: <ExplorePage />,
       },
       {
-        path: "/applications",
+        path: "applications",
         element: <MyApplicationsPage />,
       },
       {
-        path: "community/faq",
-        element: <FaqPage />,
+        path: "profile",
+        element: <ProfilePage />,
       },
+      
+      // Community Navbar pages
       {
-        path: "community/general",
-        element: <ChatPage />,
+        path: "community",
+        children: [
+          {
+            path: "faq",
+            element: <FaqPage />,
+          },
+          {
+            path: "general",
+            element: <ChatPage />,
+          },
+        ],
       },
+      
+      
+      // Account Navbar pages
       {
-        path: "/profile",
-        element: <ProfilePage />
+        path: "account",
+        children: [
+          {
+            path: "profile",
+            element: <YourInfoPage />,
+          },
+          {
+            path: "following",
+            element: <FollowingPage />
+          },
+          {
+            path: "security",
+            element: <SecurityPage />,
+          },
+          {
+            path: "preferences",
+            element: <PersonalizationPage />,
+          },
+        ],
       },
+
+      // Organized Navbar pages
       {
-        path: "/account/security",
-        element: <SecurityPage />,
+        path: "organizer",
+        children: [
+          {
+            path: "competitions",
+            element: <OrganizerCenterPage />,
+          },
+          {
+            path: "participants",
+            element: <ParticipantsPage />,
+          },
+        ],
       },
+      
+      // Admin Navbar pages
       {
-        path: "/login",
-        element: <LoginPage />
-      },
-      {
-        path: "/admin/login",
-        element: <AdminLoginPage />
-      },
-      {
-        path: "/signup",
-        element: <SignupPage />
-      },
-      {
-        path: "/onboarding",
-        element: <OnboardingPage />
-      },
-      {
-        path: "/account/follower-management",
-        element: <FollowersPage />
-      },
-      {
-        path: "/manage/edit-requests",
-        element: <ChangeRequestPage />
-      },
-      {
-        path: "/manage/draft-submissions",
-        element: <DraftSubmissionPage />
-      },
-      {
-        path: "/account/profile",
-        element: <YourInfoPage />
-      },
-      {
-        path: "/account/preferences",
-        element: <PersonalizationPage />
+        path: "admin",
+        children: [
+          {
+            path: "login",
+            element: <AdminLoginPage />,
+          },
+          {
+            path: "edit-requests",
+            element: <ChangeRequestPage />,
+          },
+          {
+            path: "draft-submissions",
+            element: <DraftSubmissionPage />,
+          },
+        ],
       },
       {
         path: "/admin/competition/:id/review",

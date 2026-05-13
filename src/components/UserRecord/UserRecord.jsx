@@ -1,4 +1,5 @@
 import { Button } from '../inputs/Button/Button'
+import { useNavigate } from 'react-router-dom'
 import styles from './UserRecord.module.css'
 
 /**
@@ -7,43 +8,110 @@ import styles from './UserRecord.module.css'
  * to the userrecord, allowing for a consistent look and feel across the application.
  *
  * @param {object} props - The properties for the userrecord.
- * @param {'invited' | 'applicant' | 'participant' | 'disqualified' | 'result' | 'followed' | 'banned'} [props.variant='search'] - The visual variant of the userrecord.
+ * @param {'followed' | 'banned' | 'invited' | 'applicant' | 'participant' | 'disqualified' | 'result'} [props.variant='search'] - The visual variant of the userrecord.
  * @param {string} props.children - The string to be displayed inside the bar's 'placeholder' variant.
  * @param {Function} props.onClick - The function to be called when the userrecord icon is clicked.
  * @returns {JSX.Element} The rendered userrecord element.
  */
 const UserRecord = ({ variant = 'invited', avatar, username }) => {
-  const handleUninvite = () => {
+  // const navigate = useNavigate();
 
+  const redirectProfile = () => {
+    // navigate('/profile');
   }
 
-  const handleUnban = () => {
-    
-  }
+  const handleUnfollow = () => {}
+  const handleUnban = () => {}
+  const handleUninvite = () => {}
+  const handleDisqualify = () => {}
+  const handleReturn = () => {}
 
   const variantButtons = () => {
     switch(variant){
-      case 'invited':
-      return (
-        <div className={`${styles.userRecordButton}`}>
-          <Button variant="red-secondary" onClick={handleUninvite}>Uninvite</Button>
-        </div>
-      );
-      break;
-
+      case 'followed':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red-secondary" onClick={handleUnfollow}>Unfollow</Button>
+            </div>
+          </>
+        );
+        break;
+      
       case 'banned':
-      return (
-        <div className={`${styles.userRecordButton}`}>
-          <Button variant="secondary" onClick={handleUnban}>Unban</Button>
-        </div>
-      );
-      break;
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="secondary" onClick={handleUnban}>Unban</Button>
+            </div>
+          </>
+        );
+        break;
+
+      case 'invited':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red-secondary" onClick={handleUninvite}>Uninvite</Button>
+            </div>
+          </>
+        );
+        break;
+
+      case 'applied':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red-secondary" onClick={handleUninvite}>Reject</Button>
+            </div>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="green" onClick={handleUninvite}>Approve</Button>
+            </div>
+          </>
+        );
+        break;
+
+      case 'participant':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red-secondary" onClick={handleDisqualify}>Disqualify</Button>
+            </div>
+          </>
+        );
+        break;
+
+      case 'disqualified':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="green" onClick={handleReturn}>Return</Button>
+            </div>
+          </>
+        );
+        break;
+
+      case 'result':
+        return (
+          <>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red-secondary" onClick={handleUninvite}>Disqualify</Button>
+            </div>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="red" onClick={handleUninvite}>Lost</Button>
+            </div>
+            <div className={`${styles.userRecordButton}`}>
+              <Button variant="green" onClick={handleUninvite}>Won</Button>
+            </div>
+          </>
+        );
+        break;
     }
   }
   
   return (
     <div className={`${styles.userRecordContainer}`}>
-      <div className={`${styles.userRecordUser}`}>
+      <div className={`${styles.userRecordUser}`} onClick={redirectProfile}>
         <img className={`${styles.userRecordAvatar}`} src={avatar} alt={'Name'}/>
         <p className={`${styles.userRecordUsername}`}>
           {username}

@@ -61,8 +61,8 @@ const SecurityPage = ({ onDelete }) => {
                         <SectionHeader icon={'tdesign:icon-filled'} title={'Security'} />
                         <form className={styles.SecurityForm} onSubmit={handleSubmit}>
                             <div className={`${styles.SecurityFields}`}>
-                                <TextField label="New Password" type="textarea" value={password} handler={handlePasswordChange} />
-                                <TextField label="Confirm" type="password" value={confirm} handler={handleConfirmChange} />
+                                <TextField label="New Password" type="textarea" value={password} onChange={handlePasswordChange} />
+                                <TextField label="Confirm" type="password" value={confirm} onChange={handleConfirmChange} />
                             </div>
                             <div className={`${styles.SecurityButtons}`}>
                                 <div className={`${styles.SecurityButtonsDiscard}`}>

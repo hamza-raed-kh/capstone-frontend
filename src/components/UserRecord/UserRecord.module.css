@@ -34,7 +34,8 @@
 
     margin: 0 auto;
     width: 0px;
-    /* height: 37px; */
+    
+    cursor: pointer;
 
 
     /* Inside auto layout */
@@ -51,7 +52,9 @@
     width: 37px;
     height: 37px;
 
-    /* background: url(Hamza Khattab.jpg); */
+    border: 2px solid var(--color-main-accent);
+    border-radius: 18.5px;
+
 
     /* Inside auto layout */
     flex: none;
@@ -63,9 +66,7 @@
     /* Hamza Khattab */
 
     width: 0px;
-    /* height: 24px; */
 
-    /* font-family: 'Inter'; */
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
