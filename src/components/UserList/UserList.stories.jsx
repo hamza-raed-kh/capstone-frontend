@@ -22,7 +22,6 @@ export const Closeable = {
   args: {
     variant: 'closeable',
     title: 'Group',
-    text: "General",
     userrecords: [
         {
             variant: "banned",
@@ -52,7 +51,6 @@ export const Open = {
   args: {
     variant: 'open',
     title: 'Group',
-    text: "General",
     userrecords: [
         {
             variant: "banned",

@@ -15,7 +15,7 @@ const PRESETS = {
     { label: "Following", to: "/account/following", icon: "ic:round-people" },
     { label: "Security", to: "/account/security", icon: "iconamoon:shield-yes-fill" },
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },
-    { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
+    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
   ],
   organizer: [
     { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
@@ -25,9 +25,9 @@ const PRESETS = {
     { label: "Statistics", to: "/organizer/statistics", icon: "uis:chart" },
   ],
   admin: [
-    { label: "Dashboard", to: "/admin", icon: "uis:chart" },
-    { label: "Draft Submissions", to: "/manage/draft-submissions", icon: "fluent:calendar-24-filled" },
-    { label: "Edit Requests", to: "/manage/edit-requests", icon: "mage:edit-pen-fill" },
+    { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
+    { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
+    { label: "Edit Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
     { label: "Django Admin", to: "/django-admin", icon: "mdi:gear" },
   ],
 };
