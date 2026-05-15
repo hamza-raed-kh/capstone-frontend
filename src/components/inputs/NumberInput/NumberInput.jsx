@@ -34,7 +34,7 @@ const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange,
           type="number"
           id={label} 
           className={styles.input} 
-          placeholder={placeholder}
+          placeholder={inlineLabel? label: placeholder}
           value={value}
           onChange={onChange}
           min={min}
