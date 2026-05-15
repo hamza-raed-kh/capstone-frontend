@@ -7,12 +7,16 @@
     width: 100%;
 }
 
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .rowLabel {
     flex: 0 0 130px;
     font-weight: 600;
     color: var(--color-text);
     font-size: 0.875rem;
-
     width: 100%;
 }
 

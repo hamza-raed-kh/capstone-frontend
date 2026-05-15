@@ -127,6 +127,20 @@
   font-weight: 500;
 }
 
+.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.valueText {
+  color: var(--color-text);
+}
+
+.placeholderText {
+  color: var(--color-text);
+  opacity: 0.5;
+}
+
 .selectItemIndicator {
   position: absolute;
   right: 12px;

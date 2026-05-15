@@ -23,3 +23,11 @@ export const WithValue = {
     label: 'Feedback',
   },
 };
+
+export const ReadOnly = {
+  args: {
+    label: 'Feedback',
+    value: 'This is read-only feedback content that cannot be edited.',
+    readOnly: true,
+  },
+};

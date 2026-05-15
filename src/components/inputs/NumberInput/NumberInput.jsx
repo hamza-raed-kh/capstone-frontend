@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Icon from '../../Icon/Icon';
 import styles from './NumberInput.module.css';
 
-const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange, min = 1, max, step = 1, ...props }) => {
+const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange, min = 1, max, step = 1, readOnly = false, ...props }) => {
   const inputRef = useRef(null);
 
   const handleStep = (direction, e) => {
@@ -25,8 +25,9 @@ const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange,
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${readOnly ? styles.readOnly : ''}`}>
       {label && !inlineLabel && <label className={styles.label} htmlFor={label}>{label}</label>}
+      {/* {label && <label className={styles.label} htmlFor={label}>{label}</label>} */}
       <div className={styles.inputWrapper}>
         <input 
           ref={inputRef}
@@ -39,8 +40,10 @@ const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange,
           min={min}
           max={max}
           step={step}
+          readOnly={readOnly}
           {...props}
         />
+        {!readOnly && (
         <div className={styles.spinnerControls}>
           <button 
             type="button" 
@@ -59,6 +62,7 @@ const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange,
             <Icon icon="mdi:chevron-down" size={16} />
           </button>
         </div>
+        )}
       </div>
     </div>
   );

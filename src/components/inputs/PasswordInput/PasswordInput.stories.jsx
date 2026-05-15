@@ -23,3 +23,13 @@ export const Default = () => {
     </div>
   );
 };
+
+export const ReadOnly = () => (
+  <div style={{ width: '400px', maxWidth: '100%' }}>
+    <PasswordInput 
+      label="Password" 
+      value="supersecret123" 
+      readOnly 
+    />
+  </div>
+);

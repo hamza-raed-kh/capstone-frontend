@@ -13,6 +13,7 @@ export const CheckboxGroup = ({
   direction = 'column', 
   maxSelection,
   className,
+  readOnly = false,
   ...props 
 }) => {
   const [internalValue, setInternalValue] = useState(value);
@@ -39,12 +40,13 @@ export const CheckboxGroup = ({
   const contextValue = {
     selectedValues: internalValue,
     onItemCheck: handleItemCheck,
-    maxReached: maxSelection ? internalValue.length >= maxSelection : false
+    maxReached: maxSelection ? internalValue.length >= maxSelection : false,
+    readOnly
   };
 
   return (
     <CheckboxGroupContext.Provider value={contextValue}>
-      <div className={className} {...props}>
+      <div className={`${className || ''} ${readOnly ? styles.readOnly : ''}`} {...props}>
         {label && <div className={styles.groupLabel}>{label}</div>}
         <div className={styles.groupContainer} data-direction={direction}>
           {children}
@@ -54,15 +56,17 @@ export const CheckboxGroup = ({
   );
 };
 
-export const CheckboxInput = ({ label, value, checked, onChange, disabled, variant = 'primary', ...props }) => {
+export const CheckboxInput = ({ label, value, checked, onChange, disabled, variant = 'primary', readOnly = false, ...props }) => {
   const groupContext = useContext(CheckboxGroupContext);
   
+  const isReadOnly = readOnly || groupContext?.readOnly;
+
   if (groupContext) {
     const isChecked = groupContext.selectedValues.includes(value);
-    const isDisabled = disabled || (groupContext.maxReached && !isChecked);
+    const isDisabled = disabled || isReadOnly || (groupContext.maxReached && !isChecked);
     
     return (
-      <label className={styles.itemContainer} data-variant={variant} data-state={isChecked ? 'checked' : 'unchecked'}>
+      <label className={`${styles.itemContainer} ${isReadOnly ? styles.readOnly : ''}`} data-variant={variant} data-state={isChecked ? 'checked' : 'unchecked'}>
         <Checkbox.Root
           className={styles.checkboxRoot}
           checked={isChecked}
@@ -85,12 +89,12 @@ export const CheckboxInput = ({ label, value, checked, onChange, disabled, varia
   }
 
   return (
-    <label className={styles.itemContainer} data-variant={variant} data-state={checked ? 'checked' : 'unchecked'}>
+    <label className={`${styles.itemContainer} ${isReadOnly ? styles.readOnly : ''}`} data-variant={variant} data-state={checked ? 'checked' : 'unchecked'}>
       <Checkbox.Root
         className={styles.checkboxRoot}
         checked={checked}
         onCheckedChange={onChange}
-        disabled={disabled}
+        disabled={disabled || isReadOnly}
         id={`checkbox-${label}`}
         {...props}
       >
@@ -99,7 +103,7 @@ export const CheckboxInput = ({ label, value, checked, onChange, disabled, varia
         </Checkbox.Indicator>
       </Checkbox.Root>
       {label && (
-        <span className={styles.itemLabel} data-disabled={disabled ? '' : undefined}>
+        <span className={styles.itemLabel} data-disabled={(disabled || isReadOnly) ? '' : undefined}>
           {label}
         </span>
       )}

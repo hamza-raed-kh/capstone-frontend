@@ -35,3 +35,22 @@ export const Filter = () => {
     />
   );
 };
+
+export const ReadOnly = () => (
+  <div style={{ width: '400px', maxWidth: '100%' }}>
+    <DateInput 
+      label="Date of Birth" 
+      value={new Date(2000, 0, 15)}
+      readOnly
+    />
+  </div>
+);
+
+export const ReadOnlyFilter = () => (
+  <DateInput 
+    variant="filter"
+    label="Created After" 
+    value={new Date(2025, 5, 1)}
+    readOnly
+  />
+);

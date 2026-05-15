@@ -3,12 +3,26 @@ import * as Select from '@radix-ui/react-select';
 import Icon from '../../Icon/Icon';
 import styles from './SelectInput.module.css';
 
-const SelectInput = ({ label, placeholder = "Select...", options = [], value, onChange, variant = "form", ...props }) => {
+const SelectInput = ({ label, placeholder = "Select...", options = [], value, onChange, variant = "form", readOnly = false, ...props }) => {
   const isFilter = variant === 'filter';
+  const selectedOption = options.find(o => o.value === value);
 
   return (
-    <div className={isFilter ? styles.filterContainer : styles.container}>
+    <div className={`${isFilter ? styles.filterContainer : styles.container} ${readOnly ? styles.readOnly : ''}`}>
       {!isFilter && label && <label className={styles.label}>{label}</label>}
+      {readOnly ? (
+        <div className={isFilter ? styles.filterTrigger : styles.trigger}>
+          {isFilter && (
+            <>
+              <span className={styles.labelSpan}>{label}</span>
+              <span className={styles.divider}></span>
+            </>
+          )}
+          <span className={value ? styles.valueText : styles.placeholderText}>
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
+        </div>
+      ) : (
       <Select.Root value={value} onValueChange={onChange} {...props}>
         <Select.Trigger className={isFilter ? styles.filterTrigger : styles.trigger}>
           {isFilter && (
@@ -37,6 +51,7 @@ const SelectInput = ({ label, placeholder = "Select...", options = [], value, on
           </Select.Content>
         </Select.Portal>
       </Select.Root>
+      )}
     </div>
   );
 };
