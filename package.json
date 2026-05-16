@@ -20,6 +20,7 @@
     "@radix-ui/react-select": "^2.2.6",
     "@reduxjs/toolkit": "^2.11.2",
     "date-fns": "^4.1.0",
+    "immer": "^11.1.8",
     "react": "^19.2.4",
     "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.4",

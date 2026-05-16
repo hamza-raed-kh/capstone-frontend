@@ -1,0 +1,30 @@
+.pageContainer {
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+    min-height: 0;
+}
+
+.pageSearchSection {
+    height: 53px;
+}
+
+.pageFiltersSection {
+    height: auto;
+    /* overflow-x: scroll;
+    scrollbar-width: none; */
+}
+
+.pageResultsSection {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.pageResultsSection>* {
+    flex-grow: 1;
+    min-height: 0;
+    overflow: scroll;
+}

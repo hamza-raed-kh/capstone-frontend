@@ -11,7 +11,7 @@ const PRESETS = {
     { label: "History", to: "/history", icon: "material-symbols:history-rounded" },
   ],
   account: [
-    { label: "Account", to: "/account/profile", icon: "ic:round-people" },
+    { label: "Account", to: "/account/profile", icon: "material-symbols-light:person-rounded" },
     { label: "Following", to: "/account/following", icon: "ic:round-people" },
     { label: "Security", to: "/account/security", icon: "iconamoon:shield-yes-fill" },
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },

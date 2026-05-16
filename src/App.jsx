@@ -12,6 +12,7 @@ import FollowingPage from "./pages/FollowingPage/FollowingPage";
 import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
 import CompetitionEditPage from "./pages/CompetitionEditPage/CompetitionEditPage";
+import FormManagementPage from "./pages/FormManagementPage/FormManagementPage";
 import AdminCompetitionReviewPage from "./pages/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
@@ -25,6 +26,8 @@ import { useSelector } from "react-redux";
 import { selectTheme, selectIsLoggedIn } from "./features/user/userSlice";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
+import EventsPage from "./pages/EventsPage/EventsPage";
+import HistoryPage from "./pages/HistoryPage/HistoryPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -106,15 +109,15 @@ const router = createBrowserRouter([
       },
       {
         path: "events",
-        element: <h1>My Events</h1>,
-      },
-      {
-        path: "history",
-        element: <h1>History</h1>,
+        element: <EventsPage />,
       },
       {
         path: "applications",
         element: <MyApplicationsPage />,
+      },
+      {
+        path: "history",
+        element: <HistoryPage />,
       },
       {
         path: "profile",
@@ -201,12 +204,8 @@ const router = createBrowserRouter([
             element: <CompetitionEditPage />
           },
           {
-            path: "forms",
-            element: <h1>Form Management</h1>,
-          },
-          {
-            path: "statistics",
-            element: <h1>Statistics</h1>,
+            path: ":id/edit-form",
+            element: <FormManagementPage />
           },
         ],
       },

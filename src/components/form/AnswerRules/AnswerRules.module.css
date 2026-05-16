@@ -1,0 +1,53 @@
+.answerRules {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+
+    color: var(--color-text);
+}
+
+.answerRulesHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+
+    width: 100%;
+}
+
+.answerRulesHeaderIcon {
+    width: 24px;
+    height: 24px;
+
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.opened {
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.answerRulesHeaderText {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    width: 134px;
+    
+    cursor: pointer;
+}
+
+.answerRulesLines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.inactive {
+    opacity: 65%;
+}

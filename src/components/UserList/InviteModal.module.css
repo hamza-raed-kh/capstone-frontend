@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputRow {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.inputRow > div:first-child {
+    flex: 1;
+}
+
+.inviteBtn {
+    flex-shrink: 0;
+    width: auto;
+    min-width: auto;
+    min-height: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 6px 6px 10px;
+    background: var(--gradient-main);
+    border-radius: 100px;
+    color: white;
+}
+
+.listItem span {
+    color: white;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.removeBtn {
+    width: auto;
+    min-width: auto;
+    flex-shrink: 0;
+    border-radius: 50px;
+    padding: 4px 16px;
+    min-height: auto;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 8px;
+}
