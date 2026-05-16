@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { format } from "date-fns"
 import SearchBar from "../../components/SearchBar/SearchBar"
@@ -10,6 +11,7 @@ import styles from "../CompetitionDetailPage/CompetitionDetailPage.module.css"
 import adminStyles from "./AdminCompetitionReviewPage.module.css"
 
 function AdminCompetitionReviewPage() {
+    const navigate = useNavigate()
     const comp = useSelector(selectCompetition)
 
     return (
@@ -98,8 +100,8 @@ function AdminCompetitionReviewPage() {
                         </div>
                         <div className={adminStyles.reviewActions}>
                             <div className={adminStyles.reviewActionsRight}>
-                                <Button variant="red-secondary" className={adminStyles.reviewBtn}>Reject</Button>
-                                <Button variant="primary" className={adminStyles.reviewBtn}>Approve</Button>
+                                <Button variant="red-secondary" className={adminStyles.reviewBtn} onClick={() => navigate('/admin/edit-requests')}>Reject</Button>
+                                <Button variant="primary" className={adminStyles.reviewBtn} onClick={() => navigate('/admin/edit-requests')}>Approve</Button>
                             </div>
                         </div>
                     </div>

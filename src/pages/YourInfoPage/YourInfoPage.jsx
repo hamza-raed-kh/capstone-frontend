@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SectionHeader from '../../components/SectionHeader/SectionHeader';
@@ -18,6 +19,7 @@ import { addToast } from '../../features/toast/toastSlice';
 import styles from './YourInfoPage.module.css';
 
 const YourInfoPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const savedUser = useSelector(selectUser);
 
@@ -117,7 +119,10 @@ const YourInfoPage = () => {
               {/* Action Row */}
               <div className={`${styles.actionRow}`}>
                 <Button variant="red-secondary" onClick={handleDiscard}>Discard</Button>
-                <Button variant="primary" onClick={handleSave}>Save</Button>
+                <div className={styles.actionRowRight}>
+                  <Button variant="secondary" onClick={() => navigate('/account/security')}>Security</Button>
+                  <Button variant="primary" onClick={handleSave}>Save</Button>
+                </div>
               </div>
 
             </form>

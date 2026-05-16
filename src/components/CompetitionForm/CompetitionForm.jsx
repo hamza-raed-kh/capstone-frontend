@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "../inputs/Button/Button"
 import TextInput from "../inputs/TextInput/TextInput"
 import TextArea from "../inputs/TextArea/TextArea"
@@ -23,6 +24,7 @@ const publicityOptions = [
 ]
 
 function CompetitionForm({ initialData, isEdit }) {
+  const navigate = useNavigate()
   const [title, setTitle] = useState(initialData?.title || "")
   const [type, setType] = useState(initialData?.type || "")
   const [publicity, setPublicity] = useState(initialData?.publicity || "public")
@@ -146,12 +148,12 @@ function CompetitionForm({ initialData, isEdit }) {
           </div>
           <div className={styles.formActions}>
             <div className={styles.formActionsLeft}>
-              <Button variant="red-secondary" className={styles.formActionBtn}>Delete</Button>
+              <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Delete</Button>
             </div>
             <div className={styles.formActionsRight}>
-              <Button variant="red-secondary" className={styles.formActionBtn}>Discard</Button>
-              <Button variant="secondary" className={styles.formActionBtn}>Save</Button>
-              <Button variant="primary" className={styles.formActionBtn}>Submit</Button>
+              <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Discard</Button>
+              <Button variant="secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Save</Button>
+              <Button variant="primary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Submit</Button>
             </div>
           </div>
         </div>
