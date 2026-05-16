@@ -1,7 +1,14 @@
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import SectionHeader from '../SectionHeader/SectionHeader'
 import UserRecord from '../UserRecord/UserRecord'
+import { Button } from '../inputs/Button/Button'
+import TextInput from '../inputs/TextInput/TextInput'
+import Icon from '../Icon/Icon'
+import Modal from '../Modal/Modal'
+import { addInvitedUser, removeInvitedUser, selectInvitedUsers } from '../../features/competition/competitionSlice'
 import styles from './UserList.module.css'
+import inviteStyles from './InviteModal.module.css'
 
 /**
  * A userlist component with different visual styles.
@@ -18,6 +25,27 @@ import styles from './UserList.module.css'
  */
 const UserList = ({ variant = "closeable", icon, title, category, userrecords }) => {
     let [open, setOpen] = useState(true)
+    let [inviteModalOpen, setInviteModalOpen] = useState(false)
+    let [inviteInput, setInviteInput] = useState("")
+    const dispatch = useDispatch()
+    const invitedUsers = useSelector(selectInvitedUsers)
+
+    const handleRemoveInvited = (username) => {
+        dispatch(removeInvitedUser(username))
+    }
+
+    const handleAddInvited = () => {
+        if (inviteInput.trim() && !invitedUsers.find(u => u.username === inviteInput.trim())) {
+            dispatch(addInvitedUser({ username: inviteInput.trim() }))
+            setInviteInput("")
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleAddInvited()
+        }
+    }
 
     const handleToggleOpen = (e) => {
         setOpen(!open);
@@ -46,7 +74,47 @@ const UserList = ({ variant = "closeable", icon, title, category, userrecords })
                     ) :
                     (<></>)
                 }
+                {title === "Invited" && open && (
+                    <div className={styles.inviteSection}>
+                        <Button variant="primary" onClick={() => setInviteModalOpen(true)}>
+                            Invite
+                            <Icon icon="mdi:plus" size={20} />
+                        </Button>
+                    </div>
+                )}
             </div>
+            <Modal isOpen={inviteModalOpen} onClose={() => setInviteModalOpen(false)} title="Invite Participants" hideHeader>
+                <div className={inviteStyles.container}>
+                    <SectionHeader icon="mdi:information-outline" title="Invite Participant" />
+                    <div className={inviteStyles.inputRow}>
+                        <TextInput
+                            label="Username"
+                            inlineLabel
+                            value={inviteInput}
+                            onChange={e => setInviteInput(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <Button variant="primary" className={inviteStyles.inviteBtn} onClick={handleAddInvited}>Invite</Button>
+                    </div>
+                    <div className={inviteStyles.list}>
+                        {invitedUsers.map(u => (
+                            <div key={u.username} className={inviteStyles.listItem}>
+                                <div className={inviteStyles.userInfo}>
+                                    <img className={inviteStyles.avatar} src={`https://i.pravatar.cc/150?u=${u.username}`} alt={u.username} />
+                                    <span>{u.username}</span>
+                                </div>
+                                <Button variant="red-secondary" className={inviteStyles.removeBtn} onClick={() => handleRemoveInvited(u.username)}>
+                                    Remove
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
+                    <div className={inviteStyles.footer}>
+                        <Button variant="red-secondary" onClick={() => setInviteModalOpen(false)}>Cancel</Button>
+                        <Button variant="primary" onClick={() => setInviteModalOpen(false)}>Invite</Button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

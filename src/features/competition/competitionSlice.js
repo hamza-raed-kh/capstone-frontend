@@ -35,6 +35,10 @@ const initialState = {
     { question: "How will submissions be evaluated?", answer: "Submissions will be evaluated based on innovation (30%), technical implementation (30%), impact (20%), and presentation (20%). Detailed rubrics will be provided for each phase of the competition." },
     { question: "Are there any prizes for runners-up?", answer: "Yes! In addition to the grand prize, we have prizes for second place ($2,000), third place ($1,000), and category-specific awards including Best Innovation and People's Choice award." },
   ],
+  invitedUsers: [
+    { username: "Ahmed" },
+    { username: "Sara" },
+  ],
 };
 
 const competitionSlice = createSlice({
@@ -45,10 +49,18 @@ const competitionSlice = createSlice({
       return { ...state, ...action.payload };
     },
     resetCompetition: () => initialState,
+    addInvitedUser: (state, action) => {
+      if (!state.invitedUsers.find(u => u.username === action.payload.username)) {
+        state.invitedUsers.push(action.payload);
+      }
+    },
+    removeInvitedUser: (state, action) => {
+      state.invitedUsers = state.invitedUsers.filter(u => u.username !== action.payload);
+    },
   },
 });
 
-export const { setCompetition, resetCompetition } = competitionSlice.actions;
+export const { setCompetition, resetCompetition, addInvitedUser, removeInvitedUser } = competitionSlice.actions;
 
 export const selectCompetition = (state) => state.competition;
 export const selectCompetitionTitle = (state) => state.competition.title;
@@ -72,5 +84,6 @@ export const selectCompetitionDates = (state) => ({
 export const selectCompetitionTags = (state) => state.competition.tags;
 export const selectCompetitionAnnouncements = (state) => state.competition.announcements;
 export const selectCompetitionFaq = (state) => state.competition.faq;
+export const selectInvitedUsers = (state) => state.competition.invitedUsers;
 
 export default competitionSlice.reducer;
