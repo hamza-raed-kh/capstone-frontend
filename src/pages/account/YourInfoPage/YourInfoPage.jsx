@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useGetMeQuery, useUpdateMeMutation } from '../../../features/api/authApi';
 import SearchBar from '../../../components/ui/SearchBar/SearchBar';
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader';
 import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout';
@@ -11,25 +12,40 @@ import DateInput from '../../../components/inputs/DateInput/DateInput';
 import FileInput from '../../../components/inputs/FileInput/FileInput';
 import { Button } from '../../../components/inputs/Button/Button';
 import Icon from '../../../components/ui/Icon/Icon';
-import {
-  selectUser,
-  setUserProfile,
-} from '../../../features/user/userSlice';
 import { addToast } from '../../../features/toast/toastSlice';
 import styles from './YourInfoPage.module.css';
+
+const INITIAL_DRAFT = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  aboutMe: '',
+  gender: '',
+  dateOfBirth: null,
+  profilePicUrl: '',
+};
 
 const YourInfoPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const savedUser = useSelector(selectUser);
+  const { data: userProfile } = useGetMeQuery(undefined, { skip: false });
+  const [updateMe, { isLoading }] = useUpdateMeMutation();
 
-  // Local draft — only flushed to the store on "Save Changes"
-  const [draft, setDraft] = useState({ ...savedUser });
+  const [draft, setDraft] = useState(INITIAL_DRAFT);
 
-  // Keep draft in sync if store changes externally (e.g. API pre-fill)
   useEffect(() => {
-    setDraft({ ...savedUser });
-  }, [savedUser]);
+    if (userProfile) {
+      setDraft({
+        firstName: userProfile.first_name || '',
+        lastName: userProfile.last_name || '',
+        email: userProfile.email || '',
+        aboutMe: userProfile.bio || '',
+        gender: userProfile.gender || '',
+        dateOfBirth: userProfile.date_of_birth || null,
+        profilePicUrl: userProfile.profile_picture || '',
+      });
+    }
+  }, [userProfile]);
 
   const updateDraft = (field) => (value) =>
     setDraft((prev) => ({ ...prev, [field]: value }));
@@ -38,22 +54,38 @@ const YourInfoPage = () => {
     const file = e.target.files[0];
     if (!file) return;
     const url = URL.createObjectURL(file);
-    // Still update draft so the save button works correctly
     setDraft((prev) => ({ ...prev, profilePicUrl: url }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     try {
-      dispatch(setUserProfile(draft));
+      await updateMe({
+        first_name: draft.firstName,
+        last_name: draft.lastName,
+        email: draft.email,
+        bio: draft.aboutMe,
+        gender: draft.gender || undefined,
+        date_of_birth: draft.dateOfBirth || undefined,
+      }).unwrap();
       dispatch(addToast({ message: 'Profile updated successfully!', type: 'success' }));
-    } catch (error) {
+    } catch {
       dispatch(addToast({ message: 'Failed to update profile.', type: 'error' }));
     }
   };
 
   const handleDiscard = () => {
-    setDraft({ ...savedUser });
+    if (userProfile) {
+      setDraft({
+        firstName: userProfile.first_name || '',
+        lastName: userProfile.last_name || '',
+        email: userProfile.email || '',
+        aboutMe: userProfile.bio || '',
+        gender: userProfile.gender || '',
+        dateOfBirth: userProfile.date_of_birth || null,
+        profilePicUrl: userProfile.profile_picture || '',
+      });
+    }
   };
 
   return (

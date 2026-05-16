@@ -3,7 +3,7 @@ import { NavLink as RouterNavLink } from 'react-router-dom';
 import Icon from '@/components/ui/Icon/Icon';
 import styles from './NavLink.module.css';
 
-const NavLink = ({ to, label, icon, disabled }) => {
+const NavLink = ({ to, label, icon, disabled, end }) => {
   if (disabled) {
     return (
       <li className={styles.navItemDisabled}>
@@ -19,6 +19,7 @@ const NavLink = ({ to, label, icon, disabled }) => {
     <li className={styles.navItem}>
       <RouterNavLink
         to={to}
+        end={end}
         className={({ isActive }) =>
           isActive ? `${styles.link} ${styles.linkActive}` : styles.link
         }

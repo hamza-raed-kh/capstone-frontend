@@ -1,7 +1,9 @@
 import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout';
 import Icon from '../../../components/ui/Icon/Icon';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setCurrentCompetition, clearCurrentCompetition } from '../../../features/competition/competitionSlice';
 import SearchBar from '../../../components/ui/SearchBar/SearchBar';
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader';
 import FormQuestion from '../../../components/form/FormQuestion/FormQuestion';
@@ -13,6 +15,13 @@ import styles from './FormManagementPage.module.css';
 import { produce } from "immer";
 
 const FormManagementPage = () => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (id) dispatch(setCurrentCompetition(Number(id)))
+        return () => dispatch(clearCurrentCompetition())
+    }, [id, dispatch])
+
     // questions, comp_name, teams=true, path=[], actionByPath, onDiscard, onSave
 	const [questions, setQuestions] = useState([
 		{

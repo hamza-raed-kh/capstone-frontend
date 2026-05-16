@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import SectionHeader from '../../ui/SectionHeader/SectionHeader'
 import UserRecord from '../UserRecord/UserRecord'
 import { Button } from '../../inputs/Button/Button'
 import TextInput from '../../inputs/TextInput/TextInput'
 import Icon from '../../ui/Icon/Icon'
 import Modal from '../../ui/Modal/Modal'
-import { addInvitedUser, removeInvitedUser, selectInvitedUsers } from '../../../features/competition/competitionSlice'
 import styles from './UserList.module.css'
 import inviteStyles from './InviteModal.module.css'
 
@@ -27,16 +25,15 @@ const UserList = ({ variant = "closeable", icon, title, category, userrecords })
     let [open, setOpen] = useState(true)
     let [inviteModalOpen, setInviteModalOpen] = useState(false)
     let [inviteInput, setInviteInput] = useState("")
-    const dispatch = useDispatch()
-    const invitedUsers = useSelector(selectInvitedUsers)
+    let [invitedUsers, setInvitedUsers] = useState([])
 
     const handleRemoveInvited = (username) => {
-        dispatch(removeInvitedUser(username))
+        setInvitedUsers(prev => prev.filter(u => u.username !== username))
     }
 
     const handleAddInvited = () => {
         if (inviteInput.trim() && !invitedUsers.find(u => u.username === inviteInput.trim())) {
-            dispatch(addInvitedUser({ username: inviteInput.trim() }))
+            setInvitedUsers(prev => [...prev, { username: inviteInput.trim() }])
             setInviteInput("")
         }
     }

@@ -1,18 +1,40 @@
-import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useParams, useNavigate } from "react-router-dom"
 import { format } from "date-fns"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import { Button } from "../../../components/inputs/Button/Button"
 import Icon from "../../../components/ui/Icon/Icon"
 import CategoryTag from "../../../components/ui/CategoryTag/CategoryTag"
-import { selectCompetition } from "../../../features/competition/competitionSlice"
+import { useGetEventQuery, useUpdateEventMutation } from "../../../features/api/eventApi"
 import styles from "../../competition/CompetitionDetailPage/CompetitionDetailPage.module.css"
 import adminStyles from "./AdminCompetitionReviewPage.module.css"
 
 function AdminCompetitionReviewPage() {
+    const { id } = useParams()
     const navigate = useNavigate()
-    const comp = useSelector(selectCompetition)
+    const { data: comp, isLoading } = useGetEventQuery(Number(id))
+    const [updateEvent, { isLoading: isUpdating }] = useUpdateEventMutation()
+
+    const handleApprove = async () => {
+        try {
+            await updateEvent({ id: comp.id, status: "open" }).unwrap()
+            navigate('/admin/draft-submissions')
+        } catch (err) {
+            console.error("Approve failed:", err?.data || err?.status || err)
+        }
+    }
+
+    const handleReject = async () => {
+        try {
+            await updateEvent({ id: comp.id, status: "draft" }).unwrap()
+            navigate('/admin/draft-submissions')
+        } catch (err) {
+            console.error("Reject failed:", err?.data || err?.status || err)
+        }
+    }
+
+    if (isLoading) return <SectionedLayout preset="home"><div>Loading...</div></SectionedLayout>
+    if (!comp) return <SectionedLayout preset="home"><div>Competition not found.</div></SectionedLayout>
 
     return (
         <SectionedLayout preset="home">
@@ -22,21 +44,21 @@ function AdminCompetitionReviewPage() {
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.pageBody}>
-                        <div className={styles.bannerContainer} style={{ backgroundImage: `url(${comp.banner})` }}>
+                        <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${comp.banner}) center/cover no-repeat` : 'var(--gradient-main)' }}>
                             <div className={styles.bannerOverlay}>
                                 <div className={styles.bannerTopRight}>
-                                    <span className={styles.publicityPill}>{comp.publicity}</span>
+                                    <span className={styles.publicityPill}>{comp.visibility}</span>
                                 </div>
                                 <div className={styles.bannerBottomRow}>
                                     <div className={styles.bannerBottomLeft}>
                                         <img
                                             className={styles.hostAvatar}
-                                            src={comp.host.avatar}
-                                            alt={comp.host.name}
+                                            src={`https://i.pravatar.cc/150?u=${comp.organizer}`}
+                                            alt="Organizer"
                                         />
                                         <div className={styles.bannerTitleGroup}>
                                             <span className={styles.bannerTitle}>{comp.title}</span>
-                                            <span className={styles.bannerHost}>by {comp.host.name}</span>
+                                            <span className={styles.bannerHost}>by Organizer #{comp.organizer}</span>
                                         </div>
                                     </div>
                                     <div className={styles.bannerBottomRight}>
@@ -53,7 +75,7 @@ function AdminCompetitionReviewPage() {
                             </div>
                         </div>
                         <div className={styles.detailsContainer}>
-                            <span className={styles.typePill}>{comp.type}</span>
+                            <span className={styles.typePill}>{comp.event_type || "Competition"}</span>
                             <div className={styles.detailsGrid}>
                                 <div className={styles.detailsColumn}>
                                     <div className={styles.detailRow}>
@@ -62,46 +84,38 @@ function AdminCompetitionReviewPage() {
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:calendar" size={20} />
-                                        <span>{format(comp.startDate, "MMM d, yyyy")} - {format(comp.endDate, "MMM d, yyyy")}</span>
+                                        <span>{comp.start_date ? `${format(comp.start_date, "MMM d, yyyy")} - ${comp.end_date ? format(comp.end_date, "MMM d, yyyy") : ""}` : "Dates TBA"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:map-marker" size={20} />
                                         <span>{comp.location || "Virtual"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
-                                        {comp.tags.map((tag) => (
-                                            <CategoryTag key={tag} text={tag} />
+                                        {(comp.topics || []).map((tag) => (
+                                            <CategoryTag key={tag} text={`Topic #${tag}`} />
                                         ))}
                                     </div>
                                 </div>
                                 <div className={styles.detailsColumn}>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:people" size={20} />
-                                        <span>{comp.currentParticipants}/{comp.maxParticipants}</span>
+                                        <span>{comp.capacity ? `0/${comp.capacity}` : "No limit"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:account-group" size={20} />
-                                        <span>{comp.teamSpec.min}-{comp.teamSpec.max} Members</span>
+                                        <span>{comp.team_size_min || 1}-{comp.team_size_max || 1} Members</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.descriptionContainer}>
                             <h2 className={styles.descriptionHeading}>About this competition</h2>
-                            <p className={styles.descriptionText}>
-                                {comp.description}
-                            </p>
-                            <p className={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <p className={styles.descriptionText}>
-                                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
-                            </p>
+                            <p className={styles.descriptionText}>{comp.description}</p>
                         </div>
                         <div className={adminStyles.reviewActions}>
                             <div className={adminStyles.reviewActionsRight}>
-                                <Button variant="red-secondary" className={adminStyles.reviewBtn} onClick={() => navigate('/admin/edit-requests')}>Reject</Button>
-                                <Button variant="primary" className={adminStyles.reviewBtn} onClick={() => navigate('/admin/edit-requests')}>Approve</Button>
+                                <Button variant="red-secondary" className={adminStyles.reviewBtn} onClick={handleReject} disabled={isUpdating}>Reject</Button>
+                                <Button variant="primary" className={adminStyles.reviewBtn} onClick={handleApprove} disabled={isUpdating}>Approve</Button>
                             </div>
                         </div>
                     </div>

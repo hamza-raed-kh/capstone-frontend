@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useGetMeQuery, useUpdateMeMutation } from '../../../features/api/authApi';
+import { selectTheme, setTheme } from '../../../features/user/userSlice';
 import SearchBar from '../../../components/ui/SearchBar/SearchBar';
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader';
 import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout';
@@ -7,10 +9,6 @@ import { CheckboxInput, CheckboxGroup } from '../../../components/inputs/Checkbo
 import { Button } from '../../../components/inputs/Button/Button';
 import Icon from '../../../components/ui/Icon/Icon';
 import * as RadioGroup from '@radix-ui/react-radio-group';
-import {
-  selectUser,
-  setUserProfile,
-} from '../../../features/user/userSlice';
 import { addToast } from '../../../features/toast/toastSlice';
 import styles from './PersonalizationPage.module.css';
 
@@ -37,20 +35,22 @@ const THEME_OPTIONS = [
 
 const PersonalizationPage = () => {
   const dispatch = useDispatch();
-  const savedUser = useSelector(selectUser);
+  const savedTheme = useSelector(selectTheme);
+  const { data: userProfile } = useGetMeQuery(undefined, { skip: false });
+  const [updateMe] = useUpdateMeMutation();
 
-  // Local draft state
-  const [draft, setDraft] = useState(savedUser);
+  const [draftInterests, setDraftInterests] = useState([]);
+  const [draftTheme, setDraftTheme] = useState(savedTheme);
 
-  // Sync draft when store updates (e.g., initial load or save)
   useEffect(() => {
-    setDraft(savedUser);
-  }, [savedUser]);
+    if (userProfile?.interests) {
+      setDraftInterests(userProfile.interests);
+    }
+  }, [userProfile]);
 
-  // Live preview and auto-discard logic
+  // Live theme preview
   useEffect(() => {
     const root = document.documentElement;
-
     const applyTheme = (t) => {
       if (!t) return;
       if (t === 'system') {
@@ -60,33 +60,26 @@ const PersonalizationPage = () => {
         root.setAttribute('data-theme', t);
       }
     };
-
-    // Apply the draft theme for live preview
-    applyTheme(draft.theme);
-
-    // Cleanup: When leaving the page (unmounting), revert to the officially saved theme
+    applyTheme(draftTheme);
     return () => {
-      applyTheme(savedUser.theme);
+      applyTheme(savedTheme);
     };
-  }, [draft.theme, savedUser.theme]);
+  }, [draftTheme, savedTheme]);
 
-
-
-  const updateDraft = (field) => (value) =>
-    setDraft((prev) => ({ ...prev, [field]: value }));
-
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     try {
-      dispatch(setUserProfile(draft));
+      await updateMe({ interests: draftInterests }).unwrap();
+      dispatch(setTheme(draftTheme));
       dispatch(addToast({ message: 'Personalization saved!', type: 'success' }));
-    } catch (error) {
+    } catch {
       dispatch(addToast({ message: 'Failed to save settings.', type: 'error' }));
     }
   };
 
   const handleDiscard = () => {
-    setDraft({ ...savedUser });
+    setDraftInterests(userProfile?.interests || []);
+    setDraftTheme(savedTheme);
   };
 
   return (
@@ -106,8 +99,8 @@ const PersonalizationPage = () => {
                   Select topics you're interested in to personalize your feed.
                 </p>
                 <CheckboxGroup
-                  value={draft.interests || []}
-                  onChange={updateDraft('interests')}
+                  value={draftInterests}
+                  onChange={setDraftInterests}
                   direction='row'
                   className={styles.interestsGrid}
                 >
@@ -132,8 +125,8 @@ const PersonalizationPage = () => {
                 </p>
                 <RadioGroup.Root
                   className={styles.themeGrid}
-                  value={draft.theme}
-                  onValueChange={updateDraft('theme')}
+                  value={draftTheme}
+                  onValueChange={setDraftTheme}
                 >
                   {THEME_OPTIONS.map((opt) => (
                     <RadioGroup.Item

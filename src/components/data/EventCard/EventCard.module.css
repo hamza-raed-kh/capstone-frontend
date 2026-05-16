@@ -387,6 +387,25 @@
     flex-grow: 0;
 }
 
+.eventcardCreate {
+    width: 100%;
+    min-height: 380px;
+    background: var(--shadow-main);
+    border-radius: 24px;
+    outline: 2px dashed var(--color-main);
+    outline-offset: -2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eventcardCreateContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .eventcardButtonsReject {
     /* Main Button */
 

@@ -38,6 +38,12 @@
   filter: brightness(110%);
 }
 
+.error {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
 .footerText {
   text-align: center;
   margin-top: 2rem;
