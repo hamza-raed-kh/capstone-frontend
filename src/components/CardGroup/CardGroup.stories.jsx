@@ -14,7 +14,7 @@ export default {
 }
 
 /**
- * The only variant of the `CardGroup` component.
+ * The closable variant of the `CardGroup` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */
@@ -50,7 +50,7 @@ export const Closeable = {
 };
 
 /**
- * The only variant of the `CardGroup` component.
+ * The open variant of the `CardGroup` component.
  *
  * @type {import('@storybook/react').StoryObj}
  */

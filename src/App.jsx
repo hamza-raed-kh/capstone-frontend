@@ -13,6 +13,7 @@ import FollowingPage from "./pages/FollowingPage/FollowingPage";
 import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
 import CompetitionEditPage from "./pages/CompetitionEditPage/CompetitionEditPage";
+import FormManagementPage from "./pages/FormManagementPage/FormManagementPage";
 import AdminCompetitionReviewPage from "./pages/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
@@ -26,6 +27,8 @@ import { useSelector } from "react-redux";
 import { selectTheme } from "./features/user/userSlice";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
+import EventsPage from "./pages/EventsPage/EventsPage";
+import HistoryPage from "./pages/HistoryPage/HistoryPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -101,8 +104,16 @@ const router = createBrowserRouter([
         element: <ExplorePage />,
       },
       {
+        path: "events",
+        element: <EventsPage />,
+      },
+      {
         path: "applications",
         element: <MyApplicationsPage />,
+      },
+      {
+        path: "history",
+        element: <HistoryPage />,
       },
       {
         path: "profile",
@@ -171,6 +182,10 @@ const router = createBrowserRouter([
           {
             path: ":id/edit",
             element: <CompetitionEditPage />
+          },
+          {
+            path: ":id/edit-form",
+            element: <FormManagementPage />
           },
         ],
       },

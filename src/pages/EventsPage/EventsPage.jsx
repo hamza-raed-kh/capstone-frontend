@@ -2,9 +2,9 @@ import FilterRow from "../../components/FilterRow/FilterRow"
 import Results from "../../components/Results/Results"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
-import styles from './MyApplicationsPage.module.css'
+import styles from './EventsPage.module.css'
 
-function MyApplicationsPage() {
+function EventsPage() {
     
     let variant = 'main'
     let banner_url = "https://img.freepik.com/premium-photo/abstract-rainbow-colorful-bright-feather-closeup-up-macro-view-background-plumage-texture-withlet -dew-drops_753134-644.jpg?w=2000"
@@ -14,16 +14,14 @@ function MyApplicationsPage() {
     let onClick = {view: function(){}}
 
     let eventcards = [
-          { variant, banner_url, info, details, button, onClick },
-          { variant, banner_url, info, details, button, onClick },
-          { variant, banner_url, info, details, button, onClick },
-      ]
+        { variant, banner_url, info, details, button, onClick },
+        { variant, banner_url, info, details, button, onClick },
+        { variant, banner_url, info, details, button, onClick },
+    ]
     
     let cardgroups =[
         {icon: '', title: 'Ongoing', category: '', eventcards},
         {icon: '', title: 'Upcoming', category: '', eventcards},
-        {icon: '', title: 'Ended', category: '', eventcards},
-        {icon: '', title: 'Cancelled', category: '', eventcards},
     ]
 
 
@@ -44,4 +42,4 @@ function MyApplicationsPage() {
     )
 }
 
-export default MyApplicationsPage
+export default EventsPage
