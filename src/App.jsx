@@ -27,6 +27,8 @@ import { useSelector } from "react-redux";
 import { selectTheme } from "./features/user/userSlice";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
+import EventsPage from "./pages/EventsPage/EventsPage";
+import HistoryPage from "./pages/HistoryPage/HistoryPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -102,8 +104,16 @@ const router = createBrowserRouter([
         element: <ExplorePage />,
       },
       {
+        path: "events",
+        element: <EventsPage />,
+      },
+      {
         path: "applications",
         element: <MyApplicationsPage />,
+      },
+      {
+        path: "history",
+        element: <HistoryPage />,
       },
       {
         path: "profile",

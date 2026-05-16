@@ -256,7 +256,7 @@ const FormManagementPage = () => {
 	}
 
     return (
-        <SectionedLayout preset="home">
+        <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
