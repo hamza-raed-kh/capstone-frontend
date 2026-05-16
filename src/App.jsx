@@ -1,5 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { Sandbox } from "./pages/Sandbox";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import ExplorePage from "./pages/ExplorePage/ExplorePage"
 import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage"
 import ChangeRequestPage from "./pages/admin/ChangeRequestPage/ChangeRequestPage"
@@ -23,7 +22,7 @@ import React from "react";
 import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/Toast/Toast";
 import { useSelector } from "react-redux";
-import { selectTheme } from "./features/user/userSlice";
+import { selectTheme, selectIsLoggedIn } from "./features/user/userSlice";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
 
@@ -71,6 +70,11 @@ const RootLayout = () => {
   );
 };
 
+const HomeRedirect = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  return <Navigate to={isLoggedIn ? "/explore" : "/signup"} replace />;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,7 +82,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>Home Page</h1>,
+        element: <HomeRedirect />,
       },
 
       // Login & Onboarding pages
@@ -101,6 +105,14 @@ const router = createBrowserRouter([
         element: <ExplorePage />,
       },
       {
+        path: "events",
+        element: <h1>My Events</h1>,
+      },
+      {
+        path: "history",
+        element: <h1>History</h1>,
+      },
+      {
         path: "applications",
         element: <MyApplicationsPage />,
       },
@@ -118,12 +130,28 @@ const router = createBrowserRouter([
         path: "community",
         children: [
           {
+            path: "announcements",
+            element: <h1>Announcements</h1>,
+          },
+          {
             path: "faq",
             element: <FaqPage />,
           },
           {
+            path: "dm",
+            element: <h1>Organizer DM</h1>,
+          },
+          {
+            path: "teamchat",
+            element: <h1>Team Chat</h1>,
+          },
+          {
             path: "general",
             element: <ChatPage />,
+          },
+          {
+            path: "public",
+            element: <h1>Public Chat</h1>,
           },
         ],
       },
@@ -172,6 +200,14 @@ const router = createBrowserRouter([
             path: ":id/edit",
             element: <CompetitionEditPage />
           },
+          {
+            path: "forms",
+            element: <h1>Form Management</h1>,
+          },
+          {
+            path: "statistics",
+            element: <h1>Statistics</h1>,
+          },
         ],
       },
       
@@ -182,6 +218,10 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <AdminLoginPage />,
+          },
+          {
+            path: "dashboard",
+            element: <h1>Admin Dashboard</h1>,
           },
           {
             path: "edit-requests",
@@ -197,6 +237,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "django-admin",
+        element: <h1>Django Admin</h1>,
+      },
     ],
   },
 ]);
@@ -208,8 +252,5 @@ const router = createBrowserRouter([
  * @returns {JSX.Element} The `RouterProvider` component with the configured router.
  */
 export default function App() {
-  function selectSectionedLayout() {
-    return false
-  }
   return <RouterProvider router={router} />;
 }

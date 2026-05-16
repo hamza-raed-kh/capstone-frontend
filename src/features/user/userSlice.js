@@ -11,6 +11,7 @@ const initialState = {
   dateOfBirth: "2000-01-15",
   interests: ["tech", "sports"],
   theme: "light",
+  isLoggedIn: true,
 };
 
 const userSlice = createSlice({
@@ -51,6 +52,12 @@ const userSlice = createSlice({
     setUserProfile: (state, action) => {
       return { ...state, ...action.payload };
     },
+    setLoggedIn: (state) => {
+      state.isLoggedIn = true;
+    },
+    setLoggedOut: (state) => {
+      state.isLoggedIn = false;
+    },
     /**
      * Resets all user data back to the initial empty state.
      */
@@ -69,6 +76,8 @@ export const {
   setInterests,
   setTheme,
   setUserProfile,
+  setLoggedIn,
+  setLoggedOut,
   resetUser,
 } = userSlice.actions;
 
@@ -83,5 +92,6 @@ export const selectGender = (state) => state.user.gender;
 export const selectDateOfBirth = (state) => state.user.dateOfBirth;
 export const selectInterests = (state) => state.user.interests;
 export const selectTheme = (state) => state.user.theme;
+export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 
 export default userSlice.reducer;

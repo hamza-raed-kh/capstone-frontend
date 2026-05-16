@@ -5,7 +5,7 @@ import styles from "./CompetitionCreatePage.module.css"
 
 function CompetitionCreatePage() {
     return (
-        <SectionedLayout preset="home">
+        <SectionedLayout preset="organizer">
             <div className={styles.pageWrap}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />

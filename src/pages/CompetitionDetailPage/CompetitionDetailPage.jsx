@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { format } from "date-fns"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -16,6 +17,7 @@ import { selectCompetition } from "../../features/competition/competitionSlice"
 import styles from './CompetitionDetailPage.module.css'
 
 function CompetitionDetailPage() {
+    const navigate = useNavigate()
     const comp = useSelector(selectCompetition)
     const [applyOpen, setApplyOpen] = useState(false)
     const [withdrawOpen, setWithdrawOpen] = useState(false)
@@ -53,7 +55,7 @@ function CompetitionDetailPage() {
     }
 
     return (
-        <SectionedLayout preset="home">
+        <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
@@ -82,7 +84,7 @@ function CompetitionDetailPage() {
                                             <Button variant="primary" className={styles.applyBtn} onClick={() => setApplyOpen(true)}>
                                                 Apply
                                             </Button>
-                                            <button className={styles.messageBtn}>
+                                            <button className={styles.messageBtn} onClick={() => navigate('/community/general')}>
                                                 <Icon icon="fluent:chat-32-filled" size={20} color="white" />
                                             </button>
                                         </div>
@@ -220,7 +222,7 @@ function CompetitionDetailPage() {
                                 <div className={styles.inviteInputWrap}>
                                     <TextInput placeholder="Enter email to invite" value={inviteInput} onChange={e => setInviteInput(e.target.value)} />
                                 </div>
-                                <Button variant="primary" className={styles.inviteBtn}>Invite</Button>
+                                <Button variant="primary" className={styles.inviteBtn} onClick={() => setApplyOpen(false)}>Invite</Button>
                             </div>
                             <div className={styles.memberList}>
                                 {members.map((m, i) => (
@@ -237,9 +239,9 @@ function CompetitionDetailPage() {
                             <Button variant="red-secondary" className={styles.applyActionBtn} onClick={() => setDeleteOpen(true)}>Delete Application</Button>
                         </div>
                         <div className={styles.applyActionsRight}>
-                            <Button variant="red-secondary" className={styles.applyActionBtn}>Discard</Button>
-                            <Button variant="secondary" className={styles.applyActionBtn}>Save</Button>
-                            <Button variant="primary" className={styles.applyActionBtn}>Submit</Button>
+                            <Button variant="red-secondary" className={styles.applyActionBtn} onClick={() => setApplyOpen(false)}>Discard</Button>
+                            <Button variant="secondary" className={styles.applyActionBtn} onClick={() => setApplyOpen(false)}>Save</Button>
+                            <Button variant="primary" className={styles.applyActionBtn} onClick={() => setApplyOpen(false)}>Submit</Button>
                         </div>
                     </div>
                 </div>
@@ -260,7 +262,7 @@ function CompetitionDetailPage() {
                     <TextInput placeholder="Yes" value={withdrawInput} onChange={e => setWithdrawInput(e.target.value)} />
                     <div className={styles.withdrawActions}>
                         <Button variant="primary" onClick={() => setWithdrawOpen(false)}>Cancel</Button>
-                        <Button variant="red-secondary">Confirm</Button>
+                        <Button variant="red-secondary" onClick={() => { setWithdrawOpen(false); setWithdrawInput("") }}>Confirm</Button>
                     </div>
                 </div>
             </Modal>
@@ -280,7 +282,7 @@ function CompetitionDetailPage() {
                     <TextInput placeholder="Yes" value={deleteInput} onChange={e => setDeleteInput(e.target.value)} />
                     <div className={styles.withdrawActions}>
                         <Button variant="primary" onClick={() => setDeleteOpen(false)}>Cancel</Button>
-                        <Button variant="red-secondary">Confirm</Button>
+                        <Button variant="red-secondary" onClick={() => { setDeleteOpen(false); setDeleteInput("") }}>Confirm</Button>
                     </div>
                 </div>
             </Modal>

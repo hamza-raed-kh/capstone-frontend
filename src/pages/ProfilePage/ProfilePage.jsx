@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import SectionedLayout from "../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SectionHeader from "../../components/SectionHeader/SectionHeader"
@@ -7,6 +8,7 @@ import styles from './ProfilePage.module.css'
 import { Button } from '../../components/inputs/Button/Button'
 
 function ProfilePage() {
+  const navigate = useNavigate()
   const profile = {
     avatar: 'https://search.beastfly.win/image_proxy?url=https%3A%2F%2Fimgs.search.brave.com%2FhnQ7lLSxa7xnk1DpWsDAFdSYVQLnjb7yvJoewqqY0A4%2Frs%3Afit%3A500%3A0%3A1%3A0%2Fg%3Ace%2FaHR0cHM6Ly9zaG9w%2FLnJveWFsYXJhYmlh%2FbnMuY29tL2Nkbi9z%2FaG9wL2ZpbGVzL2dh%2FemFsLWFsLXNoYXFh%2FYi0wMS5qcGc_dj0x%2FNzExMTQ0NTIyJndp%2FZHRoPTE5NDY&h=71e621cb5ee255464f3a58550b8e7e77233f06862f8af1687ec1973cda9fd8c4',
     name: 'Hamza Khattab',
@@ -19,7 +21,7 @@ function ProfilePage() {
       variant: "main",
       info: { title: "Spring Festival 2026", description: "A great spring festival for all students." },
       details: { prize: "1st Place 500$", participants_now: 10, participants_max: 50, date_start: "Apr 20", date_end: "Apr 22", virtual: false, location: "Main Campus", categories: ["Social", "Fun"] },
-      onClick: { view: () => { }, approve: () => { }, reject: () => { } },
+      onClick: { view: () => navigate(`/competition/${1}`), approve: () => { }, reject: () => { } },
       button: { children: "1st", variant: "golden" }
     },
     {
@@ -27,7 +29,7 @@ function ProfilePage() {
       variant: "main",
       info: { title: "Tech Symposium", description: "Discussing the latest in AI and Web Tech." },
       details: { prize: "N/A", participants_now: 100, participants_max: 200, date_start: "Apr 25", date_end: "Apr 25", virtual: true, location: "Online", categories: ["Tech", "Education"] },
-      onClick: { view: () => { }, approve: () => { }, reject: () => { } },
+      onClick: { view: () => navigate(`/competition/${2}`), approve: () => { }, reject: () => { } },
       button: { children: "2nd", variant: "silver" }
     },
     {
@@ -35,7 +37,7 @@ function ProfilePage() {
       variant: "main",
       info: { title: "Tech Symposium", description: "Discussing the latest in AI and Web Tech." },
       details: { prize: "N/A", participants_now: 100, participants_max: 200, date_start: "Apr 25", date_end: "Apr 25", virtual: true, location: "Online", categories: ["Tech", "Education"] },
-      onClick: { view: () => { }, approve: () => { }, reject: () => { } },
+      onClick: { view: () => navigate(`/competition/${3}`), approve: () => { }, reject: () => { } },
       button: { children: "3rd", variant: "bronze" }
     },
     {
@@ -43,7 +45,7 @@ function ProfilePage() {
       variant: "main",
       info: { title: "Spring Festival 2026", description: "A great spring festival for all students." },
       details: { prize: "1st Place 500$", participants_now: 10, participants_max: 50, date_start: "Apr 20", date_end: "Apr 22", virtual: false, location: "Main Campus", categories: ["Social", "Fun"] },
-      onClick: { view: () => { }, approve: () => { }, reject: () => { } },
+      onClick: { view: () => navigate(`/competition/${1}`), approve: () => { }, reject: () => { } },
       button: { children: "4th", variant: "disabled" }
     },
   ];
@@ -60,7 +62,7 @@ function ProfilePage() {
             <div className={styles.profileInfo}>
               <div className={styles.profileHeader}>
                 <span className={styles.name}>{profile.name}</span>
-                <Button variant="secondary">Follow</Button>
+                <Button variant="secondary" onClick={() => navigate('/login')}>Follow</Button>
               </div>
               <span className={styles.year}>
                 <span className={styles.smurf}>

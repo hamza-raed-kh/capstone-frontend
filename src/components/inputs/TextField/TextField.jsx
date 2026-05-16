@@ -1,7 +1,7 @@
 import TextInput from '../TextInput/TextInput';
 import styles from './TextField.module.css'
 
-const TextField = ({label, type = 'text', value, handler, readOnly}) => {
+const TextField = ({label, type = 'text', value, onChange, readOnly}) => {
     return (
         <div className={`${styles.formField} ${readOnly ? styles.readOnly : ''}`}>
             <label className={styles.rowLabel} htmlFor={label}>{label}</label>

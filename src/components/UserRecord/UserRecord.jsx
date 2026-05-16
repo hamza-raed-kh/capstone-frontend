@@ -1,5 +1,5 @@
-import { Button } from '../inputs/Button/Button'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '../inputs/Button/Button'
 import styles from './UserRecord.module.css'
 
 /**
@@ -14,10 +14,10 @@ import styles from './UserRecord.module.css'
  * @returns {JSX.Element} The rendered userrecord element.
  */
 const UserRecord = ({ variant = 'invited', avatar, username }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const redirectProfile = () => {
-    // navigate('/profile');
+    navigate('/profile');
   }
 
   const handleUnfollow = () => {}
@@ -36,7 +36,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
       
       case 'banned':
         return (
@@ -46,7 +45,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
 
       case 'invited':
         return (
@@ -56,7 +54,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
 
       case 'applied':
         return (
@@ -69,7 +66,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
 
       case 'participant':
         return (
@@ -79,7 +75,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
 
       case 'disqualified':
         return (
@@ -89,7 +84,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
 
       case 'result':
         return (
@@ -105,7 +99,6 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
             </div>
           </>
         );
-        break;
     }
   }
   
