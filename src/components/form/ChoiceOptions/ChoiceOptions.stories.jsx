@@ -27,6 +27,72 @@ export const Default = () => {
         'third',
     ]);
 
+    function actionByPath(path, action, ...args) {
+		switch (action) {
+			case 'update':
+				updateByPath(path, ...args);
+				break;
+			
+			case 'toggle':
+				toggleByPath(path, ...args);
+				break;
+			
+			case 'delete':
+				deleteByPath(path, ...args);
+				break;
+			
+			case 'append':
+				appendByPath(path, ...args);
+				break;
+			
+			case 'move':
+				moveBetweenPaths(path, ...args);
+				break;
+		}
+	}
+	function updateByPath(path, value){
+		setOptions(prev =>
+			produce(prev, draft => {
+				let current = draft;
+				
+				for(let i = 0; i < path.length - 1; i++){
+					current = current[path[i]];
+				}
+				current[path[path.length - 1]] = value;
+			})
+		);
+	}
+    function toggleByPath(path){
+        setOptions(prev =>
+            produce(prev, draft => {
+                let current = draft;
+                for(let i = 0; i < path.length - 1; i++){
+                    current = current[path[i]];
+                }
+
+                const key = path[path.length - 1];
+                current[key] = !current[key];
+            })
+        );
+    }
+	function deleteByPath(path){
+        setOptions(prev =>
+            produce(prev, draft => {
+                let current = draft;
+                for(let i = 0; i < path.length - 1; i++){
+                    current = current[path[i]];
+                }
+
+                const key = path[path.length - 1];
+
+                if(Array.isArray(current)){
+                    current.splice(key, 1);
+                } else {
+                    delete current[key];
+                }
+            })
+        );
+    }
     function appendByPath(path, value){
         setOptions(prev =>
             produce(prev, draft => {
@@ -43,34 +109,51 @@ export const Default = () => {
             })
         );
     }
-    function deleteByPath(path){
-        setOptions(prev =>
-            produce(prev, draft => {
+	function moveBetweenPaths(fromPath, fromIndex, toPath, toIndex){
+		setOptions(prev =>
+			produce(prev, draft => {
+				let fromList = draft;
+				let toList = draft;
 
-                let current = draft;
+				// Navigate to source list
+				for(let i = 0; i < fromPath.length; i++){
+					fromList = fromList[fromPath[i]];
+				}
 
-                for(let i = 0; i < path.length - 1; i++){
-                    current = current[path[i]];
-                }
+				// Navigate to destination list
+				for(let i = 0; i < toPath.length; i++){
+					toList = toList[toPath[i]];
+				}
 
-                const key = path[path.length - 1];
+				// Validate
+				if(!Array.isArray(fromList)) return;
+				if(!Array.isArray(toList)) return;
 
-                if(Array.isArray(current)){
-                    current.splice(key, 1);
-                }
-                else{
-                    delete current[key];
-                }
-            })
-        );
-    }
+				if(
+					fromIndex < 0 ||
+					fromIndex >= fromList.length
+				) return;
+
+				if(
+					toIndex < 0 ||
+					toIndex >= toList.length
+				) return;
+
+				// Remove item from source
+				const [item] = fromList.splice(fromIndex, 1);
+
+				// Insert into destination
+				toList.splice(toIndex, 0, item);
+			})
+		);
+	}
     let staticPathToHere = [];
 
-	return (
+    return (
 		<ChoiceOptions
 			options={options}
-			deleteByPath={(path) => deleteByPath([...staticPathToHere, ...path])}
-            appendByPath={(path, value) => appendByPath([...staticPathToHere, ...path], value)}
+			path={[...staticPathToHere]}
+			actionByPath={actionByPath}
 		/>
 	);
 }

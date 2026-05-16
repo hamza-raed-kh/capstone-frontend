@@ -16,11 +16,11 @@ import AnswerRuleLine from '../AnswerRuleLine/AnswerRuleLine';
  * @param {'text' | 'num' | 'choice'} props.variant - The question's variant.
  * @returns {JSX.Element} The rendered answerrules element.
  */
-const AnswerRules = ({ variant, rules, updateByPath, toggleByPath }) => {
+const AnswerRules = ({ variant, rules, path=[], actionByPath }) => {
     const [open, setOpen] = useState(true);
 
     const handleToggleOpen = () => {
-        setOpen(!open);
+        setOpen(!open);         
     }
 
 	const ruleLines = () => {
@@ -31,8 +31,8 @@ const AnswerRules = ({ variant, rules, updateByPath, toggleByPath }) => {
                         <AnswerRuleLine
                             rule={rules.word_limit}
                             label={'Word Limit'}
-                            updateByPath={(path, value) => updateByPath(['word_limit', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['word_limit', ...path])}
+                            path={[...path, 'word_limit']}
+                            actionByPath={actionByPath}
                         />
                     </>
                 );
@@ -44,20 +44,20 @@ const AnswerRules = ({ variant, rules, updateByPath, toggleByPath }) => {
                         <AnswerRuleLine
                             rule={rules.num_min}
                             label={'Min'}
-                            updateByPath={(path, value) => updateByPath(['num_min', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['num_min', ...path])}
+                            path={[...path, 'num_min']}
+                            actionByPath={actionByPath}
                         />
                         <AnswerRuleLine
                             rule={rules.num_max}
                             label={'Max'}
-                            updateByPath={(path, value) => updateByPath(['num_max', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['num_max', ...path])}
+                            path={[...path, 'num_max']}
+                            actionByPath={actionByPath}
                         />
                         <AnswerRuleLine
                             rule={rules.num_step}
                             label={'Step'}
-                            updateByPath={(path, value) => updateByPath(['num_step', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['num_step', ...path])}
+                            path={[...path, 'num_step']}
+                            actionByPath={actionByPath}
                         />
                     </>
                 );
@@ -72,14 +72,14 @@ const AnswerRules = ({ variant, rules, updateByPath, toggleByPath }) => {
                         <AnswerRuleLine
                             rule={rules.choice_min}
                             label={'Min Choices'}
-                            updateByPath={(path, value) => updateByPath(['choice_min', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['choice_min', ...path])}
+                            path={[...path, 'choice_min']}
+                            actionByPath={actionByPath}
                         />
                         <AnswerRuleLine
                             rule={rules.choice_max}
                             label={'Max Choices'}
-                            updateByPath={(path, value) => updateByPath(['choice_max', ...path], value)}
-                            toggleByPath={(path) => toggleByPath(['choice_max', ...path])}
+                            path={[...path, 'choice_max']}
+                            actionByPath={actionByPath}
                         />
                     </>
                 );

@@ -105,18 +105,14 @@ export const Default = () => {
 	}
     let staticPathToHere = [];
 
-	return (<>
-		{pages.map((_, i) =>{
-			return (
-				<FormPageHeader
-					page={i}
-					max_pages={pages.length}
-					title={_.title}
-					onChangePage={(e) => moveBetweenPaths([...staticPathToHere], i, [...staticPathToHere], e.target.value -1)}
-					onChangeTitle={(e) => updateByPath([...staticPathToHere, i, 'title'], e.target.value)}
-					onDelete={() => deleteByPath([...staticPathToHere, i])}
-				/>
-			)
-		})}
-	</>);
+	return (pages.map((_, i) =>
+		<FormPageHeader
+			page={i}
+			max_pages={pages.length}
+			title={_.title}
+			onChangePage={(e) => moveBetweenPaths([...staticPathToHere], i, [...staticPathToHere], e.target.value -1)}
+			onChangeTitle={(e) => updateByPath([...staticPathToHere, i, 'title'], e.target.value)}
+			onDelete={() => deleteByPath([...staticPathToHere, i])}
+		/>
+	));
 };

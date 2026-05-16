@@ -17,22 +17,17 @@ import ChoiceOptions from '../ChoiceOptions/ChoiceOptions';
  * to the formquestion, allowing for a consistent look and feel across the application.
  *
  * @param {object} props - The properties for the formquestion.
- * @param {number} props.order - The order of this question in the page.
+ * @param {number} props.order - The order of this question in the form.
+ * @param {number} props.form_length - The number of questions in the form.
  * @param {boolean} props.required - The flag indicating whether the question is required.
  * @param {'type' | 'num' | 'choice'} props.type - The question's type.
- * @param {number} props.page - The number of question's page in the form.
  * @param {string} props.question - The text of this question.
  * @param {{rule_name: {active: boolean, num: number}}} props.rules - The object of rules for question's answers.
  * @param {List<string>} props.options - The list of options for choice options.
- * @param {number} props.max_pages - The number of pages in the form.
- * @param {Function} props.updateByPath - The function to update a value in this question.
- * @param {Function} props.toggleByPath - The function to toggle a boolean value in this question.
- * @param {Function} props.deleteByPath - The function to delete a value in this question.
- * @param {Function} props.appendByPath - The function to append a value in this question.
- * @param {Function} props.onDelete - The function to be called when question is deleted.
+ * @param {Function} props.actionByPath - The function to perform an action on the from stat
  * @returns {JSX.Element} The rendered formquestion element.
  */
-const FormQuestion = ({ order, required, type, page, question, options, rules, max_pages, updateByPath, toggleByPath, deleteByPath, appendByPath, onDelete }) => {
+const FormQuestion = ({ order, form_length, required, type, question, options, rules, path=[], actionByPath }) => {
 	const [open, setOpen] = useState(true);
 
     const handleToggleOpen = () => {
@@ -49,25 +44,24 @@ const FormQuestion = ({ order, required, type, page, question, options, rules, m
 							<NumberInput
 								label={'Order'}
 								inlineLabel
-								value={order}
-								onChange={(e) => updateByPath(['order'], e.target.value)}
+								value={order+1}
+								onChange={(e) => actionByPath(path.slice(0,-1), 'move', [], order, [], e.target.value -1)}
 							/>
 						</div>
 						<span>:</span>
 					</div>
-					<div className={styles.questionHeaderSide}>
+					{/* <div className={styles.questionHeaderSide}>
 						<label htmlFor={'Page'}>Page</label>
 						<div className={styles.questionHeaderSideField}>
 							<NumberInput
 								label={'Page'}
 								inlineLabel
 								value={page}
-								onChange={(e) => updateByPath(['page'], e.target.value)}
-								max={max_pages}
+								onChange={(e) => actionByPath([...path, 'page'], 'update', e.target.value)}
 							/>
 						</div>
 						<span>:</span>
-					</div>
+					</div> */}
 				</div>
 				<div className={styles.questionHeaderSecond}>
 					<div className={styles.questionHeaderSecondField}>
@@ -76,7 +70,7 @@ const FormQuestion = ({ order, required, type, page, question, options, rules, m
 							label={'Question'}
 							inlineLabel
 							value={question}
-							onChange={(e) => updateByPath(['question'], e.target.value)}
+							onChange={(e) => actionByPath([...path, 'question'], 'update', e.target.value)}
 						/>
 					</div>
 					<div className={`${styles.questionHeaderSecondIcon} ${open && styles.opened}`}  onClick={handleToggleOpen}>
@@ -98,34 +92,34 @@ const FormQuestion = ({ order, required, type, page, question, options, rules, m
 										{ label: 'Multiple Choice', value: 'choice' }
 									]}
 									value={ type }
-									onChange={(newValue) => updateByPath(['type'], newValue)}
+									onChange={(newValue) => actionByPath([...path, 'type'], 'update', newValue)}
 								/>
 							</div>
 							<div className={styles.questionDetailsSecond}>
 								<CheckboxInput
 									label={'Required?'}
 									value={ required }
-									onChange={() => toggleByPath(['required'])}
+									onChange={() => actionByPath([...path, 'required'], 'toggle')}
 								/>
 							</div>
 						</div>
 						<AnswerRules
 							variant={type}
 							rules={rules}
-							updateByPath={(path, value) => updateByPath(['rules', ...path], value)}
-							toggleByPath={(path) => toggleByPath(['rules', ...path])}
+							path={[...path, 'rules']}
+							actionByPath={actionByPath}
 						/>
 						{ type === 'choice' &&
 							<ChoiceOptions
 								options={options}
-								deleteByPath={(path) => deleteByPath(['options', ...path])}
-								appendByPath={(path, value) => appendByPath(['options', ...path], value)}
+								path={[...path, 'options']}
+								actionByPath={actionByPath}
 							/>
 						}
 					</div>
 					<div className={styles.questionFooter}>
 						<div className={styles.questionFooterButton}>
-							<Button variant={'secondary'} children={'Delete'} onClick={onDelete}/>
+							<Button variant={'secondary'} children={'Delete'} onClick={() => actionByPath([...path], 'delete')}/>
 						</div>
 					</div>
 				</div>

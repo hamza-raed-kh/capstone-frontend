@@ -21,7 +21,7 @@ import { Button } from '../../inputs/Button/Button';
  * @param {Function} props.appendByPath - The function to append a value in the question's choices.
  * @returns {JSX.Element} The rendered choiceoptions element.
  */
-const ChoiceOptions = ({ options, deleteByPath, appendByPath }) => {
+const ChoiceOptions = ({ options, path=[], actionByPath }) => {
     const [open, setOpen] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [appendValue, setAppendValue] = useState('');
@@ -31,22 +31,20 @@ const ChoiceOptions = ({ options, deleteByPath, appendByPath }) => {
     }
     
     const choiceLines = () => {
-        return (
-            <>
-                { options.map((_, i) => {
-                    return (
-                        <div className={styles.choiceOption} key={i}>
-                            <span className={styles.choiceOptionText}>
-                                {_}
-                            </span>
-                            <div className={styles.choiceOptionClose} onClick={() => deleteByPath([i])}>
-                                <Icon icon={"mdi:close"} size={24}/>
-                            </div>
+        return (<>
+            { options.map((_, i) => {
+                return (
+                    <div className={styles.choiceOption} key={i}>
+                        <span className={styles.choiceOptionText}>
+                            {_}
+                        </span>
+                        <div className={styles.choiceOptionClose} onClick={() => actionByPath([...path, i], 'delete')}>
+                            <Icon icon={"mdi:close"} size={24}/>
                         </div>
-                    );
-                })}
-            </>
-        );
+                    </div>
+                );
+            })}
+        </>);
 	}
 
 
@@ -75,8 +73,8 @@ const ChoiceOptions = ({ options, deleteByPath, appendByPath }) => {
                                 <form className={styles.choiceModalForm} onSubmit={(e) => { e.preventDefault(); setModalOpen(false); }}>
                                 
                                 <TextInput 
-                                    label="Name" 
-                                    placeholder="Hamza Khattab" 
+                                    label="Option: " 
+                                    placeholder="Write new option..." 
                                     value={appendValue}
                                     onChange={(e) => setAppendValue(e.target.value)}
                                 />
@@ -84,6 +82,7 @@ const ChoiceOptions = ({ options, deleteByPath, appendByPath }) => {
                                 <div className={styles.choiceModalButtons}>
                                     <Button
                                         variant={"secondary"}
+                                        type={'reset'}
                                         onClick={() => {
                                             setModalOpen(false);
                                             setAppendValue('');
@@ -93,9 +92,10 @@ const ChoiceOptions = ({ options, deleteByPath, appendByPath }) => {
                                     </Button>
                                     <Button
                                         variant={"primary"}
+                                        type={'submit'}
                                         onClick={() => {
                                             setModalOpen(false);
-                                            appendValue && appendByPath([], appendValue);
+                                            appendValue && actionByPath([...path], 'append', appendValue);
                                             setAppendValue('');
                                         }}
                                     >

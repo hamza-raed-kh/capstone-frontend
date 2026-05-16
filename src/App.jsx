@@ -13,6 +13,7 @@ import FollowingPage from "./pages/FollowingPage/FollowingPage";
 import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
 import CompetitionEditPage from "./pages/CompetitionEditPage/CompetitionEditPage";
+import FormManagementPage from "./pages/FormManagementPage/FormManagementPage";
 import AdminCompetitionReviewPage from "./pages/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
@@ -171,6 +172,10 @@ const router = createBrowserRouter([
           {
             path: ":id/edit",
             element: <CompetitionEditPage />
+          },
+          {
+            path: ":id/edit-form",
+            element: <FormManagementPage />
           },
         ],
       },

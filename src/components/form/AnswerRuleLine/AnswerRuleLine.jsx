@@ -19,15 +19,22 @@ import styles from './AnswerRuleLine.module.css'
  * @param {boolean} props.onChangeNum - The function to be called when 'num' is changed.
  * @returns {JSX.Element} The rendered answerruleline element.
  */
-const AnswerRuleLine = ({ rule, label, updateByPath, toggleByPath }) => {
+const AnswerRuleLine = ({ rule, label, path=[], actionByPath }) => {
 
 	return (
         <div className={`${styles.answerRuleLine} ${ !rule.active && styles.inactive }`}>
             <div className={`${styles.answerRuleLineLeft}`}>
-                <CheckboxInput label={`${label}:`} checked={rule.active} onChange={() => toggleByPath(['active'])}/>
+                <CheckboxInput
+                    label={`${label}:`}
+                    checked={rule.active}
+                    onChange={() => actionByPath([...path, 'active'], 'toggle')}
+                />
             </div>
             <div className={styles.answerRuleLineRight}>
-                <NumberInput value={rule.num} onChange={(e) => updateByPath(['num'], e.target.value)}/>
+                <NumberInput
+                    value={rule.num}
+                    onChange={(e) => actionByPath([...path, 'num'], 'update', e.target.value)}
+                />
             </div>
         </div>
 	);
