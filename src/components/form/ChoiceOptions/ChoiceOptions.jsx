@@ -1,8 +1,8 @@
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CheckboxInput from '../../inputs/CheckboxInput/CheckboxInput';
-import Modal from '../../Modal/Modal';
+import Modal from '../../ui/Modal/Modal';
 import NumberInput from '../../inputs/NumberInput/NumberInput';
 import TextInput from '../../inputs/TextInput/TextInput';
 

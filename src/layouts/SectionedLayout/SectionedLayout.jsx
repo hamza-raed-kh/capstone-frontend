@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setLeftMinimized, setRightMinimized } from "../../features/layout/layoutSlice"
-import LeftSection from "../../components/LeftSection/LeftSection"
-import RightSection from "../../components/RightSection/RightSection"
+import LeftSection from "../../components/layout/LeftSection/LeftSection"
+import RightSection from "../../components/layout/RightSection/RightSection"
 import styles from "./SectionedLayout.module.css"
 
 function SectionedLayout({ children, preset, community_links }) {

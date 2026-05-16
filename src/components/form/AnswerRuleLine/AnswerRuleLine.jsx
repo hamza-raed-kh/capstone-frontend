@@ -1,4 +1,4 @@
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CheckboxInput from '../../inputs/CheckboxInput/CheckboxInput';

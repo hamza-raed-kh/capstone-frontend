@@ -1,5 +1,5 @@
 import { Button } from "../components/inputs/Button/Button";
-import Navigation from "../components/Navigation/Navigation";
+import Navigation from "../components/layout/Navigation/Navigation";
 
 /**
  * A sandbox page for showcasing and testing various components.

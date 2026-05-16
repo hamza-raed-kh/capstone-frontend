@@ -1,33 +1,33 @@
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
-import ExplorePage from "./pages/ExplorePage/ExplorePage"
-import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage"
+import ExplorePage from "./pages/explore/ExplorePage/ExplorePage"
+import MyApplicationsPage from "./pages/explore/MyApplicationsPage/MyApplicationsPage"
 import ChangeRequestPage from "./pages/admin/ChangeRequestPage/ChangeRequestPage"
-import FaqPage from "./pages/FaqPage/FaqPage";
-import SecurityPage from "./pages/SecurityPage/SecurityPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage"
+import FaqPage from "./pages/community/FaqPage/FaqPage";
+import SecurityPage from "./pages/account/SecurityPage/SecurityPage";
+import ProfilePage from "./pages/explore/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
-import ChatPage from "./pages/ChatPage/ChatPage";
-import FollowingPage from "./pages/FollowingPage/FollowingPage";
+import ChatPage from "./pages/community/ChatPage/ChatPage";
+import FollowingPage from "./pages/account/FollowingPage/FollowingPage";
 
-import CompetitionDetailPage from "./pages/CompetitionDetailPage/CompetitionDetailPage";
-import CompetitionCreatePage from "./pages/CompetitionCreatePage/CompetitionCreatePage";
-import CompetitionEditPage from "./pages/CompetitionEditPage/CompetitionEditPage";
-import FormManagementPage from "./pages/FormManagementPage/FormManagementPage";
-import AdminCompetitionReviewPage from "./pages/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
-import SignupPage from "./pages/SignupPage/SignupPage";
-import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
-import YourInfoPage from "./pages/YourInfoPage/YourInfoPage";
+import CompetitionDetailPage from "./pages/competition/CompetitionDetailPage/CompetitionDetailPage";
+import CompetitionCreatePage from "./pages/organizer/CompetitionCreatePage/CompetitionCreatePage";
+import CompetitionEditPage from "./pages/organizer/CompetitionEditPage/CompetitionEditPage";
+import FormManagementPage from "./pages/organizer/FormManagementPage/FormManagementPage";
+import AdminCompetitionReviewPage from "./pages/admin/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
+import LoginPage from "./pages/auth/LoginPage/LoginPage";
+import AdminLoginPage from "./pages/auth/AdminLoginPage/AdminLoginPage";
+import SignupPage from "./pages/auth/SignupPage/SignupPage";
+import OnboardingPage from "./pages/auth/OnboardingPage/OnboardingPage";
+import YourInfoPage from "./pages/account/YourInfoPage/YourInfoPage";
 import React from "react";
-import PersonalizationPage from "./pages/PersonalizationPage/PersonalizationPage";
-import ToastContainer from "./components/Toast/Toast";
+import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
+import ToastContainer from "./components/ui/Toast/Toast";
 import { useSelector } from "react-redux";
 import { selectTheme, selectIsLoggedIn } from "./features/user/userSlice";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
-import EventsPage from "./pages/EventsPage/EventsPage";
-import HistoryPage from "./pages/HistoryPage/HistoryPage";
+import EventsPage from "./pages/explore/EventsPage/EventsPage";
+import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -203,7 +203,7 @@ const router = createBrowserRouter([
             element: <CompetitionEditPage />
           },
           {
-            path: ":id/edit-form",
+            path: "forms",
             element: <FormManagementPage />
           },
         ],
