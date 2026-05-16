@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './DateInput.module.css';
 
 const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabled, variant = "form", inlineLabel = false, readOnly = false, ...props }) => {

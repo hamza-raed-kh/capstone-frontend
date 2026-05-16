@@ -1,5 +1,5 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './FileInput.module.css';
 
 const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", placeholder, previewUrl, readOnly = false, ...props }, ref) => {

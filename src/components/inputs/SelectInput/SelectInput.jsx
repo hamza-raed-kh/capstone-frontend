@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Select from '@radix-ui/react-select';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './SelectInput.module.css';
 
 const SelectInput = ({ label, placeholder = "Select...", options = [], value, onChange, variant = "form", readOnly = false, ...props }) => {

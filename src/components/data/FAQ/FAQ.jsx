@@ -1,0 +1,32 @@
+import styles from './FAQ.module.css'
+import Icon from '../../ui/Icon/Icon'
+
+/**
+ * An FAQ component with different visual styles.
+ * This component supports various `variants` that apply different CSS classes
+ * to the FAQ, allowing for a consistent look and feel across the application.
+ *
+ * @param {object} props - The properties for the FAQ.
+ * @param {string} props.quesion - The question to be displayed inside the FAQ's header.
+ * @param {Function} props.answer - The answer to be desplayed inside the FAQ's body.
+ * @returns {JSX.Element} The rendered FAQ element.
+ */
+const FAQ = ({question, answer}) => {
+    return (
+        <div className={`${styles.question}`}>
+            <div className={`${styles.questionHeader}`}>
+                <div className={`${styles.questionHeaderIcon}`}>
+                    <Icon icon={'material-symbols:question-mark-rounded'} size={24}/>
+                </div>
+                <p className={`${styles.questionHeaderText}`}>
+                    {question}
+                </p>
+            </div>
+            <p className={`${styles.questionText}`}>
+                {answer}
+            </p>
+        </div>
+    );
+}
+
+export default FAQ

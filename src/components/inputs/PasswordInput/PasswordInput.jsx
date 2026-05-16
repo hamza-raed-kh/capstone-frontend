@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './PasswordInput.module.css';
 
 const PasswordInput = ({ label, placeholder, value, onChange, inlineLabel = false, readOnly = false, ...props }) => {

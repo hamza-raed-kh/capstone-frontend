@@ -1,7 +1,6 @@
 import { Button } from '../../inputs/Button/Button'
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import CheckboxInput from '../../inputs/CheckboxInput/CheckboxInput';
 import NumberInput from '../../inputs/NumberInput/NumberInput';
 import TextInput from '../../inputs/TextInput/TextInput';
@@ -25,9 +24,10 @@ import ChoiceOptions from '../ChoiceOptions/ChoiceOptions';
  * @param {{rule_name: {active: boolean, num: number}}} props.rules - The object of rules for question's answers.
  * @param {List<string>} props.options - The list of options for choice options.
  * @param {Function} props.actionByPath - The function to perform an action on the from stat
+ * @param {Function} props.moveQuestion - Direct function to reorder questions.
  * @returns {JSX.Element} The rendered formquestion element.
  */
-const FormQuestion = ({ order, form_length, required, type, question, options, rules, path=[], actionByPath }) => {
+const FormQuestion = ({ order, form_length, required, type, question, options, rules, path=[], actionByPath, moveQuestion }) => {
 	const [open, setOpen] = useState(true);
 
     const handleToggleOpen = () => {
@@ -45,7 +45,7 @@ const FormQuestion = ({ order, form_length, required, type, question, options, r
 								label={'Order'}
 								inlineLabel
 								value={order+1}
-								onChange={(e) => actionByPath(path.slice(0,-1), 'move', [], order, [], e.target.value -1)}
+                                readOnly
 							/>
 						</div>
 						<span>:</span>
@@ -118,6 +118,24 @@ const FormQuestion = ({ order, form_length, required, type, question, options, r
 						}
 					</div>
 					<div className={styles.questionFooter}>
+						<div className={styles.questionFooterStart}>
+							<button
+								type="button"
+								className={styles.moveButton}
+								disabled={order === 0}
+								onClick={() => moveQuestion(order, order - 1)}
+							>
+								<Icon icon="mdi:chevron-up" size={20} />
+							</button>
+							<button
+								type="button"
+								className={styles.moveButton}
+								disabled={order === form_length - 1}
+								onClick={() => moveQuestion(order, order + 1)}
+							>
+								<Icon icon="mdi:chevron-down" size={20} />
+							</button>
+						</div>
 						<div className={styles.questionFooterButton}>
 							<Button variant={'secondary'} children={'Delete'} onClick={() => actionByPath([...path], 'delete')}/>
 						</div>

@@ -1,6 +1,6 @@
-import FilterRow from "../../../components/FilterRow/FilterRow"
-import Results from "../../../components/Results/Results"
-import SearchBar from "../../../components/SearchBar/SearchBar"
+import FilterRow from "../../../components/data/FilterRow/FilterRow"
+import Results from "../../../components/data/Results/Results"
+import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import styles from './ParticipantsPage.module.css'
 
