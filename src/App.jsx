@@ -159,7 +159,6 @@ const router = createBrowserRouter([
         ],
       },
       
-      
       // Account Navbar pages
       {
         path: "account",

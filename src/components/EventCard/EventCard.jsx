@@ -19,24 +19,31 @@ import CategoryTag from '../CategoryTag/CategoryTag';
  */
 const EventCard = ({ variant = 'main', banner_url, info, details, button, onClick }) => {
     const renderButtons = () => {
-        if (variant === 'main')
-            return (
-                <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "view" in onClick ? onClick.view : null} />
-            );
-        else if (variant === 'admin')
-            return (
-                <>
-                    <div className={`${styles.eventcardButtonsReject}`}>
-                        <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject} />
-                    </div>
-                    <div className={`${styles.eventcardButtonsApprove}`}>
-                        <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve} />
-                    </div>
-                    <div className={`${styles.eventcardButtonsView}`}>
-                        <Button variant={"primary"} children={"View"} onClick={onClick.view} />
-                    </div>
-                </>
-            );
+        switch(variant) {
+            case 'main':
+                return (
+                    <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "view" in onClick ? onClick.view : null} />
+                );
+                
+            case 'admin':
+                return (
+                    <>
+                        <div className={`${styles.eventcardButtonsReject}`}>
+                            <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject} />
+                        </div>
+                        <div className={`${styles.eventcardButtonsApprove}`}>
+                            <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve} />
+                        </div>
+                        <div className={`${styles.eventcardButtonsView}`}>
+                            <Button variant={"primary"} children={"View"} onClick={onClick.view} />
+                        </div>
+                    </>
+                );
+            
+            case 'clean':
+                return(<></>);
+            
+        }
     }
 
     return (
