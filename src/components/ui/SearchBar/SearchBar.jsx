@@ -1,44 +1,38 @@
-import styles from './SearchBar.module.css'
-import Icon from '../Icon/Icon';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleLeftSidebar, toggleRightSidebar } from '../../../features/layout/layoutSlice';
+import { setSearch } from '../../../features/filters/filtersSlice';
+import Icon from '../Icon/Icon';
+import styles from './SearchBar.module.css'
 
-/**
- * A searchbar component with different visual styles.
- * This component supports various `variants` that apply different CSS classes
- * to the searchbar, allowing for a consistent look and feel across the application.
- *
- * @param {object} props - The properties for the searchbar.
- * @param {'search' | 'placeholder'} [props.variant='search'] - The visual variant of the searchbar.
- * @param {string} props.children - The string to be displayed inside the bar's 'placeholder' variant.
- * @param {Function} props.onClick - The function to be called when the searchbar icon is clicked.
- * @returns {JSX.Element} The rendered searchbar element.
- */
-const SearchBar = ({ variant = 'search', children, onClick }) => {
-  let [search, setSearch] = useState("");
+const SearchBar = ({ variant = 'search', children }) => {
+  const searchFromStore = useSelector((state) => state.filters.search);
+  const [localSearch, setLocalSearch] = useState(searchFromStore || "");
   const dispatch = useDispatch();
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localSearch !== searchFromStore) {
+        dispatch(setSearch(localSearch));
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [localSearch, searchFromStore, dispatch]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Searching for: '${search}'\nIntegration from backend coming soon!`);
-    //Body could use onClick?
+  const handleSearchChange = (e) => {
+    setLocalSearch(e.target.value);
   }
 
   const searchBarSegment = () => {
     switch (variant) {
       case 'search':
         return (
-          <form className={`${styles.searchbarCenter}`} onSubmit={handleSubmit}>
-            <input className={`${styles.searchbarSearchText}`} type="text" placeholder="Search the arena..." value={search} onChange={handleSearchChange} />
-            <button className={`${styles.searchbarSearchIcon}`} type="submit">
+          <div className={`${styles.searchbarCenter}`}>
+            <input className={`${styles.searchbarSearchText}`} type="text" placeholder="Search the arena..." value={localSearch} onChange={handleSearchChange} />
+            <span className={`${styles.searchbarSearchIcon}`}>
               <Icon icon={'icon-park-outline:search'} size={24} />
-            </button>
-          </form>
+            </span>
+          </div>
         );
       case 'placeholder':
         return (

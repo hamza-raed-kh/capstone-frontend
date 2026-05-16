@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTopics, setStatus, setVirtual, setBeforeDate, setAfterDate } from '../../../features/filters/filtersSlice';
+import { useGetTopicsQuery } from '../../../features/api/topicApi';
 import FilterPill from '../FilterPill/FilterPill';
 import styles from './FilterRow.module.css';
 
@@ -19,6 +20,12 @@ const FilterRow = () => {
 
   const beforeDate = beforeDateStr ? new Date(beforeDateStr) : undefined;
   const afterDate = afterDateStr ? new Date(afterDateStr) : undefined;
+
+  const { data: topicsData } = useGetTopicsQuery()
+  const topicOptions = (topicsData?.results || topicsData || []).map((t) => ({
+    label: t.name,
+    value: String(t.id),
+  }))
 
   const containerRef = useRef(null);
   const [fadeDir, setFadeDir] = useState('none');
@@ -64,11 +71,7 @@ const FilterRow = () => {
         label="Topics"
         value={topics}
         onChange={(val) => dispatch(setTopics(val))}
-        options={[
-          { label: 'Technology', value: 'tech' },
-          { label: 'Science', value: 'science' },
-          { label: 'Art', value: 'art' },
-        ]}
+        options={topicOptions}
       />
       <FilterPill
         type="date"

@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useCreateEventMutation, useUpdateEventMutation, useDeleteEventMutation } from "../../../features/api/eventApi"
+import { useGetTopicsQuery } from "../../../features/api/topicApi"
+import { useGetEventTypesQuery } from "../../../features/api/eventApi"
 import { Button } from "../../inputs/Button/Button"
 import TextInput from "../../inputs/TextInput/TextInput"
 import TextArea from "../../inputs/TextArea/TextArea"
@@ -11,13 +14,6 @@ import Icon from '../../ui/Icon/Icon'
 import CheckboxInput, { CheckboxGroup } from "../../inputs/CheckboxInput/CheckboxInput"
 import styles from './CompetitionForm.module.css'
 
-const typeOptions = [
-  { value: "Hackathon", label: "Hackathon" },
-  { value: "Competition", label: "Competition" },
-  { value: "Challenge", label: "Challenge" },
-  { value: "Tournament", label: "Tournament" },
-]
-
 const publicityOptions = [
   { value: "public", label: "Public" },
   { value: "private", label: "Private" },
@@ -25,25 +21,95 @@ const publicityOptions = [
 
 function CompetitionForm({ initialData, isEdit }) {
   const navigate = useNavigate()
+  const [createEvent, { isLoading: isCreating }] = useCreateEventMutation()
+  const [updateEvent, { isLoading: isUpdating }] = useUpdateEventMutation()
+  const [deleteEvent] = useDeleteEventMutation()
+  const { data: topicsData } = useGetTopicsQuery()
+  const topics = topicsData?.results || []
+  const { data: eventTypesData } = useGetEventTypesQuery()
+  const typeOptions = (eventTypesData?.results || []).map(t => ({ value: String(t.id), label: t.name }))
+
   const [title, setTitle] = useState(initialData?.title || "")
-  const [type, setType] = useState(initialData?.type || "")
-  const [publicity, setPublicity] = useState(initialData?.publicity || "public")
+  const [type, setType] = useState(String(initialData?.event_type ?? ""))
+  const [publicity, setPublicity] = useState(initialData?.visibility || "public")
   const [reward, setReward] = useState(initialData?.reward || "")
   const [location, setLocation] = useState(initialData?.location || "")
   const [description, setDescription] = useState(initialData?.description || "")
-  const [startDate, setStartDate] = useState(initialData?.startDate || "")
-  const [endDate, setEndDate] = useState(initialData?.endDate || "")
-  const [maxParticipants, setMaxParticipants] = useState(initialData?.maxParticipants || 0)
-  const [teamMin, setTeamMin] = useState(initialData?.teamSpec?.min || 1)
-  const [teamMax, setTeamMax] = useState(initialData?.teamSpec?.max || 1)
-  const [tags, setTags] = useState(initialData?.tags || [])
+  const [startDate, setStartDate] = useState(initialData?.start_date || "")
+  const [endDate, setEndDate] = useState(initialData?.end_date || "")
+  const [maxParticipants, setMaxParticipants] = useState(initialData?.capacity || 0)
+  const [teamMin, setTeamMin] = useState(initialData?.team_size_min || 1)
+  const [teamMax, setTeamMax] = useState(initialData?.team_size_max || 1)
+  const [tags, setTags] = useState(initialData?.topics || [])
+  const [bannerFile, setBannerFile] = useState(null)
+
+  const toDateString = (d) => {
+    if (!d) return undefined
+    if (d instanceof Date && !isNaN(d)) return d.toISOString().split("T")[0]
+    if (typeof d === "string") return d.split("T")[0]
+    return undefined
+  }
+
+  const buildPayload = (status) => ({
+    title,
+    visibility: publicity,
+    reward,
+    location,
+    description,
+    start_date: toDateString(startDate),
+    end_date: toDateString(endDate),
+    capacity: maxParticipants || undefined,
+    team_size_min: teamMin,
+    team_size_max: teamMax,
+    status,
+    event_type: type ? Number(type) : undefined,
+    topics: tags.length ? tags : undefined,
+  })
+
+  const saveWithBanner = async (payload) => {
+    let id
+    if (isEdit) {
+      await updateEvent({ id: initialData.id, ...payload }).unwrap()
+      id = initialData.id
+    } else {
+      const result = await createEvent(payload).unwrap()
+      id = result.id
+    }
+    if (bannerFile) {
+      const fd = new FormData()
+      fd.append("id", id)
+      fd.append("banner", bannerFile)
+      await updateEvent(fd).unwrap()
+    }
+    navigate('/organizer/competitions')
+  }
+
+  const handleSave = async () => {
+    try {
+      await saveWithBanner(buildPayload("draft"))
+    } catch (err) {
+      console.error("Save failed:", err?.data || err?.status || err)
+    }
+  }
+
+  const handleSubmit = async () => {
+    try {
+      await saveWithBanner(buildPayload("pending"))
+    } catch (err) {
+      console.error("Submit failed:", err?.data || err?.status || err)
+    }
+  }
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.pageBody}>
             <div className={styles.bannerContainer}>
-              <FileInput variant="banner" />
+              <FileInput
+  variant="banner"
+  onChange={(e) => setBannerFile(e.target.files[0] || null)}
+  previewUrl={initialData?.banner}
+/>
             <div className={styles.bannerOverlay}>
               <div className={styles.bannerTopRight}>
                 <SelectInput
@@ -110,12 +176,9 @@ function CompetitionForm({ initialData, isEdit }) {
                   onChange={e => setLocation(e.target.value)}
                 />
                 <CheckboxGroup label="Tags" value={tags} onChange={setTags} direction="row">
-                  <CheckboxInput label="AI" value="AI" variant="secondary" />
-                  <CheckboxInput label="Web Dev" value="Web Dev" variant="secondary" />
-                  <CheckboxInput label="UI/UX" value="UI/UX" variant="secondary" />
-                  <CheckboxInput label="Mobile" value="Mobile" variant="secondary" />
-                  <CheckboxInput label="Data" value="Data" variant="secondary" />
-                  <CheckboxInput label="Security" value="Security" variant="secondary" />
+                  {topics.map(t => (
+                    <CheckboxInput key={t.id} label={t.name} value={t.id} variant="secondary" />
+                  ))}
                 </CheckboxGroup>
               </div>
               <div className={styles.detailsColumn}>
@@ -148,12 +211,12 @@ function CompetitionForm({ initialData, isEdit }) {
           </div>
           <div className={styles.formActions}>
             <div className={styles.formActionsLeft}>
-              <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Delete</Button>
+              <Button variant="red-secondary" className={styles.formActionBtn} onClick={async () => { if (!initialData?.id) return; if (window.confirm('Delete this competition?')) { await deleteEvent(initialData.id).unwrap(); navigate('/organizer/competitions') } }}>Delete</Button>
             </div>
             <div className={styles.formActionsRight}>
               <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Discard</Button>
-              <Button variant="secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Save</Button>
-              <Button variant="primary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Submit</Button>
+              <Button variant="secondary" className={styles.formActionBtn} onClick={handleSave} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Saving...' : 'Save'}</Button>
+              <Button variant="primary" className={styles.formActionBtn} onClick={handleSubmit} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Submitting...' : 'Submit'}</Button>
             </div>
           </div>
         </div>

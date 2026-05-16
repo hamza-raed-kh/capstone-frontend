@@ -1,6 +1,6 @@
-import { useState, useRef } from "react"
-import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useState, useRef, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { format } from "date-fns"
 import * as Dialog from "@radix-ui/react-dialog"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
@@ -13,12 +13,46 @@ import TextInput from "../../../components/inputs/TextInput/TextInput"
 import FileInput from "../../../components/inputs/FileInput/FileInput"
 import NumberInput from "../../../components/inputs/NumberInput/NumberInput"
 import CheckboxInput, { CheckboxGroup } from "../../../components/inputs/CheckboxInput/CheckboxInput"
-import { selectCompetition } from "../../../features/competition/competitionSlice"
+import { useGetEventQuery, useUpdateEventMutation } from "../../../features/api/eventApi"
+import { useGetMeQuery } from "../../../features/api/authApi"
+import { useGetChannelsQuery, useGetMessagesQuery } from "../../../features/api/chatApi"
+import { useGetFaqQuestionsQuery } from "../../../features/api/faqApi"
+import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
 import styles from './CompetitionDetailPage.module.css'
 
 function CompetitionDetailPage() {
+    const { id } = useParams()
     const navigate = useNavigate()
-    const comp = useSelector(selectCompetition)
+    const dispatch = useDispatch()
+    const { data: comp, isLoading } = useGetEventQuery(Number(id))
+    const { data: me } = useGetMeQuery()
+    const [updateEvent] = useUpdateEventMutation()
+    const isOrganizer = me?.id === comp?.organizer
+
+    useEffect(() => {
+        if (id) dispatch(setCurrentCompetition(Number(id)))
+        return () => dispatch(clearCurrentCompetition())
+    }, [id, dispatch])
+
+    const isStaff = me?.is_staff
+    const navPreset = isStaff ? "admin" : isOrganizer ? "organizer" : "home"
+
+    const { data: channelsData } = useGetChannelsQuery(
+        { event: Number(id), type: "announcement" },
+        { skip: !id }
+    )
+    const announcementChannel = channelsData?.results?.[0]
+    const { data: messagesData } = useGetMessagesQuery(
+        { channel: announcementChannel?.id },
+        { skip: !announcementChannel?.id }
+    )
+    const announcements = messagesData?.results || []
+    const { data: faqData } = useGetFaqQuestionsQuery(
+        { event: Number(id) },
+        { skip: !id }
+    )
+    const faqQuestions = faqData?.results || []
+
     const [applyOpen, setApplyOpen] = useState(false)
     const [withdrawOpen, setWithdrawOpen] = useState(false)
     const [withdrawInput, setWithdrawInput] = useState("")
@@ -54,36 +88,70 @@ function CompetitionDetailPage() {
         setFaqExpanded(!faqExpanded)
     }
 
+    const statusBadge = () => {
+        switch (comp.status) {
+            case "draft": return <span className={styles.publicityPill}>Draft</span>
+            case "pending": return <span className={styles.publicityPill}>Pending Review</span>
+            case "open": return <span className={styles.publicityPill}>Live</span>
+            case "closed": return <span className={styles.publicityPill}>Ended</span>
+            default: return null
+        }
+    }
+
+    const actionButton = () => {
+        if (comp.status === "open" && !isOrganizer) {
+            return { variant: "primary", text: "Apply", onClick: () => setApplyOpen(true) }
+        }
+        if (isOrganizer) {
+            switch (comp.status) {
+                case "draft": return { variant: "disabled", text: "Draft", onClick: null }
+                case "pending": return { variant: "disabled", text: "Pending Review", onClick: null }
+                case "open": return { variant: "disabled", text: "Live", onClick: null }
+            }
+        }
+        return null
+    }
+
+    if (isLoading) return <SectionedLayout preset={navPreset}><div>Loading...</div></SectionedLayout>
+    if (!comp) return <SectionedLayout preset={navPreset}><div>Competition not found.</div></SectionedLayout>
+
+    if (!isStaff && !isOrganizer && comp.status !== "open") {
+        navigate('/explore', { replace: true })
+        return null
+    }
+
     return (
-        <SectionedLayout preset="organizer">
+        <SectionedLayout preset={navPreset}>
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.pageBody}>
-                        <div className={styles.bannerContainer} style={{ backgroundImage: `url(${comp.banner})` }}>
+                        <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${comp.banner}) center/cover no-repeat` : 'var(--gradient-main)' }}>
                             <div className={styles.bannerOverlay}>
                                 <div className={styles.bannerTopRight}>
-                                    <span className={styles.publicityPill}>{comp.publicity}</span>
+                                    {statusBadge()}
                                 </div>
                                 <div className={styles.bannerBottomRow}>
                                     <div className={styles.bannerBottomLeft}>
                                         <img
                                             className={styles.hostAvatar}
-                                            src={comp.host.avatar}
-                                            alt={comp.host.name}
+                                            src={`https://i.pravatar.cc/150?u=${comp.organizer}`}
+                                            alt="Organizer"
                                         />
                                         <div className={styles.bannerTitleGroup}>
                                             <span className={styles.bannerTitle}>{comp.title}</span>
-                                            <span className={styles.bannerHost}>by {comp.host.name}</span>
+                                            <span className={styles.bannerHost}>by Organizer #{comp.organizer}</span>
                                         </div>
                                     </div>
                                     <div className={styles.bannerBottomRight}>
                                         <div className={styles.buttonGroup}>
-                                            <Button variant="primary" className={styles.applyBtn} onClick={() => setApplyOpen(true)}>
-                                                Apply
-                                            </Button>
+                                            {actionButton() && (
+                                                <Button variant={actionButton().variant} className={styles.applyBtn} onClick={actionButton().onClick || undefined}>
+                                                    {actionButton().text}
+                                                </Button>
+                                            )}
                                             <button className={styles.messageBtn} onClick={() => navigate('/community/general')}>
                                                 <Icon icon="fluent:chat-32-filled" size={20} color="white" />
                                             </button>
@@ -93,7 +161,7 @@ function CompetitionDetailPage() {
                             </div>
                         </div>
                         <div className={styles.detailsContainer}>
-                            <span className={styles.typePill}>{comp.type}</span>
+                            <span className={styles.typePill}>{comp.event_type || "Competition"}</span>
                             <div className={styles.detailsGrid}>
                                 <div className={styles.detailsColumn}>
                                     <div className={styles.detailRow}>
@@ -102,26 +170,26 @@ function CompetitionDetailPage() {
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:calendar" size={20} />
-                                        <span>{format(comp.startDate, "MMM d, yyyy")} - {format(comp.endDate, "MMM d, yyyy")}</span>
+                                        <span>{comp.start_date ? `${format(comp.start_date, "MMM d, yyyy")} - ${comp.end_date ? format(comp.end_date, "MMM d, yyyy") : ""}` : "Dates TBA"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:map-marker" size={20} />
                                         <span>{comp.location || "Virtual"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
-                                        {comp.tags.map((tag) => (
-                                            <CategoryTag key={tag} text={tag} />
+                                        {(comp.topics || []).map((tag) => (
+                                            <CategoryTag key={tag} text={`Topic #${tag}`} />
                                         ))}
                                     </div>
                                 </div>
                                 <div className={styles.detailsColumn}>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:people" size={20} />
-                                        <span>{comp.currentParticipants}/{comp.maxParticipants}</span>
+                                        <span>{comp.capacity ? `0/${comp.capacity}` : "No limit"}</span>
                                     </div>
                                     <div className={styles.detailRow}>
                                         <Icon icon="mdi:account-group" size={20} />
-                                        <span>{comp.teamSpec.min}-{comp.teamSpec.max} Members</span>
+                                        <span>{comp.team_size_min || 1}-{comp.team_size_max || 1} Members</span>
                                     </div>
                                 </div>
                             </div>
@@ -131,58 +199,56 @@ function CompetitionDetailPage() {
                             <p className={styles.descriptionText}>
                                 {comp.description}
                             </p>
-                            <p className={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <p className={styles.descriptionText}>
-                                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
-                            </p>
                         </div>
-                        <div className={styles.collapsibleSection}>
-                            <div className={styles.sectionHeader}>
-                                <h2 className={styles.sectionHeading}>Announcements</h2>
-                            </div>
-                            <div ref={announcementsRef} className={`${styles.collapsibleContent} ${announcementsExpanded ? styles.expanded : ''}`}>
-                                <div className={styles.collapsibleInner}>
+                        {announcements.length > 0 && (
+                            <div className={styles.collapsibleSection}>
+                                <div className={styles.sectionHeader}>
+                                    <h2 className={styles.sectionHeading}>Announcements</h2>
+                                    <button className={styles.expandBtn} onClick={toggleAnnouncements}>
+                                        <Icon icon={announcementsExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} size={20} />
+                                    </button>
+                                </div>
+                                <div ref={announcementsRef} className={`${styles.collapsibleContent} ${announcementsExpanded ? styles.expanded : ''}`}>
                                     <div className={styles.announcementList}>
-                                        {comp.announcements.map((ann, i) => (
+                                        {announcements.map((msg, i) => (
                                             <div key={i} className={styles.announcementItem}>
-                                                <span className={styles.announcementDate}>{format(ann.date, "MMM d, yyyy")}</span>
-                                                <p className={styles.announcementMessage}>{ann.message}</p>
+                                                <span className={styles.announcementDate}>{format(msg.created_at, "MMM d, yyyy")}</span>
+                                                <p className={styles.announcementMessage}>{msg.content}</p>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                            {comp.announcements.length > 1 && (
-                                <button className={styles.expandBtn} onClick={toggleAnnouncements}>
-                                    <Icon icon={announcementsExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} size={24} />
-                                </button>
-                            )}
-                        </div>
-                        <div className={styles.collapsibleSection}>
-                            <div className={styles.sectionHeader}>
-                                <h2 className={styles.sectionHeading}>FAQ</h2>
-                            </div>
-                            <div ref={faqRef} className={`${styles.collapsibleContent} ${faqExpanded ? styles.expanded : ''}`}>
-                                <div className={styles.collapsibleInner}>
+                        )}
+                        {faqQuestions.length > 0 && (
+                            <div className={styles.collapsibleSection}>
+                                <div className={styles.sectionHeader}>
+                                    <h2 className={styles.sectionHeading}>FAQs</h2>
+                                    <button className={styles.expandBtn} onClick={toggleFaq}>
+                                        <Icon icon={faqExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} size={20} />
+                                    </button>
+                                </div>
+                                <div ref={faqRef} className={`${styles.collapsibleContent} ${faqExpanded ? styles.expanded : ''}`}>
                                     <div className={styles.faqList}>
-                                        {comp.faq.map((item, i) => (
+                                        {faqQuestions.map((faq, i) => (
                                             <div key={i} className={styles.faqItem}>
-                                                <h3 className={styles.faqQuestion}>{item.question}</h3>
-                                                <p className={styles.faqAnswer}>{item.answer}</p>
+                                                <p className={styles.faqQuestion}>{faq.question_text}</p>
+                                                <p className={styles.faqAnswer}>{faq.answer_text}</p>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                            {comp.faq.length > 1 && (
-                                <button className={styles.expandBtn} onClick={toggleFaq}>
-                                    <Icon icon={faqExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} size={24} />
-                                </button>
-                            )}
-                        </div>
-                        <Button variant="red" className={styles.withdrawBtn} onClick={() => setWithdrawOpen(true)}>Withdraw</Button>
+                        )}
+                        {isOrganizer && comp.status === "open" ? (
+                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/competitions/${comp.id}/edit`)}>Edit Competition</Button>
+                        ) : isOrganizer && comp.status === "pending" ? (
+                            <Button variant="red" className={styles.withdrawBtn} onClick={cancelSubmission}>Cancel Submission</Button>
+                        ) : isOrganizer && comp.status === "draft" ? (
+                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/competitions/${comp.id}/edit`)}>Edit Draft</Button>
+                        ) : !isOrganizer && comp.status === "open" ? (
+                            <Button variant="red" className={styles.withdrawBtn} onClick={() => setWithdrawOpen(true)}>Withdraw</Button>
+                        ) : null}
                     </div>
                 </div>
             </div>
@@ -249,7 +315,7 @@ function CompetitionDetailPage() {
             <Modal isOpen={withdrawOpen} onClose={() => setWithdrawOpen(false)} hideHeader>
                 <div className={styles.withdrawModalContent}>
                     <div className={styles.withdrawHeader}>
-                        <span className={styles.withdrawHeaderTitle}>Withdraw</span>
+                        <span className={styles.withdrawHeaderTitle}>{isOrganizer ? "Cancel Competition" : "Withdraw"}</span>
                         <Dialog.Close asChild>
                             <button className={styles.withdrawCloseBtn} aria-label="Close">
                                 <Icon icon="mdi:close" size={24} />
@@ -257,7 +323,7 @@ function CompetitionDetailPage() {
                         </Dialog.Close>
                     </div>
                     <p className={styles.withdrawText}>
-                        <strong>Are you sure you want to withdraw from this competition? (write &lsquo;yes&rsquo; in the text box below)</strong>
+                        <strong>Are you sure you want to {isOrganizer ? "cancel this competition" : "withdraw from this competition"}? (write &lsquo;yes&rsquo; in the text box below)</strong>
                     </p>
                     <TextInput placeholder="Yes" value={withdrawInput} onChange={e => setWithdrawInput(e.target.value)} />
                     <div className={styles.withdrawActions}>

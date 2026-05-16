@@ -1,0 +1,61 @@
+import { apiSlice } from "./apiSlice";
+
+export const authApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    register: builder.mutation({
+      query: (body) => ({
+        url: "auth/register/",
+        method: "POST",
+        body,
+      }),
+    }),
+    login: builder.mutation({
+      query: (body) => ({
+        url: "auth/login/",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem("accessToken", data.access);
+          localStorage.setItem("refreshToken", data.refresh);
+        } catch {}
+      },
+    }),
+    refreshToken: builder.mutation({
+      query: (body) => ({
+        url: "auth/token/refresh/",
+        method: "POST",
+        body,
+      }),
+    }),
+    getMe: builder.query({
+      query: () => "users/me/",
+      providesTags: ["User"],
+    }),
+    updateMe: builder.mutation({
+      query: (body) => ({
+        url: "users/me/",
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    deleteMe: builder.mutation({
+      query: () => ({
+        url: "users/me/",
+        method: "DELETE",
+      }),
+    }),
+  }),
+});
+
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useRefreshTokenMutation,
+  useGetMeQuery,
+  useUpdateMeMutation,
+  useDeleteMeMutation,
+} = authApi;

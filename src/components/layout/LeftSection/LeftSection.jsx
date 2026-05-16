@@ -4,12 +4,19 @@ import SideSection from "../../../layouts/SideSection/SideSection"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toggleLeftSidebar } from "../../../features/layout/layoutSlice"
+import { logOut } from "../../../features/user/userThunks"
+import { Button } from '../../inputs/Button/Button'
 import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
 
 function LeftSection({ preset }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(logOut());
+        navigate('/login');
+    };
 
     return (
         <SideSection footer={<AccountBox />}>
@@ -21,6 +28,13 @@ function LeftSection({ preset }) {
                     <h1 className={styles.menuTitle} style={{ cursor: 'pointer' }} onClick={() => navigate('/explore')}>Nizal</h1>
                 </div>
                 <Navigation preset={preset}/>
+                {preset === "account" && (
+                    <div className={styles.logoutSection}>
+                        <Button variant="red-secondary" onClick={handleLogout} className={styles.logoutButton}>
+                            Log Out
+                        </Button>
+                    </div>
+                )}
             </div>
         </SideSection>
     )

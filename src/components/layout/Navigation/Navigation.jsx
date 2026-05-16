@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import NavLink from '../NavLink/NavLink';
 import styles from './Navigation.module.css';
 import Icon from '@/components/ui/Icon/Icon';
@@ -17,13 +18,6 @@ const PRESETS = {
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },
     { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
   ],
-  organizer: [
-    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
-    { label: "Create/Edit", to: "/organizer/create", icon: "mage:edit-pen-fill" },
-    { label: "Form Management", to: "/organizer/forms", icon: "mdi:form-outline" },
-    { label: "Participant Management", to: "/organizer/participants", icon: "ic:round-people" },
-    { label: "Statistics", to: "/organizer/statistics", icon: "uis:chart" },
-  ],
   admin: [
     { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
     { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
@@ -31,6 +25,22 @@ const PRESETS = {
     { label: "Django Admin", to: "/django-admin", icon: "mdi:gear" },
   ],
 };
+
+function getOrganizerLinks(competitionId) {
+  if (!competitionId) {
+    return [
+      { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
+      { label: "Create Competition", to: "/organizer/create", icon: "mage:edit-pen-fill" },
+    ];
+  }
+  return [
+    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
+    { label: "Preview", to: `/competition/${competitionId}`, icon: "material-symbols:visibility-rounded", end: true },
+    { label: "Form Management", to: `/organizer/${competitionId}/form`, icon: "mdi:form-outline" },
+    { label: "Participant Management", to: `/organizer/${competitionId}/participants`, icon: "ic:round-people" },
+    { label: "Statistics", to: `/organizer/${competitionId}/statistics`, icon: "uis:chart" },
+  ];
+}
 
 /**
  * Renders a list of navigation links with support for active and disabled states.
@@ -41,7 +51,8 @@ const PRESETS = {
  * @param {(seperator_name): {Array<{lable: string, to: string, icon: string}>}} [props.community_link] - Non-preset links to be used in the case of community.
  */
 const Navigation = ({ preset, community_links }) => {
-  const activeLinks = PRESETS[preset];
+  const competitionId = useSelector((state) => state.competition.currentId);
+  const activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : PRESETS[preset];
 
   community_links = community_links || {
     official: [
@@ -95,6 +106,7 @@ const Navigation = ({ preset, community_links }) => {
               label={link.label}
               icon={link.icon}
               disabled={link.disabled}
+              end={link.end}
             />
           )))}
       </ul>

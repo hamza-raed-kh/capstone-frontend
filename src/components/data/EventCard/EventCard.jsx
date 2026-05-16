@@ -46,6 +46,20 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
         }
     }
 
+    if (variant === 'create') {
+        return (
+            <div className={styles.eventcardCreate} onClick={onClick.view}>
+                <div className={styles.eventcardCreateContent}>
+                    <Button variant="secondary" onClick={onClick.view}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                            <Icon icon="mdi:plus" size={20} /> Create New
+                        </span>
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`${styles.eventcard}`} onClick={onClick.view}>
             <img className={`${styles.eventcardBanner}`} src={banner_url} alt="" />

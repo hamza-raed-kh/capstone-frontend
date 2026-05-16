@@ -50,9 +50,17 @@
     color: var(--color-text);
 }
 
+.logoutSection {
+    margin-top: auto;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.logoutButton {
+    width: 100%;
+}
+
 .menuTitle {
-    /* width: 248px;
-    height: 40px; */
 
     font-family: 'Inter';
     font-style: normal;
