@@ -1,37 +1,16 @@
 .cardGroup{
-    /* Group */
-
-    /* Auto layout */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
     gap: 24px;
 
     width: 100%;
-
-
-    /* Inside auto layout */
-    flex: none;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .cards{
-    /* Cards */
-
-    /* Auto layout */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
     justify-content: space-between;
-    padding: 0px;
     gap: 16px;
 
     width: 100%;
-
-
-    /* Inside auto layout */
-    flex: none;
-    align-self: stretch;
-    flex-grow: 0;
 }

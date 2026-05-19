@@ -28,6 +28,8 @@ import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/Organizer
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
 import EventsPage from "./pages/EventsPage/EventsPage";
 import HistoryPage from "./pages/HistoryPage/HistoryPage";
+import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -206,6 +208,10 @@ const router = createBrowserRouter([
             path: ":id/edit-form",
             element: <FormManagementPage />
           },
+          {
+            path: ":id/dashboard",
+            element: <CompetitionDashboard />
+          },
         ],
       },
       
@@ -219,7 +225,7 @@ const router = createBrowserRouter([
           },
           {
             path: "dashboard",
-            element: <h1>Admin Dashboard</h1>,
+            element: <AdminDashboard />
           },
           {
             path: "edit-requests",

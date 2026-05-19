@@ -4,11 +4,13 @@ import CompetitionForm from "../../components/CompetitionForm/CompetitionForm"
 import styles from "./CompetitionCreatePage.module.css"
 
 function CompetitionCreatePage() {
+    let comp_name = "Web3 Hackathon";
+
     return (
         <SectionedLayout preset="organizer">
             <div className={styles.pageWrap}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar />
+                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
                 </div>
                 <CompetitionForm isEdit={false} />
             </div>

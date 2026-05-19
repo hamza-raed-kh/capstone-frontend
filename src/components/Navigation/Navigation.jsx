@@ -27,7 +27,7 @@ const PRESETS = {
   admin: [
     { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
     { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
-    { label: "Edit Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
+    { label: "Change Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
     { label: "Django Admin", to: "/django-admin", icon: "mdi:gear" },
   ],
 };

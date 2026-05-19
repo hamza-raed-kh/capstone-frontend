@@ -259,7 +259,7 @@ const FormManagementPage = () => {
         <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar />
+                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.formHeader}>
