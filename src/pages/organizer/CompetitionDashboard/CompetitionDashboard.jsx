@@ -1,9 +1,9 @@
-import Block from "@/components/Block/Block"
-import SearchBar from "@/components/SearchBar/SearchBar"
+import Block from "@/components/ui/Block/Block"
+import SearchBar from "@/components/ui/SearchBar/SearchBar"
 import SectionedLayout from "@/layouts/SectionedLayout/SectionedLayout"
 import PieChartStatistic from "@/components/charts/PieChartStatistic/PieChartStatistic"
 import LineChartStatistic from "@/components/charts/LineChartStatistic/LineChartStatistic"
-import SectionHeader from "@/components/SectionHeader/SectionHeader"
+import SectionHeader from "@/components/ui/SectionHeader/SectionHeader"
 import BarChartStatistic from "@/components/charts/BarChartStatistic/BarChartStatistic"
 
 import styles from './CompetitionDashboard.module.css'

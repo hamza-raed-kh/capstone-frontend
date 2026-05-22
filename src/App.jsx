@@ -231,8 +231,8 @@ const router = createBrowserRouter([
                 element: <ParticipantsPage />
               },
               {
-                path: ":id/statistics",
-                element: <h1>Statistics</h1>
+                path: ":id/dashboard",
+                element: <CompetitionDashboard />
               },
             ],
           },
@@ -258,14 +258,6 @@ const router = createBrowserRouter([
                 element: <AdminCompetitionReviewPage />
               },
             ],
-          },
-          {
-            path: "django-admin",
-            element: <h1>Django Admin</h1>,
-          },
-          {
-            path: ":id/dashboard",
-            element: <CompetitionDashboard />
           },
         ],
       },

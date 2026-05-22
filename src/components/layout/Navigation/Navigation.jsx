@@ -38,7 +38,7 @@ function getOrganizerLinks(competitionId) {
     { label: "Preview", to: `/competition/${competitionId}`, icon: "material-symbols:visibility-rounded", end: true },
     { label: "Form Management", to: `/organizer/${competitionId}/form`, icon: "mdi:form-outline" },
     { label: "Participant Management", to: `/organizer/${competitionId}/participants`, icon: "ic:round-people" },
-    { label: "Statistics", to: `/organizer/${competitionId}/statistics`, icon: "uis:chart" },
+    { label: "Statistics", to: `/organizer/${competitionId}/dashboard`, icon: "uis:chart" },
   ];
 }
 
