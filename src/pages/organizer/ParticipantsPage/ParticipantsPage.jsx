@@ -21,6 +21,8 @@ function ParticipantsPage() {
             username: "Simon",
     }
 
+    let comp_name = "Web3 Hackathon";
+
     let userrecords = [
         single_userrecord,
         single_userrecord,
@@ -55,7 +57,7 @@ function ParticipantsPage() {
         <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar />
+                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
                 </div>
                 <div className={styles.pageFiltersSection}>
                     <FilterRow />

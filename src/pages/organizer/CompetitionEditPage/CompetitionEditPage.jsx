@@ -44,7 +44,7 @@ function CompetitionEditPage() {
         <SectionedLayout preset="organizer">
             <div className={styles.pageWrap}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar />
+                    <SearchBar variant="placeholder">{comp?.title || ""}</SearchBar>
                 </div>
                 <CompetitionForm initialData={comp} isEdit />
             </div>

@@ -20,7 +20,7 @@
     min-height: 0;
     flex-grow: 1;
 
-    background: #BECFEB;
+    background: var(--color-bg-accent);
     border-radius: 24px;
 }
 

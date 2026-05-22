@@ -29,6 +29,8 @@ import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/Organizer
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
 import EventsPage from "./pages/explore/EventsPage/EventsPage";
 import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
+import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -229,8 +231,8 @@ const router = createBrowserRouter([
                 element: <ParticipantsPage />
               },
               {
-                path: ":id/statistics",
-                element: <h1>Statistics</h1>
+                path: ":id/dashboard",
+                element: <CompetitionDashboard />
               },
             ],
           },
@@ -241,7 +243,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "dashboard",
-                element: <h1>Admin Dashboard</h1>,
+                element: <AdminDashboard />
               },
               {
                 path: "edit-requests",
@@ -256,10 +258,6 @@ const router = createBrowserRouter([
                 element: <AdminCompetitionReviewPage />
               },
             ],
-          },
-          {
-            path: "django-admin",
-            element: <h1>Django Admin</h1>,
           },
         ],
       },

@@ -21,7 +21,7 @@ const PRESETS = {
   admin: [
     { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
     { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
-    { label: "Edit Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
+    { label: "Change Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
     { label: "Django Admin", to: "/django-admin", icon: "mdi:gear" },
   ],
 };
@@ -38,7 +38,7 @@ function getOrganizerLinks(competitionId) {
     { label: "Preview", to: `/competition/${competitionId}`, icon: "material-symbols:visibility-rounded", end: true },
     { label: "Form Management", to: `/organizer/${competitionId}/form`, icon: "mdi:form-outline" },
     { label: "Participant Management", to: `/organizer/${competitionId}/participants`, icon: "ic:round-people" },
-    { label: "Statistics", to: `/organizer/${competitionId}/statistics`, icon: "uis:chart" },
+    { label: "Statistics", to: `/organizer/${competitionId}/dashboard`, icon: "uis:chart" },
   ];
 }
 
