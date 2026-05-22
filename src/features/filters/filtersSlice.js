@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  search: '',
   topics: [],
   status: '',
   virtual: false,
@@ -12,6 +13,9 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
     setTopics: (state, action) => {
       state.topics = action.payload;
     },
@@ -34,6 +38,7 @@ const filtersSlice = createSlice({
 });
 
 export const { 
+  setSearch,
   setTopics, 
   setStatus, 
   setVirtual, 

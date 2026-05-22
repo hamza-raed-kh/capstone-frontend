@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './NumberInput.module.css';
 
 const NumberInput = ({ label, placeholder, inlineLabel = false, value, onChange, min = 1, max, step = 1, readOnly = false, ...props }) => {

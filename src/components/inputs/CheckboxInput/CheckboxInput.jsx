@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './CheckboxInput.module.css';
 
 const CheckboxGroupContext = createContext(null);

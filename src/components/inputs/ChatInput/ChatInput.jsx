@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../ui/Icon/Icon';
 import styles from './ChatInput.module.css';
 
 const ChatInput = ({ readOnly = false }) => {
