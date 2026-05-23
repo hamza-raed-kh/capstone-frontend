@@ -23,7 +23,6 @@ const PRESETS = {
     { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
     { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
     { label: "Change Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
-    { label: "Django Admin", to: "/django-admin", icon: "mdi:gear" },
   ],
 };
 
@@ -57,6 +56,12 @@ const Navigation = ({ preset, community_links }) => {
   let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : [...PRESETS[preset]];
   if (preset === "account" && isStaff) {
     activeLinks.push({ label: "Admin Dashboard", to: "/admin/dashboard", icon: "uis:chart" });
+  }
+
+  if (preset === "admin") {
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000/api/"
+    const djangoAdminUrl = apiUrl.replace(/\/api\/?$/, "") + "/admin"
+    activeLinks.push({ label: "Django Admin", to: djangoAdminUrl, icon: "mdi:gear" })
   }
 
   community_links = community_links || {

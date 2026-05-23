@@ -6,6 +6,10 @@ export const editRequestApi = apiSlice.injectEndpoints({
       query: (params) => ({ url: "event-edit-requests/", params }),
       providesTags: ["EventEditRequest"],
     }),
+    getEditRequest: builder.query({
+      query: (id) => `event-edit-requests/${id}/`,
+      providesTags: ["EventEditRequest"],
+    }),
     createEditRequest: builder.mutation({
       query: (body) => ({
         url: "event-edit-requests/",
@@ -33,6 +37,7 @@ export const editRequestApi = apiSlice.injectEndpoints({
 
 export const {
   useGetEditRequestsQuery,
+  useGetEditRequestQuery,
   useCreateEditRequestMutation,
   useApproveEditRequestMutation,
   useRejectEditRequestMutation,

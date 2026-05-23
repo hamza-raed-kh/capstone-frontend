@@ -14,6 +14,7 @@ import CompetitionCreatePage from "./pages/organizer/CompetitionCreatePage/Compe
 import CompetitionEditPage from "./pages/organizer/CompetitionEditPage/CompetitionEditPage";
 import FormManagementPage from "./pages/organizer/FormManagementPage/FormManagementPage";
 import AdminCompetitionReviewPage from "./pages/admin/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
+import AdminEditRequestReviewPage from "./pages/admin/AdminEditRequestReviewPage/AdminEditRequestReviewPage";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/auth/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/auth/SignupPage/SignupPage";
@@ -277,12 +278,16 @@ const router = createBrowserRouter([
                 element: <ChangeRequestPage />,
               },
               {
+                path: "edit-requests/:id",
+                element: <AdminEditRequestReviewPage />,
+              },
+              {
                 path: "draft-submissions",
                 element: <DraftSubmissionPage />,
               },
               {
-                path: "competition/:id/review",
-                element: <AdminCompetitionReviewPage />
+                path: "draft-submissions/:id",
+                element: <AdminCompetitionReviewPage />,
               },
             ],
           },
