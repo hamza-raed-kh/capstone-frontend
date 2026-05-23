@@ -23,7 +23,7 @@ import React from "react";
 import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/ui/Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTheme, selectIsLoggedIn, selectIsStaff, setUser } from "./features/user/userSlice";
+import { selectTheme, selectIsLoggedIn, setUser } from "./features/user/userSlice";
 import { useGetMeQuery } from "./features/api/authApi";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
@@ -104,12 +104,11 @@ const AdminRedirect = () => {
 
 const AdminRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const isStaff = useSelector(selectIsStaff);
-  const { isLoading } = useGetMeQuery(undefined, { skip: !isLoggedIn });
+  const { data: userData, isLoading, isSuccess } = useGetMeQuery(undefined, { skip: !isLoggedIn });
 
   if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
   if (isLoading) return null;
-  if (!isStaff) return <Navigate to="/admin/login" replace />;
+  if (isSuccess && !userData?.is_staff) return <Navigate to="/admin/login" replace />;
   return children;
 };
 
