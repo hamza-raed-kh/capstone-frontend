@@ -1,11 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { format } from "date-fns"
-import FilterRow from "../../../components/data/FilterRow/FilterRow"
 import Results from "../../../components/data/Results/Results"
-import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
+import AdminLayout from "../../../layouts/AdminLayout/AdminLayout"
 import { useGetEventsQuery, useUpdateEventMutation } from "../../../features/api/eventApi"
-import styles from './DraftSubmissionPage.module.css'
 
 function mapEventToAdminCard(event, navigate, handleApprove, handleReject) {
     const banner_url = event.banner || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
@@ -24,7 +21,7 @@ function mapEventToAdminCard(event, navigate, handleApprove, handleReject) {
         categories: [],
     }
     const onClick = {
-        view: () => navigate(`/admin/competition/${event.id}/review`),
+        view: () => navigate(`/admin/draft-submissions/${event.id}/`),
         approve: () => handleApprove(event.id),
         reject: () => handleReject(event.id),
     }
@@ -57,6 +54,8 @@ function mapEventToMainCard(event, navigate) {
     }
 }
 
+const HISTORY_LIMIT = 5
+
 function DraftSubmissionPage() {
     const navigate = useNavigate()
     const [updateEvent] = useUpdateEventMutation()
@@ -80,7 +79,7 @@ function DraftSubmissionPage() {
     }
 
     const pendingResults = pendingData?.results || []
-    const historyResults = historyData?.results || []
+    const historyResults = (historyData?.results || []).slice(0, HISTORY_LIMIT)
 
     const admin_eventcards = pendingResults.map(e => mapEventToAdminCard(e, navigate, handleApprove, handleReject))
     const history_eventcards = historyResults.map(e => mapEventToMainCard(e, navigate))
@@ -94,19 +93,9 @@ function DraftSubmissionPage() {
     }
 
     return (
-        <SectionedLayout preset="admin">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar />
-                </div>
-                <div className={styles.pageFiltersSection}>
-                    <FilterRow />
-                </div>
-                <div className={styles.pageResultsSection}>
-                    <Results variant={'cardgroups'} sections={cardgroups}/>
-                </div>
-            </div>
-        </SectionedLayout>
+        <AdminLayout pageName="Draft Submissions">
+            <Results variant={'cardgroups'} sections={cardgroups}/>
+        </AdminLayout>
     )
 }
 
