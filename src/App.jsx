@@ -6,7 +6,7 @@ import FaqPage from "./pages/community/FaqPage/FaqPage";
 import SecurityPage from "./pages/account/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/explore/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
-import ChatPage from "./pages/community/ChatPage/ChatPage";
+import ChannelPage from "./pages/community/ChannelPage/ChannelPage";
 import FollowingPage from "./pages/account/FollowingPage/FollowingPage";
 
 import CompetitionDetailPage from "./pages/competition/CompetitionDetailPage/CompetitionDetailPage";
@@ -32,6 +32,7 @@ import EventsPage from "./pages/explore/EventsPage/EventsPage";
 import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
 import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
+import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -181,31 +182,16 @@ const router = createBrowserRouter([
           
           // Community Navbar pages
           {
-            path: "community",
+            path: "community/:eventId",
+            element: <CommunityLayout />,
             children: [
-              {
-                path: "announcements",
-                element: <h1>Announcements</h1>,
-              },
               {
                 path: "faq",
                 element: <FaqPage />,
               },
               {
-                path: "dm",
-                element: <h1>Organizer DM</h1>,
-              },
-              {
-                path: "teamchat",
-                element: <h1>Team Chat</h1>,
-              },
-              {
-                path: "general",
-                element: <ChatPage />,
-              },
-              {
-                path: "public",
-                element: <h1>Public Chat</h1>,
+                path: ":channelId",
+                element: <ChannelPage />,
               },
             ],
           },

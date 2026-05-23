@@ -10,7 +10,7 @@ import { Button } from '../../inputs/Button/Button'
 import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
 
-function LeftSection({ preset }) {
+function LeftSection({ preset, community_links }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data: userData } = useGetMeQuery();
@@ -30,7 +30,7 @@ function LeftSection({ preset }) {
                     </div>
                     <h1 className={styles.menuTitle} style={{ cursor: 'pointer' }} onClick={() => navigate('/explore')}>Nizal</h1>
                 </div>
-                <Navigation preset={preset}/>
+                <Navigation preset={preset} community_links={community_links}/>
                 {preset === "account" && (
                     <div className={styles.logoutSection}>
                         <Button variant="red-secondary" onClick={handleLogout} className={styles.logoutButton}>

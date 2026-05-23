@@ -53,7 +53,7 @@ function getOrganizerLinks(competitionId) {
 const Navigation = ({ preset, community_links }) => {
   const competitionId = useSelector((state) => state.competition.currentId);
   const isStaff = useSelector(selectIsStaff);
-  let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : [...PRESETS[preset]];
+  let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : preset !== "community" ? [...PRESETS[preset]] : [];
   if (preset === "account" && isStaff) {
     activeLinks.push({ label: "Admin Dashboard", to: "/admin/dashboard", icon: "uis:chart" });
   }
