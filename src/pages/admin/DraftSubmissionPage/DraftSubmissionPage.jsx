@@ -50,7 +50,7 @@ function mapEventToMainCard(event, navigate) {
         info,
         details,
         button: { variant: "primary", children: "View" },
-        onClick: { view: () => navigate(`/competition/${event.id}`) },
+        onClick: { view: () => navigate(`/admin/draft-submissions/${event.id}/`) },
     }
 }
 
