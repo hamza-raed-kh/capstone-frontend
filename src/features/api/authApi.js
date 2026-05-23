@@ -23,6 +23,20 @@ export const authApi = apiSlice.injectEndpoints({
         } catch {}
       },
     }),
+    adminLogin: builder.mutation({
+      query: (body) => ({
+        url: "auth/admin-login/",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem("accessToken", data.access);
+          localStorage.setItem("refreshToken", data.refresh);
+        } catch {}
+      },
+    }),
     refreshToken: builder.mutation({
       query: (body) => ({
         url: "auth/token/refresh/",
@@ -67,6 +81,7 @@ export const authApi = apiSlice.injectEndpoints({
 export const {
   useRegisterMutation,
   useLoginMutation,
+  useAdminLoginMutation,
   useRefreshTokenMutation,
   useGetMeQuery,
   useUpdateMeMutation,

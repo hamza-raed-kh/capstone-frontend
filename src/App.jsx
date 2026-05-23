@@ -22,8 +22,8 @@ import YourInfoPage from "./pages/account/YourInfoPage/YourInfoPage";
 import React from "react";
 import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/ui/Toast/Toast";
-import { useSelector } from "react-redux";
-import { selectTheme, selectIsLoggedIn } from "./features/user/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTheme, selectIsLoggedIn, selectIsStaff, setUser } from "./features/user/userSlice";
 import { useGetMeQuery } from "./features/api/authApi";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
@@ -47,8 +47,15 @@ const ProtectedRoute = ({ children }) => {
 const RootLayout = () => {
   const theme = useSelector(selectTheme);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch();
 
-  useGetMeQuery(undefined, { skip: !isLoggedIn });
+  const { data: userData } = useGetMeQuery(undefined, { skip: !isLoggedIn });
+
+  React.useEffect(() => {
+    if (userData) {
+      dispatch(setUser(userData));
+    }
+  }, [userData, dispatch]);
 
   // Sync theme to the document element for CSS variables
   React.useEffect(() => {
@@ -93,6 +100,17 @@ const HomeRedirect = () => {
 const AdminRedirect = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   return <Navigate to={isLoggedIn ? "/admin/dashboard" : "/admin/login"} replace />;
+};
+
+const AdminRoute = ({ children }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isStaff = useSelector(selectIsStaff);
+  const { isLoading } = useGetMeQuery(undefined, { skip: !isLoggedIn });
+
+  if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
+  if (isLoading) return null;
+  if (!isStaff) return <Navigate to="/admin/login" replace />;
+  return children;
 };
 
 const router = createBrowserRouter([
@@ -249,6 +267,7 @@ const router = createBrowserRouter([
           // Admin Navbar pages (except login)
           {
             path: "admin",
+            element: <AdminRoute><Outlet /></AdminRoute>,
             children: [
               {
                 path: "dashboard",

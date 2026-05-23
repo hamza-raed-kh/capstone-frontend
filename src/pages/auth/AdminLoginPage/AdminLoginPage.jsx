@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useLoginMutation } from '../../../features/api/authApi';
+import { useAdminLoginMutation } from '../../../features/api/authApi';
 import { apiSlice } from '../../../features/api/apiSlice';
 import { setTokens } from '../../../features/user/userSlice';
 import BoxLayout from '../../../layouts/BoxLayout/BoxLayout';
@@ -12,7 +12,7 @@ import styles from './AdminLoginPage.module.css';
 const AdminLoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading, error }] = useAdminLoginMutation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
