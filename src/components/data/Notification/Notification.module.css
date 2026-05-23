@@ -1,13 +1,24 @@
+.clickable {
+  cursor: pointer;
+  transition: outline 0.15s;
+  outline: 2px solid transparent;
+}
+
+.clickable:hover {
+  outline-color: var(--color-main);
+}
+
 .notificationCard {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 8px;
+  margin: 3px;
   border-radius: 16px;
   background-color: var(--color-white);
   color: var(--color-text);
   font-family: inherit;
-  width: 100%;
+  width: calc(100% - 6px);
   box-sizing: border-box;
 }
 
