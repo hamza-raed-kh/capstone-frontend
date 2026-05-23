@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import NavLink from '../NavLink/NavLink';
 import styles from './Navigation.module.css';
 import Icon from '@/components/ui/Icon/Icon';
+import { selectIsStaff } from '@/features/user/userSlice';
 
 const PRESETS = {
   home: [
@@ -52,7 +53,11 @@ function getOrganizerLinks(competitionId) {
  */
 const Navigation = ({ preset, community_links }) => {
   const competitionId = useSelector((state) => state.competition.currentId);
-  const activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : PRESETS[preset];
+  const isStaff = useSelector(selectIsStaff);
+  let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : [...PRESETS[preset]];
+  if (preset === "account" && isStaff) {
+    activeLinks.push({ label: "Admin Dashboard", to: "/admin/dashboard", icon: "uis:chart" });
+  }
 
   community_links = community_links || {
     official: [
