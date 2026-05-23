@@ -48,6 +48,19 @@ export const authApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getMeInterests: builder.query({
+      query: () => "users/me/interests/",
+      providesTags: ["UserInterest"],
+      transformResponse: (response) => response.map((item) => item.topic.id),
+    }),
+    setMeInterests: builder.mutation({
+      query: (topicIds) => ({
+        url: "users/me/interests/",
+        method: "PUT",
+        body: { topic_ids: topicIds },
+      }),
+      invalidatesTags: ["UserInterest"],
+    }),
   }),
 });
 
@@ -58,4 +71,6 @@ export const {
   useGetMeQuery,
   useUpdateMeMutation,
   useDeleteMeMutation,
+  useGetMeInterestsQuery,
+  useSetMeInterestsMutation,
 } = authApi;

@@ -51,7 +51,7 @@ const SignupPage = () => {
       const data = await login({ email, password }).unwrap();
       dispatch(setTokens({ access: data.access, refresh: data.refresh }));
       dispatch(apiSlice.util.invalidateTags(['User']));
-      navigate('/explore');
+      navigate('/onboarding');
     } catch (err) {
       if (err?.data) {
         const messages = Object.values(err.data).flat().join(' ');

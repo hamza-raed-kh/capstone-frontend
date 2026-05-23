@@ -4,54 +4,59 @@ import { CheckboxInput, CheckboxGroup } from '../../../components/inputs/Checkbo
 import { Button } from '../../../components/inputs/Button/Button'
 import styles from './OnboardingPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useGetTopicsQuery } from '../../../features/api/topicApi';
+import { useSetMeInterestsMutation } from '../../../features/api/authApi';
 
 const OnboardingPage = () => {
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
+  const { data: topicsData, isLoading: topicsLoading } = useGetTopicsQuery();
+  const topics = topicsData?.results;
+  const [setInterests, { isLoading: saving }] = useSetMeInterestsMutation();
 
   const onSkip = () => {
     navigate('/explore');
-  }
+  };
 
-  const onNext = () => {
+  const onNext = async () => {
+    if (selected.length > 0) {
+      await setInterests(selected.map(Number));
+    }
     navigate('/explore');
+  };
+
+  if (topicsLoading) {
+    return (
+      <BoxLayout>
+        <p>Loading topics...</p>
+      </BoxLayout>
+    );
   }
 
   return (
     <BoxLayout>
       <h1 className={styles.title}>What topics are you interested in?</h1>
-      <CheckboxGroup
-        value={selected}
-        onChange={setSelected}
-        direction='row'
-      >
-        <CheckboxInput variant='secondary' label="Tech" value="tech" />
-        <CheckboxInput variant='secondary' label="Sports" value="sports" />
-        <CheckboxInput variant='secondary' label="Food" value="food" />
-        <CheckboxInput variant='secondary' label="Travel" value="travel" />
-        <CheckboxInput variant='secondary' label="News" value="news" />
-        <CheckboxInput variant='secondary' label="Health" value="health" />
-        <CheckboxInput variant='secondary' label="Entertainment" value="entertainment" />
-        <CheckboxInput variant='secondary' label="Fashion" value="fashion" />
-        <CheckboxInput variant='secondary' label="Science" value="science" />
-        <CheckboxInput variant='secondary' label="Politics" value="politics" />
-        <CheckboxInput variant='secondary' label="Business" value="business" />
-        <CheckboxInput variant='secondary' label="Education" value="education" />
-        <CheckboxInput variant='secondary' label="Sports" value="sports" />
-        <CheckboxInput variant='secondary' label="Technology" value="technology" />
-        <CheckboxInput variant='secondary' label="Food" value="food" />
-        <CheckboxInput variant='secondary' label="Travel" value="travel" />
-        <CheckboxInput variant='secondary' label="Health" value="health" />
-        <CheckboxInput variant='secondary' label="Entertainment" value="entertainment" />
-        <CheckboxInput variant='secondary' label="Fashion" value="fashion" />
-        <CheckboxInput variant='secondary' label="Science" value="science" />
-        <CheckboxInput variant='secondary' label="Politics" value="politics" />
-        <CheckboxInput variant='secondary' label="Business" value="business" />
-        <CheckboxInput variant='secondary' label="Education" value="education" />
-      </CheckboxGroup>
+      {topics && (
+        <CheckboxGroup
+          value={selected}
+          onChange={setSelected}
+          direction='row'
+        >
+          {topics.map((topic) => (
+            <CheckboxInput
+              key={topic.id}
+              variant='secondary'
+              label={topic.name}
+              value={String(topic.id)}
+            />
+          ))}
+        </CheckboxGroup>
+      )}
       <div className={styles.buttonWrapper}>
         <Button variant='secondary' onClick={onSkip}>Skip</Button>
-        <Button variant='primary' onClick={onNext}>Next</Button>
+        <Button variant='primary' onClick={onNext} disabled={saving}>
+          {saving ? 'Saving...' : 'Next'}
+        </Button>
       </div>
     </BoxLayout>
   );

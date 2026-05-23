@@ -90,6 +90,11 @@ const HomeRedirect = () => {
   return <Navigate to={isLoggedIn ? "/explore" : "/signup"} replace />;
 };
 
+const AdminRedirect = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  return <Navigate to={isLoggedIn ? "/admin/dashboard" : "/admin/login"} replace />;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -107,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "admin/login",
         element: <AdminLoginPage />,
+      },
+      {
+        path: "admin",
+        element: <AdminRedirect />,
       },
 
       // Everything else requires auth

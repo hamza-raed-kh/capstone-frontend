@@ -36,6 +36,7 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: [
     "User",
+    "UserInterest",
     "Topic",
     "Event",
     "EventType",

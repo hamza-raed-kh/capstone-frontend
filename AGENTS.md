@@ -25,6 +25,13 @@ No `test` script in package.json — run `pnpm vitest` directly.
 - **Notable deps:** `date-fns` (dates), `react-day-picker` (date picker), `prop-types` (runtime validation, no TypeScript)
 - **Theme:** `data-theme` attribute on `<html>`, system preference detection in `App.jsx`, CSS variables in `src/index.css`
 
+## Onboarding
+
+- Onboarding page after signup fetches topics from `GET /api/topics/` and lets user pick interests
+- On "Next", calls `PUT /api/users/me/interests/` with `{topic_ids: [...]}`
+- On "Skip", navigates to `/explore` without saving
+- Backend endpoint must exist — see backend AGENTS.md for API details
+
 ## Testing
 
 - **Stack:** Vitest + Playwright browser runner + `@storybook/addon-vitest`
@@ -38,6 +45,13 @@ No `test` script in package.json — run `pnpm vitest` directly.
 - Stories live at `src/**/*.stories.@(js|jsx|mjs|ts|tsx)` — `@chromatic-com/storybook` addon active
 - Dev: `pnpm storybook`
 - Build: `pnpm build-storybook`
+
+## Routing / Auth redirects
+
+- `/admin` → redirects to `/admin/dashboard` (logged in) or `/admin/login` (not logged in)
+- Admin login → `/admin/dashboard` (not `/admin/draft-submissions`)
+- Signup → `/onboarding` (not `/explore`)
+- Logout: admin → `/admin/login`, regular → `/login`
 
 ## Conventions
 

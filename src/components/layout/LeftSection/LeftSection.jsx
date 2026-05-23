@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toggleLeftSidebar } from "../../../features/layout/layoutSlice"
 import { logOut } from "../../../features/user/userThunks"
+import { useGetMeQuery } from "../../../features/api/authApi"
 import { Button } from '../../inputs/Button/Button'
 import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
@@ -12,10 +13,12 @@ import Icon from '../../ui/Icon/Icon'
 function LeftSection({ preset }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { data: userData } = useGetMeQuery();
 
     const handleLogout = () => {
+        const isAdmin = userData?.is_staff;
         dispatch(logOut());
-        navigate('/login');
+        navigate(isAdmin ? '/admin/login' : '/login');
     };
 
     return (
