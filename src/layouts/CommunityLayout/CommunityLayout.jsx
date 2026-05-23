@@ -50,7 +50,7 @@ function CommunityLayout() {
                     <SearchBar variant="placeholder">{event?.title || "Community"}</SearchBar>
                 </div>
                 <div className={styles.pageResultsSection}>
-                    <Outlet />
+                    <Outlet context={{ eventId }} />
                 </div>
             </div>
         </SectionedLayout>
