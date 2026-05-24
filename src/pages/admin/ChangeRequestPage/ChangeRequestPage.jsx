@@ -1,11 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { format } from "date-fns"
-import FilterRow from "../../../components/data/FilterRow/FilterRow"
 import Results from "../../../components/data/Results/Results"
-import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
+import AdminLayout from "../../../layouts/AdminLayout/AdminLayout"
 import { useGetEditRequestsQuery, useApproveEditRequestMutation, useRejectEditRequestMutation } from "../../../features/api/editRequestApi"
-import styles from './ChangeRequestPage.module.css'
 
 function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
     const banner_url = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
@@ -24,7 +21,7 @@ function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
         categories: [],
     }
     const onClick = {
-        view: () => navigate(`/admin/competition/${req.event}/review`),
+        view: () => navigate(`/admin/edit-requests/${req.id}/`),
         approve: () => handleApprove(req.id),
         reject: () => handleReject(req.id),
     }
@@ -53,7 +50,7 @@ function mapEditRequestToMainCard(req, navigate) {
         info,
         details,
         button: { variant: "primary", children: "View" },
-        onClick: { view: () => navigate(`/admin/competition/${req.event}/review`) },
+        onClick: { view: () => navigate(`/admin/edit-requests/${req.id}/`) },
     }
 }
 
@@ -95,19 +92,9 @@ function ChangeRequestPage() {
     }
 
     return (
-        <SectionedLayout preset="admin">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar />
-                </div>
-                <div className={styles.pageFiltersSection}>
-                    <FilterRow />
-                </div>
-                <div className={styles.pageResultsSection}>
-                    <Results variant={'cardgroups'} sections={cardgroups}/>
-                </div>
-            </div>
-        </SectionedLayout>
+        <AdminLayout pageName="Change Requests">
+            <Results variant={'cardgroups'} sections={cardgroups}/>
+        </AdminLayout>
     )
 }
 

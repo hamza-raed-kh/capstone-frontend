@@ -4,78 +4,125 @@
     flex-flow: column nowrap;
     height: 100%;
     min-height: 0;
-}
-
-.pageSearchSection {
-    height: 53px;
+    position: relative;
 }
 
 .bodyContainer {
-    /* FAQ */
-    
-    /* Auto layout */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 24px;
     gap: 24px;
-
     width: 100%;
-    height: 0px;
-    /* min-height: 0; */
-
+    min-height: 0;
     background: var(--color-bg-accent);
     border-radius: 24px;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
+    flex: 1;
     align-self: stretch;
-    flex-grow: 1;
-
     overflow: scroll;
     scrollbar-width: none;
 }
 
 .bodyHeader {
-    /* Header 2 */
-
-    /* Inside auto layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
     flex: none;
     order: 0;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .bodyQuestionList {
-    /* Auto layout */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-
     width: 100%;
-    height: 0px;
-
     background: var(--color-bg-accent);
-    border-radius: 24px;
-
+    flex: 1;
+    align-self: stretch;
     overflow: scroll;
     scrollbar-width: none;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 1;
 }
 
-.bodyQuestion {
-    /* Question */
-
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
+.faqWrapper {
+    position: relative;
     align-self: stretch;
-    flex-grow: 0;
+}
+
+.questionActions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.faqWrapper:hover .questionActions {
+    opacity: 1;
+}
+
+.actionBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text-accent);
+    transition: all 0.15s;
+}
+
+.actionBtn:hover {
+    background: var(--color-bg-accent);
+    color: var(--color-main);
+}
+
+.fab {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-main);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.emptyText {
+    color: var(--color-text-accent);
+    font-size: 0.875rem;
+    opacity: 0.6;
+    margin: 0;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
 }

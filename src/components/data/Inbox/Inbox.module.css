@@ -50,6 +50,15 @@
     color: var(--color-text);
 }
 
+.emptyText {
+    color: var(--color-text-accent);
+    font-size: 0.875rem;
+    opacity: 0.6;
+    margin: 0;
+    text-align: center;
+    padding: 24px 0;
+}
+
 .inboxTitle {
     /* width: 248px;
     height: 40px; */

@@ -1,15 +1,12 @@
 import Block from "@/components/ui/Block/Block"
-import SearchBar from "@/components/ui/SearchBar/SearchBar"
-import SectionedLayout from "@/layouts/SectionedLayout/SectionedLayout"
 import PieChartStatistic from "@/components/charts/PieChartStatistic/PieChartStatistic"
 import SectionHeader from "@/components/ui/SectionHeader/SectionHeader"
 import BarChartStatistic from "@/components/charts/BarChartStatistic/BarChartStatistic"
+import AdminLayout from "@/layouts/AdminLayout/AdminLayout"
 
 import styles from './AdminDashboard.module.css'
 
 function AdminDashboard() {
-    let comp_name = "Web3 Hackathon";
-
     let submissionPieData = [
         { category: "approved", count: 193, fill: "var(--color-green)" },
         { category: "rejected", count: 50, fill: "var(--color-error)" },
@@ -21,15 +18,12 @@ function AdminDashboard() {
         },
         approved: {
             label: "Approved",
-            // color: "var(--chart-1)",
         },
         rejected: {
             label: "Rejected",
-            // color: "var(--chart-2)",
         },
         pending: {
             label: "Pending",
-            // color: "var(--color-3)",
         },
     };
     let submissionBarData = [
@@ -57,15 +51,12 @@ function AdminDashboard() {
         },
         approved: {
             label: "Approved",
-            // color: "var(--chart-1)",
         },
         rejected: {
             label: "Rejected",
-            // color: "var(--chart-2)",
         },
         pending: {
             label: "Pending",
-            // color: "var(--color-3)",
         },
     };
     let requestBarData = [
@@ -84,53 +75,46 @@ function AdminDashboard() {
     };
 
     return (
-        <SectionedLayout preset="admin">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
+        <AdminLayout pageName="Dashboard">
+            <Block>
+                <div className={styles.pageResultsContainer}>
+                    <SectionHeader icon={'fluent:calendar-24-filled'} title="Draft Submission Staistics"/>
+                    <div className={styles.pageStatisticsGrid}>
+                        <PieChartStatistic
+                            title={'Submissions Status'}
+                            desc={'Status of Draft Submissions sent to admin.'}
+                            chartData={submissionPieData}
+                            chartConfig={submissionPieConfig}
+                            footer={'Showing status of all pending drafts & those resolved today.'}
+                        />
+                        <BarChartStatistic
+                            title={'Submissions waiting'}
+                            desc={'How long drafts have been waiting in Submission.'}
+                            chartData={ submissionBarData }
+                            chartConfig={ submissionBarConfig }
+                            footer={'Showing all pending Submissions at the moment.'}
+                        />
+                    </div>
+                    <SectionHeader icon={'mage:edit-pen-fill'} title="Change Request Staistics"/>
+                    <div className={styles.pageStatisticsGrid}>
+                        <PieChartStatistic
+                            title={'Change Reqs Status'}
+                            desc={'Status of Change Requests sent to admin.'}
+                            chartData={requestPieData}
+                            chartConfig={requestPieConfig}
+                            footer={'Showing status of all pending requests & those resolved today.'}
+                        />
+                        <BarChartStatistic
+                            title={'Request waiting'}
+                            desc={'How long Change Reqs have been waiting in submission.'}
+                            chartData={ requestBarData }
+                            chartConfig={ requestBarConfig }
+                            footer={'Showing all pending Change Reqs at the moment.'}
+                        />
+                    </div>
                 </div>
-                <div className={styles.pageResultsSection}>
-                    <Block>
-                        <div className={styles.pageResultsContainer}>
-                            <SectionHeader icon={'fluent:calendar-24-filled'} title="Draft Submission Staistics"/>
-                            <div className={styles.pageStatisticsGrid}>
-                                <PieChartStatistic
-                                    title={'Submissions Status'}
-                                    desc={'Status of Draft Submissions sent to admin.'}
-                                    chartData={submissionPieData}
-                                    chartConfig={submissionPieConfig}
-                                    footer={'Showing status of all pending drafts & those resolved today.'}
-                                />
-                                <BarChartStatistic
-                                    title={'Submissions waiting'}
-                                    desc={'How long drafts have been waiting in Submission.'}
-                                    chartData={ submissionBarData }
-                                    chartConfig={ submissionBarConfig }
-                                    footer={'Showing all pending Submissions at the moment.'}
-                                />
-                            </div>
-                            <SectionHeader icon={'mage:edit-pen-fill'} title="Change Request Staistics"/>
-                            <div className={styles.pageStatisticsGrid}>
-                                <PieChartStatistic
-                                    title={'Change Reqs Status'}
-                                    desc={'Status of Change Requests sent to admin.'}
-                                    chartData={requestPieData}
-                                    chartConfig={requestPieConfig}
-                                    footer={'Showing status of all pending requests & those resolved today.'}
-                                />
-                                <BarChartStatistic
-                                    title={'Request waiting'}
-                                    desc={'How long Change Reqs have been waiting in submission.'}
-                                    chartData={ requestBarData }
-                                    chartConfig={ requestBarConfig }
-                                    footer={'Showing all pending Change Reqs at the moment.'}
-                                />
-                            </div>
-                        </div>
-                    </Block>
-                </div>
-            </div>
-        </SectionedLayout>
+            </Block>
+        </AdminLayout>
     );
 }
 

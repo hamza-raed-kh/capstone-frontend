@@ -6,7 +6,7 @@ import FaqPage from "./pages/community/FaqPage/FaqPage";
 import SecurityPage from "./pages/account/SecurityPage/SecurityPage";
 import ProfilePage from "./pages/explore/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
-import ChatPage from "./pages/community/ChatPage/ChatPage";
+import ChannelPage from "./pages/community/ChannelPage/ChannelPage";
 import FollowingPage from "./pages/account/FollowingPage/FollowingPage";
 
 import CompetitionDetailPage from "./pages/competition/CompetitionDetailPage/CompetitionDetailPage";
@@ -14,6 +14,7 @@ import CompetitionCreatePage from "./pages/organizer/CompetitionCreatePage/Compe
 import CompetitionEditPage from "./pages/organizer/CompetitionEditPage/CompetitionEditPage";
 import FormManagementPage from "./pages/organizer/FormManagementPage/FormManagementPage";
 import AdminCompetitionReviewPage from "./pages/admin/AdminCompetitionReviewPage/AdminCompetitionReviewPage";
+import AdminEditRequestReviewPage from "./pages/admin/AdminEditRequestReviewPage/AdminEditRequestReviewPage";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import AdminLoginPage from "./pages/auth/AdminLoginPage/AdminLoginPage";
 import SignupPage from "./pages/auth/SignupPage/SignupPage";
@@ -22,8 +23,8 @@ import YourInfoPage from "./pages/account/YourInfoPage/YourInfoPage";
 import React from "react";
 import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/ui/Toast/Toast";
-import { useSelector } from "react-redux";
-import { selectTheme, selectIsLoggedIn } from "./features/user/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTheme, selectIsLoggedIn, setUser } from "./features/user/userSlice";
 import { useGetMeQuery } from "./features/api/authApi";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
@@ -31,6 +32,7 @@ import EventsPage from "./pages/explore/EventsPage/EventsPage";
 import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
 import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
+import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -47,8 +49,15 @@ const ProtectedRoute = ({ children }) => {
 const RootLayout = () => {
   const theme = useSelector(selectTheme);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch();
 
-  useGetMeQuery(undefined, { skip: !isLoggedIn });
+  const { data: userData } = useGetMeQuery(undefined, { skip: !isLoggedIn });
+
+  React.useEffect(() => {
+    if (userData) {
+      dispatch(setUser(userData));
+    }
+  }, [userData, dispatch]);
 
   // Sync theme to the document element for CSS variables
   React.useEffect(() => {
@@ -90,6 +99,21 @@ const HomeRedirect = () => {
   return <Navigate to={isLoggedIn ? "/explore" : "/signup"} replace />;
 };
 
+const AdminRedirect = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  return <Navigate to={isLoggedIn ? "/admin/dashboard" : "/admin/login"} replace />;
+};
+
+const AdminRoute = ({ children }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { data: userData, isLoading, isSuccess } = useGetMeQuery(undefined, { skip: !isLoggedIn });
+
+  if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
+  if (isLoading) return null;
+  if (isSuccess && !userData?.is_staff) return <Navigate to="/admin/login" replace />;
+  return children;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -107,6 +131,10 @@ const router = createBrowserRouter([
       {
         path: "admin/login",
         element: <AdminLoginPage />,
+      },
+      {
+        path: "admin",
+        element: <AdminRedirect />,
       },
 
       // Everything else requires auth
@@ -154,31 +182,16 @@ const router = createBrowserRouter([
           
           // Community Navbar pages
           {
-            path: "community",
+            path: "community/:eventId",
+            element: <CommunityLayout />,
             children: [
-              {
-                path: "announcements",
-                element: <h1>Announcements</h1>,
-              },
               {
                 path: "faq",
                 element: <FaqPage />,
               },
               {
-                path: "dm",
-                element: <h1>Organizer DM</h1>,
-              },
-              {
-                path: "teamchat",
-                element: <h1>Team Chat</h1>,
-              },
-              {
-                path: "general",
-                element: <ChatPage />,
-              },
-              {
-                path: "public",
-                element: <h1>Public Chat</h1>,
+                path: ":channelId",
+                element: <ChannelPage />,
               },
             ],
           },
@@ -240,6 +253,7 @@ const router = createBrowserRouter([
           // Admin Navbar pages (except login)
           {
             path: "admin",
+            element: <AdminRoute><Outlet /></AdminRoute>,
             children: [
               {
                 path: "dashboard",
@@ -250,12 +264,16 @@ const router = createBrowserRouter([
                 element: <ChangeRequestPage />,
               },
               {
+                path: "edit-requests/:id",
+                element: <AdminEditRequestReviewPage />,
+              },
+              {
                 path: "draft-submissions",
                 element: <DraftSubmissionPage />,
               },
               {
-                path: "competition/:id/review",
-                element: <AdminCompetitionReviewPage />
+                path: "draft-submissions/:id",
+                element: <AdminCompetitionReviewPage />,
               },
             ],
           },

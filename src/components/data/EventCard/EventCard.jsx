@@ -9,7 +9,7 @@ import CategoryTag from '../../ui/CategoryTag/CategoryTag';
  * to the eventcard, allowing for a consistent look and feel across the application.
  *
  * @param {object} props - The properties for the eventcard.
- * @param {'main' | 'admin'} [props.variant='search'] - The visual variant of the eventcard.
+ * @param {'main' | 'clean'} [props.variant='main'] - The visual variant of the eventcard.
  * @param {string} props.banner_url - The url of the event banner to be displayed at the top of the eventcard.
  * @param {object} props.info - The title & description to be displayed inside the eventcard.
  * @param {object} props.details - The details to be displayed inside the eventcard.
@@ -23,21 +23,6 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
             case 'main':
                 return (
                     <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "view" in onClick ? onClick.view : null} />
-                );
-                
-            case 'admin':
-                return (
-                    <>
-                        <div className={`${styles.eventcardButtonsReject}`}>
-                            <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject} />
-                        </div>
-                        <div className={`${styles.eventcardButtonsApprove}`}>
-                            <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve} />
-                        </div>
-                        <div className={`${styles.eventcardButtonsView}`}>
-                            <Button variant={"primary"} children={"View"} onClick={onClick.view} />
-                        </div>
-                    </>
                 );
             
             case 'clean':

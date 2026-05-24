@@ -1,0 +1,41 @@
+.reviewActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin: 20px;
+}
+
+.reviewActionsRight {
+    display: flex;
+    gap: 12px;
+}
+
+.reviewBtn {
+    padding: 6px 12px !important;
+    width: auto;
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.statusBadge.pending {
+    background: var(--color-inactive);
+    color: white;
+}
+
+.statusBadge.approved {
+    background: var(--color-green);
+    color: white;
+}
+
+.statusBadge.rejected {
+    background: var(--color-danger);
+    color: white;
+}
