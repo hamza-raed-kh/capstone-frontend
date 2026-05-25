@@ -23,9 +23,17 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
     const [height, setHeight] = useState(0)
 
     useEffect(() => {
-        if (innerRef.current) {
-            setHeight(innerRef.current.scrollHeight)
-        }
+        const el = innerRef.current
+        if (!el) return
+        setHeight(el.scrollHeight)
+        const ro = new ResizeObserver(([entry]) => {
+            const h = entry.contentBoxSize
+                ? entry.contentBoxSize[0].blockSize
+                : entry.target.scrollHeight
+            setHeight((prev) => Math.max(prev, h))
+        })
+        ro.observe(el)
+        return () => ro.disconnect()
     }, [eventcards])
 
     const handleToggleOpen = (e) => {
