@@ -1,7 +1,5 @@
 import FilterRow from "../../../components/data/FilterRow/FilterRow"
 import Results from "../../../components/data/Results/Results"
-import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import styles from './FollowingPage.module.css'
 
 function FollowingPage() {
@@ -32,19 +30,14 @@ function FollowingPage() {
     ]
 
     return (
-        <SectionedLayout preset="account">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar />
-                </div>
-                <div className={styles.pageFiltersSection}>
-                    <FilterRow />
-                </div>
-                <div className={styles.pageResultsSection}>
-                    <Results variant={'userlists'} sections={userlists}/>
-                </div>
+        <>
+            <div className={styles.pageFiltersSection}>
+                <FilterRow />
             </div>
-        </SectionedLayout>
+            <div className={styles.pageResultsSection}>
+                <Results variant={'userlists'} sections={userlists}/>
+            </div>
+        </>
     )
 }
 

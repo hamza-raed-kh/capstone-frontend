@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetMeQuery, useUpdateMeMutation } from '../../../features/api/authApi';
-import SearchBar from '../../../components/ui/SearchBar/SearchBar';
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader';
-import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout';
 import TextInput from '../../../components/inputs/TextInput/TextInput';
 import TextArea from '../../../components/inputs/TextArea/TextArea';
 import GenderInput from '../../../components/inputs/GenderInput/GenderInput';
@@ -101,12 +99,7 @@ const YourInfoPage = () => {
   };
 
   return (
-    <SectionedLayout preset="account">
-      <div className={styles.pageContainer}>
-        <div className={styles.pageSearchSection}>
-          <SearchBar variant="placeholder">Account Center</SearchBar>
-        </div>
-        <div className={styles.bodyContainer}>
+    <div className={styles.bodyContainer}>
           <div className={styles.bodyHeader}>
             <SectionHeader icon={'material-symbols:info-rounded'} title={'Your Information'} />
           </div>
@@ -168,9 +161,7 @@ const YourInfoPage = () => {
 
             </form>
           </div>
-        </div>
-      </div>
-    </SectionedLayout>
+    </div>
   );
 };
 

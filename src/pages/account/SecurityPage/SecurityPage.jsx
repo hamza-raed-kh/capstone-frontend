@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Button } from '../../../components/inputs/Button/Button'
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader'
 import TextField from '../../../components/inputs/TextField/TextField'
-import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout'
-import SearchBar from '../../../components/ui/SearchBar/SearchBar'
+
 import styles from './SecurityPage.module.css'
 
 /**
@@ -51,12 +50,7 @@ const SecurityPage = ({ onDelete }) => {
     }
 
     return (
-        <SectionedLayout preset="account">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">Account Center</SearchBar>
-                </div>
-                <div className={`${styles.bodyContainer}`}>
+        <div className={`${styles.bodyContainer}`}>
                     <div className={`${styles.SectionSecurity}`}>
                         <SectionHeader icon={'iconamoon:shield-yes-fill'} title={'Security'} />
                         <form className={styles.SecurityForm} onSubmit={handleSubmit}>
@@ -83,8 +77,6 @@ const SecurityPage = ({ onDelete }) => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </SectionedLayout>
     );
 }
 

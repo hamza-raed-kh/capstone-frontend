@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetMeQuery, useUpdateMeMutation } from '../../../features/api/authApi';
 import { selectTheme, setTheme } from '../../../features/user/userSlice';
-import SearchBar from '../../../components/ui/SearchBar/SearchBar';
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader';
-import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout';
 import { CheckboxInput, CheckboxGroup } from '../../../components/inputs/CheckboxInput/CheckboxInput';
 import { Button } from '../../../components/inputs/Button/Button';
 import Icon from '../../../components/ui/Icon/Icon';
@@ -83,12 +81,7 @@ const PersonalizationPage = () => {
   };
 
   return (
-    <SectionedLayout preset="account">
-      <div className={styles.pageContainer}>
-        <div className={styles.pageSearchSection}>
-          <SearchBar variant="placeholder">Account Center</SearchBar>
-        </div>
-        <div className={styles.bodyContainer}>
+    <div className={styles.bodyContainer}>
           <form className={styles.form} onSubmit={handleSave}>
 
             {/* Interests Section */}
@@ -156,8 +149,6 @@ const PersonalizationPage = () => {
 
           </form>
         </div>
-      </div>
-    </SectionedLayout>
   );
 };
 

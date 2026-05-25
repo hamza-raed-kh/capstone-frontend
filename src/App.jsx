@@ -33,6 +33,7 @@ import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
 import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
+import AccountCenterLayout from "./layouts/AccountCenterLayout/AccountCenterLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -199,6 +200,7 @@ const router = createBrowserRouter([
           // Account Navbar pages
           {
             path: "account",
+            element: <AccountCenterLayout />,
             children: [
               {
                 path: "profile",

@@ -1,0 +1,11 @@
+.pageContainer {
+    display: flex;
+    gap: 12px;
+    flex-flow: column nowrap;
+    height: 100%;
+    min-height: 0;
+}
+
+.pageSearchSection {
+    height: 53px;
+}
