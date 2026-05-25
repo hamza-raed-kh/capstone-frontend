@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, Navigate } from "react-router-dom"
 import { useGetMeQuery, useGetUserQuery } from "../../../features/api/authApi"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
@@ -15,9 +15,13 @@ function ProfilePage() {
   const [imgError, setImgError] = useState(false)
 
   const { data: me } = useGetMeQuery()
-  const { data: user } = useGetUserQuery(Number(id), { skip: !id })
+  const { data: user, error: userError } = useGetUserQuery(Number(id), { skip: !id })
 
   const profile = id ? user : me
+
+  if (id && userError?.status === 404) {
+    return <Navigate to="/404" replace />
+  }
 
   const displayName = profile
     ? [profile.first_name, profile.last_name].filter(Boolean).join(' ') || profile.email

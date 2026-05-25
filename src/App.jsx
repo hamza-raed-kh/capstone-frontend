@@ -8,6 +8,7 @@ import ProfilePage from "./pages/explore/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 import ChannelPage from "./pages/community/ChannelPage/ChannelPage";
 import FollowingPage from "./pages/account/FollowingPage/FollowingPage";
+import NotFoundPage from "./pages/error/NotFoundPage/NotFoundPage";
 
 import CompetitionDetailPage from "./pages/competition/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/organizer/CompetitionCreatePage/CompetitionCreatePage";
@@ -284,6 +285,14 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "404",
+        element: <NotFoundPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
