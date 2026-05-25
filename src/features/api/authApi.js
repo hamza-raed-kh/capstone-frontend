@@ -60,9 +60,10 @@ export const authApi = apiSlice.injectEndpoints({
       invalidatesTags: ["User"],
     }),
     deleteMe: builder.mutation({
-      query: () => ({
-        url: "users/me/",
-        method: "DELETE",
+      query: (body) => ({
+        url: "users/me/delete/",
+        method: "POST",
+        body,
       }),
     }),
     getMeInterests: builder.query({
@@ -78,6 +79,13 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["UserInterest"],
     }),
+    changePassword: builder.mutation({
+      query: (body) => ({
+        url: "auth/password/change/",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -92,4 +100,5 @@ export const {
   useGetMeInterestsQuery,
   useSetMeInterestsMutation,
   useGetUserQuery,
+  useChangePasswordMutation,
 } = authApi;
