@@ -36,6 +36,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
 import AccountCenterLayout from "./layouts/AccountCenterLayout/AccountCenterLayout";
 import OrganizerCenterLayout from "./layouts/OrganizerCenterLayout/OrganizerCenterLayout";
+import SectionedLayout from "./layouts/SectionedLayout/SectionedLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -115,7 +116,7 @@ const AdminRoute = ({ children }) => {
   if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
   if (isLoading) return null;
   if (isSuccess && !userData?.is_staff) return <Navigate to="/admin/login" replace />;
-  return children;
+  return <SectionedLayout preset="admin">{children}</SectionedLayout>;
 };
 
 const router = createBrowserRouter([

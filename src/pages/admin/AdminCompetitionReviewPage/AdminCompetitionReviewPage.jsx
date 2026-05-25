@@ -32,8 +32,8 @@ function AdminCompetitionReviewPage() {
         }
     }
 
-    if (isLoading) return <AdminLayout pageName="Draft Review"><div>Loading...</div></AdminLayout>
-    if (!comp) return <AdminLayout pageName="Draft Review"><div>Competition not found.</div></AdminLayout>
+    if (isLoading) return <AdminLayout pageName="Draft Review"><div className={styles.contentContainer}>Loading...</div></AdminLayout>
+    if (!comp) return <AdminLayout pageName="Draft Review"><div className={styles.contentContainer}>Competition not found.</div></AdminLayout>
 
     return (
         <AdminLayout pageName="Draft Review">
@@ -107,12 +107,14 @@ function AdminCompetitionReviewPage() {
                         <h2 className={styles.descriptionHeading}>About this competition</h2>
                         <p className={styles.descriptionText}>{comp.description}</p>
                     </div>
-                    <div className={adminStyles.reviewActions}>
-                        <div className={adminStyles.reviewActionsRight}>
-                            <Button variant="red-secondary" className={adminStyles.reviewBtn} onClick={handleReject} disabled={isUpdating}>Reject</Button>
-                            <Button variant="primary" className={adminStyles.reviewBtn} onClick={handleApprove} disabled={isUpdating}>Approve</Button>
+                    {comp.status === "pending" && (
+                        <div className={adminStyles.reviewActions}>
+                            <div className={adminStyles.reviewActionsRight}>
+                                <Button variant="red-secondary" className={adminStyles.reviewBtn} onClick={handleReject} disabled={isUpdating}>Reject</Button>
+                                <Button variant="primary" className={adminStyles.reviewBtn} onClick={handleApprove} disabled={isUpdating}>Approve</Button>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </AdminLayout>

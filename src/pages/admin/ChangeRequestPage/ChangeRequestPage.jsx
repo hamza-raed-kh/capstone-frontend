@@ -7,7 +7,7 @@ import { useGetEditRequestsQuery, useApproveEditRequestMutation, useRejectEditRe
 function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
     const banner_url = ""
     const info = {
-        title: req.title || `Edit Request #${req.id}`,
+        title: req.event_detail?.title || `Edit Request #${req.id}`,
         description: req.description || "No description.",
     }
     const details = {
@@ -31,7 +31,7 @@ function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
 function mapEditRequestToMainCard(req, navigate) {
     const banner_url = ""
     const info = {
-        title: req.title || `Edit Request #${req.id}`,
+        title: req.event_detail?.title || `Edit Request #${req.id}`,
         description: req.description || "No description.",
     }
     const details = {
