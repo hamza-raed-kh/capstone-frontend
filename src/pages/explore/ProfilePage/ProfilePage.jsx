@@ -81,7 +81,7 @@ function ProfilePage() {
               />
             ) : (
               <div className={styles.avatarPlaceholder}>
-                <Icon icon="ic:round-person" size={40} />
+                <Icon icon="mdi:account-circle" size={72} />
               </div>
             )}
             <div className={styles.profileInfo}>

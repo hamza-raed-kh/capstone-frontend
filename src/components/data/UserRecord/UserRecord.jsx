@@ -103,7 +103,7 @@ const UserRecord = ({ variant = 'invited', avatar, username, userId, onUnfollow,
           <img className={`${styles.userRecordAvatar}`} src={avatar} alt={username} onError={() => setImgError(true)}/>
         ) : (
           <div className={`${styles.userRecordAvatar} ${styles.avatarPlaceholder}`}>
-            <Icon icon="ic:round-person" size={20} />
+            <Icon icon="mdi:account-circle" size={33} />
           </div>
         )}
         <p className={`${styles.userRecordUsername}`}>
