@@ -32,7 +32,7 @@ function mapTeamToCard(team, navigate) {
   const rank = team.ranking
   return {
     variant: 'main',
-    banner_url: ev.banner || `https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80`,
+    banner_url: ev.banner,
     info: {
       title: ev.title,
       description: `Team: ${team.name} — ${ev.description || "No description provided."}`,

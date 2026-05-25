@@ -22,7 +22,7 @@ function getStatusGroup(status) {
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
-    banner_url: event.banner || `https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80`,
+    banner_url: event.banner,
     info: {
       title: event.title,
       description: event.description || "No description provided.",

@@ -1,9 +1,14 @@
+import { useState, useEffect } from 'react';
 import cardStyles from '../EventCard/EventCard.module.css';
 import Icon from '../../ui/Icon/Icon';
 import { Button } from '../../inputs/Button/Button';
 import CategoryTag from '../../ui/CategoryTag/CategoryTag';
 
 const AdminEventCard = ({ banner_url, info, details, onClick }) => {
+    const [imgError, setImgError] = useState(false)
+    useEffect(() => { setImgError(false) }, [banner_url])
+    const showPlaceholder = !banner_url || imgError
+
     const handleButtonClick = (handler) => (e) => {
         e.stopPropagation();
         handler();
@@ -11,7 +16,13 @@ const AdminEventCard = ({ banner_url, info, details, onClick }) => {
 
     return (
         <div className={cardStyles.eventcard} onClick={onClick.view}>
-            <img className={cardStyles.eventcardBanner} src={banner_url} alt="" />
+            {showPlaceholder ? (
+                <div className={`${cardStyles.eventcardBanner} ${cardStyles.eventcardBannerPlaceholder}`}>
+                    <span className={cardStyles.eventcardBannerText}>{info?.title || "Event"}</span>
+                </div>
+            ) : (
+                <img className={cardStyles.eventcardBanner} src={banner_url} alt="" onError={() => setImgError(true)} />
+            )}
             <div className={cardStyles.eventcardInfo}>
                 <p className={cardStyles.eventcardInfoTitle}>{info.title}</p>
                 <p className={cardStyles.eventcardInfoDescription}>{info.description}</p>

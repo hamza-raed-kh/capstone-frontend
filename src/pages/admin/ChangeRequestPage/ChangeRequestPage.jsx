@@ -5,7 +5,7 @@ import AdminLayout from "../../../layouts/AdminLayout/AdminLayout"
 import { useGetEditRequestsQuery, useApproveEditRequestMutation, useRejectEditRequestMutation } from "../../../features/api/editRequestApi"
 
 function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
-    const banner_url = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
+    const banner_url = ""
     const info = {
         title: req.title || `Edit Request #${req.id}`,
         description: req.description || "No description.",
@@ -29,7 +29,7 @@ function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
 }
 
 function mapEditRequestToMainCard(req, navigate) {
-    const banner_url = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
+    const banner_url = ""
     const info = {
         title: req.title || `Edit Request #${req.id}`,
         description: req.description || "No description.",
