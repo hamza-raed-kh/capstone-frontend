@@ -27,7 +27,14 @@ function mapEventToCard(event, navigate) {
       categories: [],
     },
     button: { variant: "primary", children: "Apply" },
-    onClick: { view: () => navigate(`/competition/${event.id}`) },
+    onClick: {
+        view: () => navigate(`/competition/${event.id}`),
+        buttonLink: () => navigate(`/competition/${event.id}`, {
+            state: {
+                applicationModal: 'open',
+            }
+        }),
+    },
   }
 }
 
@@ -48,7 +55,7 @@ function ExplorePage() {
     const eventcards = (data?.results || []).map((ev) => mapEventToCard(ev, navigate))
 
     const sections = [
-        { icon: '', title: 'Open Competitions', category: '', eventcards },
+        { variant: 'open', icon: '', title: 'Open Competitions', category: '', eventcards },
     ]
 
     return (

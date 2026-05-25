@@ -18,24 +18,28 @@ import CategoryTag from '../../ui/CategoryTag/CategoryTag';
  * @returns {JSX.Element} The rendered eventcard element.
  */
 const EventCard = ({ variant = 'main', banner_url, info, details, button, onClick }) => {
+    const withoutPropagation = (e, func) => {
+        e.stopPropagation();
+        func();
+    }
     const renderButtons = () => {
         switch(variant) {
             case 'main':
                 return (
-                    <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "view" in onClick ? onClick.view : null} />
+                    <Button variant={button.variant} children={button.children} onClick={onClick !== undefined && "buttonLink" in onClick ? (e) => withoutPropagation(e, onClick.buttonLink) : null} />
                 );
                 
             case 'admin':
                 return (
                     <>
                         <div className={`${styles.eventcardButtonsReject}`}>
-                            <Button variant={"red-secondary"} children={"Reject"} onClick={onClick.reject} />
+                            <Button variant={"red-secondary"} children={"Reject"} onClick={(e) => withoutPropagation(e, onClick.reject)} />
                         </div>
                         <div className={`${styles.eventcardButtonsApprove}`}>
-                            <Button variant={"secondary"} children={"Approve"} onClick={onClick.approve} />
+                            <Button variant={"secondary"} children={"Approve"} onClick={(e) => withoutPropagation(e, onClick.approve)} />
                         </div>
                         <div className={`${styles.eventcardButtonsView}`}>
-                            <Button variant={"primary"} children={"View"} onClick={onClick.view} />
+                            <Button variant={"primary"} children={"View"} onClick={(e) => withoutPropagation(e, onClick.view)} />
                         </div>
                     </>
                 );
