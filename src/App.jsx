@@ -25,7 +25,7 @@ import React from "react";
 import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/ui/Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTheme, selectIsLoggedIn, setUser } from "./features/user/userSlice";
+import { selectTheme, selectIsLoggedIn, setUser, setTheme } from "./features/user/userSlice";
 import { useGetMeQuery } from "./features/api/authApi";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
@@ -58,6 +58,7 @@ const RootLayout = () => {
   React.useEffect(() => {
     if (userData) {
       dispatch(setUser(userData));
+      if (userData.theme) dispatch(setTheme(userData.theme));
     }
   }, [userData, dispatch]);
 
