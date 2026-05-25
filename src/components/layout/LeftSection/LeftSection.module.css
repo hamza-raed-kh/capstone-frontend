@@ -74,6 +74,10 @@
     position: relative;
 }
 
+[data-theme="dark"] .logoContainer {
+    background: var(--gradient-main);
+}
+
 .logoMenuBtn {
     position: absolute;
     top: 8px;
@@ -85,9 +89,17 @@
     color: var(--color-text-accent);
 }
 
+[data-theme="dark"] .logoMenuBtn {
+    color: white;
+}
+
 .logoImage {
     width: 100%;
     height: auto;
     max-height: 80px;
     object-fit: contain;
+}
+
+[data-theme="dark"] .logoImage {
+    filter: brightness(0) invert(1);
 }
