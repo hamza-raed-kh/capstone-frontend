@@ -9,6 +9,7 @@ import { useGetMeQuery } from "../../../features/api/authApi"
 import { Button } from '../../inputs/Button/Button'
 import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
+import logoSvg from '../../../assets/Logo.svg'
 
 function LeftSection({ preset, community_links }) {
     const dispatch = useDispatch();
@@ -25,10 +26,12 @@ function LeftSection({ preset, community_links }) {
         <SideSection footer={<AccountBox />}>
             <div className={styles.menuSection}>
                 <div className={styles.menuHeader}>
-                    <div onClick={() => dispatch(toggleLeftSidebar())} style={{ cursor: 'pointer', display: 'flex' }}>
-                        <Icon size={24} icon="garden:menu-fill-16" />
+                    <div className={styles.logoContainer} onClick={() => navigate('/explore')}>
+                        <div className={styles.logoMenuBtn} onClick={(e) => { e.stopPropagation(); dispatch(toggleLeftSidebar()) }}>
+                            <Icon size={20} icon="garden:menu-fill-16" />
+                        </div>
+                        <img src={logoSvg} alt="Nizal" className={styles.logoImage} />
                     </div>
-                    <h1 className={styles.menuTitle} style={{ cursor: 'pointer' }} onClick={() => navigate('/explore')}>Nizal</h1>
                 </div>
                 <Navigation preset={preset} community_links={community_links}/>
                 {preset === "account" && (
