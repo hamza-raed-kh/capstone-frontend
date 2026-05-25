@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTopics, setStatus, setVirtual, setBeforeDate, setAfterDate } from '../../../features/filters/filtersSlice';
+import { setTopics, setStatus, setVirtual, setBeforeDate, setAfterDate, resetFilters } from '../../../features/filters/filtersSlice';
 import { useGetTopicsQuery } from '../../../features/api/topicApi';
 import FilterPill from '../FilterPill/FilterPill';
+import { Button } from '../../inputs/Button/Button'
 import styles from './FilterRow.module.css';
 
 /**
@@ -20,6 +21,8 @@ const FilterRow = () => {
 
   const beforeDate = beforeDateStr ? new Date(beforeDateStr) : undefined;
   const afterDate = afterDateStr ? new Date(afterDateStr) : undefined;
+
+  const hasActiveFilters = topics.length > 0 || !!status || !!virtual || !!beforeDateStr || !!afterDateStr;
 
   const { data: topicsData } = useGetTopicsQuery()
   const topicOptions = (topicsData?.results || topicsData || []).map((t) => ({
@@ -106,6 +109,7 @@ const FilterRow = () => {
           { label: 'Pending', value: 'pending' },
         ]}
       />
+      {hasActiveFilters && <Button variant='red-secondary' onClick={() => dispatch(resetFilters())}>Clear</Button>}
     </div>
   );
 };
