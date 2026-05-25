@@ -35,6 +35,7 @@ import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/Competi
 import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
 import AccountCenterLayout from "./layouts/AccountCenterLayout/AccountCenterLayout";
+import OrganizerCenterLayout from "./layouts/OrganizerCenterLayout/OrganizerCenterLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -182,10 +183,6 @@ const router = createBrowserRouter([
             path: "competition/:id",
             element: <CompetitionDetailPage />
           },
-          {
-            path: "competitions/:id/edit",
-            element: <CompetitionEditPage />
-          },
           
           // Community Navbar pages
           {
@@ -227,12 +224,13 @@ const router = createBrowserRouter([
             ],
           },
 
-          // Organized Navbar pages
+          // Organizer Navbar pages
           {
             path: "organizer",
+            element: <OrganizerCenterLayout />,
             children: [
               {
-                path: "competitions",
+                index: true,
                 element: <OrganizerCenterPage />,
               },
               {
@@ -244,16 +242,20 @@ const router = createBrowserRouter([
                 element: <CompetitionEditPage />
               },
               {
+                path: ":id/dashboard",
+                element: <CompetitionDashboard />
+              },
+              {
+                path: ":id/preview",
+                element: <CompetitionDetailPage />
+              },
+              {
                 path: ":id/form",
                 element: <FormManagementPage />
               },
               {
                 path: ":id/participants",
                 element: <ParticipantsPage />
-              },
-              {
-                path: ":id/dashboard",
-                element: <CompetitionDashboard />
               },
             ],
           },

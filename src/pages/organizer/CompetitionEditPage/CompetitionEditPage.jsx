@@ -1,54 +1,52 @@
+import { useParams } from "react-router-dom"
 import { useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
-import CompetitionForm from "../../../components/forms/CompetitionForm/CompetitionForm"
-import { Button } from "../../../components/inputs/Button/Button"
-import { useGetEventQuery } from "../../../features/api/eventApi"
 import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
+import SearchBar from "../../../components/ui/SearchBar/SearchBar"
+import CompetitionForm from "../../../components/forms/CompetitionForm/CompetitionForm"
+import { useGetEventQuery } from "../../../features/api/eventApi"
+import { useGetEditRequestsQuery } from "../../../features/api/editRequestApi"
 import styles from "./CompetitionEditPage.module.css"
 
 function CompetitionEditPage() {
     const { id } = useParams()
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { data: comp, isLoading } = useGetEventQuery(Number(id))
-
+    
     useEffect(() => {
         if (id) dispatch(setCurrentCompetition(Number(id)))
         return () => dispatch(clearCurrentCompetition())
     }, [id, dispatch])
 
-    if (isLoading) return <div>Loading...</div>
+    const { data: comp, isLoading } = useGetEventQuery(Number(id))
+    const { data: editRequestsData, isLoading: isEditReqLoading } = useGetEditRequestsQuery(
+        { event: Number(id), request_status: "pending" },
+        { skip: !id || comp?.status !== "open" }
+    )
+
+    if (isLoading || isEditReqLoading) return <div>Loading...</div>
     if (!comp) return <div>Competition not found.</div>
 
-    if (comp.status === "pending") {
+    if (comp.status === "open" && editRequestsData?.results?.length > 0) {
         return (
-            <SectionedLayout preset="organizer">
-                <div className={styles.pageWrap}>
-                    <div className={styles.pageSearchSection}>
-                        <SearchBar />
-                    </div>
-                    <div className={styles.restrictedMessage}>
-                        <h2>Under Review</h2>
-                        <p>This competition is currently under review. You cannot edit it until the review is complete.</p>
-                        <Button variant="primary" onClick={() => navigate(`/competition/${comp.id}`)}>Back to Competition</Button>
-                    </div>
+            <div className={styles.pageWrap}>
+                <div className={styles.pageSearchSection}>
+                    <SearchBar variant="placeholder">Edit Competition</SearchBar>
                 </div>
-            </SectionedLayout>
+                <div style={{ padding: "24px" }}>
+                    <p>You cannot edit this competition because there is already a pending edit request under review by the admins.</p>
+                    <p>Please wait for it to be reviewed, or cancel it from the Preview page.</p>
+                </div>
+            </div>
         )
     }
 
     return (
-        <SectionedLayout preset="organizer">
-            <div className={styles.pageWrap}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">{comp?.title || ""}</SearchBar>
-                </div>
-                <CompetitionForm initialData={comp} isEdit />
+        <div className={styles.pageWrap}>
+            <div className={styles.pageSearchSection}>
+                <SearchBar variant="placeholder">Edit Competition</SearchBar>
             </div>
-        </SectionedLayout>
+            <CompetitionForm isEdit={true} initialData={comp} />
+        </div>
     )
 }
 

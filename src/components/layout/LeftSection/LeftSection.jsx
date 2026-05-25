@@ -11,7 +11,7 @@ import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
 import logoSvg from '../../../assets/Logo.svg'
 
-function LeftSection({ preset, community_links }) {
+function LeftSection({ preset, community_links, backLink }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data: userData } = useGetMeQuery();
@@ -33,7 +33,7 @@ function LeftSection({ preset, community_links }) {
                         <img src={logoSvg} alt="Nizal" className={styles.logoImage} />
                     </div>
                 </div>
-                <Navigation preset={preset} community_links={community_links}/>
+                <Navigation preset={preset} community_links={community_links} backLink={backLink}/>
                 {preset === "account" && (
                     <div className={styles.logoutSection}>
                         <Button variant="red-secondary" onClick={handleLogout} className={styles.logoutButton}>

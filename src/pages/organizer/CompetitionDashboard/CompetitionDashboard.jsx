@@ -1,6 +1,9 @@
+import { useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { setCurrentCompetition, clearCurrentCompetition } from "@/features/competition/competitionSlice"
 import Block from "@/components/ui/Block/Block"
 import SearchBar from "@/components/ui/SearchBar/SearchBar"
-import SectionedLayout from "@/layouts/SectionedLayout/SectionedLayout"
 import PieChartStatistic from "@/components/charts/PieChartStatistic/PieChartStatistic"
 import LineChartStatistic from "@/components/charts/LineChartStatistic/LineChartStatistic"
 import SectionHeader from "@/components/ui/SectionHeader/SectionHeader"
@@ -9,6 +12,14 @@ import BarChartStatistic from "@/components/charts/BarChartStatistic/BarChartSta
 import styles from './CompetitionDashboard.module.css'
 
 function CompetitionDashboard() {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        if (id) dispatch(setCurrentCompetition(Number(id)))
+        return () => dispatch(clearCurrentCompetition())
+    }, [id, dispatch])
+
     let comp_name = "Web3 Hackathon";
     let teams = true;
 
@@ -81,7 +92,6 @@ function CompetitionDashboard() {
     };
 
     return (
-        <SectionedLayout preset="organizer">
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar variant="placeholder">{comp_name}</SearchBar>
@@ -164,7 +174,6 @@ function CompetitionDashboard() {
                     </Block>
                 </div>
             </div>
-        </SectionedLayout>
     )
 }
 

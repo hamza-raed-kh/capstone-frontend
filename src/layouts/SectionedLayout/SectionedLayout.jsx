@@ -5,7 +5,7 @@ import LeftSection from "../../components/layout/LeftSection/LeftSection"
 import RightSection from "../../components/layout/RightSection/RightSection"
 import styles from "./SectionedLayout.module.css"
 
-function SectionedLayout({ children, preset, community_links }) {
+function SectionedLayout({ children, preset, community_links, backLink }) {
     const dispatch = useDispatch();
     const { leftMinimized, rightMinimized } = useSelector(state => state.layout);
 
@@ -36,7 +36,7 @@ function SectionedLayout({ children, preset, community_links }) {
 
     return <div className={styles.sectionedLayoutContainer}>
         <div className={`${styles.sectionedLayoutSideSection} ${leftMinimized ? styles.minimizedLeft : ''}`}>
-            <LeftSection preset={preset} community_links={community_links}/>
+            <LeftSection preset={preset} community_links={community_links} backLink={backLink}/>
         </div>
         <div className={styles.sectionedLayoutMainSection}>
             {children}

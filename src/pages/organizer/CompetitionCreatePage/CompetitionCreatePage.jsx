@@ -1,20 +1,15 @@
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import CompetitionForm from "../../../components/forms/CompetitionForm/CompetitionForm"
 import styles from "./CompetitionCreatePage.module.css"
 
 function CompetitionCreatePage() {
-    let comp_name = "Web3 Hackathon";
-
     return (
-        <SectionedLayout preset="organizer">
-            <div className={styles.pageWrap}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
-                </div>
-                <CompetitionForm isEdit={false} />
+        <div className={styles.pageWrap}>
+            <div className={styles.pageSearchSection}>
+                <SearchBar variant="placeholder">Create Competition</SearchBar>
             </div>
-        </SectionedLayout>
+            <CompetitionForm isEdit={false} />
+        </div>
     )
 }
 

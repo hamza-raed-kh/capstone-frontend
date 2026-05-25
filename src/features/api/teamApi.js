@@ -10,6 +10,10 @@ export const teamApi = apiSlice.injectEndpoints({
       query: (id) => `teams/${id}/`,
       providesTags: (result, error, id) => [{ type: "Team", id }],
     }),
+    getApplicationPreview: builder.query({
+      query: (id) => `teams/${id}/application_preview/`,
+      providesTags: (result, error, id) => [{ type: "Application", id }],
+    }),
     createTeam: builder.mutation({
       query: (body) => ({
         url: "teams/",
@@ -59,6 +63,20 @@ export const teamApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Team", "TeamParticipant", "TeamInvitation"],
     }),
+    approveTeam: builder.mutation({
+      query: (id) => ({
+        url: `teams/${id}/approve/`,
+        method: "POST",
+      }),
+      invalidatesTags: (result, error, id) => [{ type: "Team", id }, "Team"],
+    }),
+    rejectTeam: builder.mutation({
+      query: (id) => ({
+        url: `teams/${id}/reject/`,
+        method: "POST",
+      }),
+      invalidatesTags: (result, error, id) => [{ type: "Team", id }, "Team"],
+    }),
     getTeamParticipants: builder.query({
       query: (params) => ({ url: "team-participants/", params }),
       providesTags: ["TeamParticipant"],
@@ -95,22 +113,34 @@ export const teamApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Team", "TeamParticipant", "Notification"],
     }),
+    updateTeamParticipant: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `team-participants/${id}/`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["TeamParticipant", "Team"],
+    }),
   }),
 });
 
 export const {
   useGetTeamsQuery,
   useGetTeamQuery,
+  useGetApplicationPreviewQuery,
   useCreateTeamMutation,
   useUpdateTeamMutation,
   useDeleteTeamMutation,
   useSubmitTeamMutation,
   useWithdrawTeamMutation,
   useInviteToTeamMutation,
+  useApproveTeamMutation,
+  useRejectTeamMutation,
   useGetTeamParticipantsQuery,
   useGetTeamInvitationsQuery,
   useDeleteTeamInvitationMutation,
   useAcceptTeamInviteMutation,
   useRejectTeamInviteMutation,
   useDeleteTeamParticipantMutation,
+  useUpdateTeamParticipantMutation,
 } = teamApi;

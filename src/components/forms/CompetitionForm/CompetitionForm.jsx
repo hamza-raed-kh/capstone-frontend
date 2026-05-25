@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { addToast } from "../../../features/toast/toastSlice"
 import { useCreateEventMutation, useUpdateEventMutation, useDeleteEventMutation } from "../../../features/api/eventApi"
+import { useCreateEditRequestMutation } from "../../../features/api/editRequestApi"
 import { useGetTopicsQuery } from "../../../features/api/topicApi"
 import { useGetEventTypesQuery } from "../../../features/api/eventApi"
 import { Button } from "../../inputs/Button/Button"
@@ -21,13 +24,17 @@ const publicityOptions = [
 
 function CompetitionForm({ initialData, isEdit }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [createEvent, { isLoading: isCreating }] = useCreateEventMutation()
   const [updateEvent, { isLoading: isUpdating }] = useUpdateEventMutation()
   const [deleteEvent] = useDeleteEventMutation()
+  const [createEditRequest, { isLoading: isRequesting }] = useCreateEditRequestMutation()
   const { data: topicsData } = useGetTopicsQuery()
   const topics = topicsData?.results || []
   const { data: eventTypesData } = useGetEventTypesQuery()
   const typeOptions = (eventTypesData?.results || []).map(t => ({ value: String(t.id), label: t.name }))
+
+  const isLive = isEdit && initialData?.status === "open"
 
   const [title, setTitle] = useState(initialData?.title || "")
   const [type, setType] = useState(String(initialData?.event_type ?? ""))
@@ -81,22 +88,49 @@ function CompetitionForm({ initialData, isEdit }) {
       fd.append("banner", bannerFile)
       await updateEvent(fd).unwrap()
     }
-    navigate('/organizer/competitions')
+    navigate('/organizer')
   }
 
   const handleSave = async () => {
     try {
+      if (isLive) {
+        const payload = buildPayload()
+        if (bannerFile) {
+          const fd = new FormData()
+          fd.append("event", initialData.id)
+          Object.keys(payload).forEach(k => {
+            if (payload[k] !== undefined) {
+              if (Array.isArray(payload[k])) {
+                payload[k].forEach(val => fd.append(k, val))
+              } else {
+                fd.append(k, payload[k])
+              }
+            }
+          })
+          fd.append("banner", bannerFile)
+          await createEditRequest(fd).unwrap()
+        } else {
+          await createEditRequest({ event: initialData.id, ...payload }).unwrap()
+        }
+        dispatch(addToast({ message: "Change request submitted for admin approval.", type: "success" }))
+        navigate('/organizer')
+        return
+      }
       await saveWithBanner(buildPayload("draft"))
+      dispatch(addToast({ message: "Saved as draft.", type: "success" }))
     } catch (err) {
       console.error("Save failed:", err?.data || err?.status || err)
+      dispatch(addToast({ message: "Save failed.", type: "error" }))
     }
   }
 
   const handleSubmit = async () => {
     try {
       await saveWithBanner(buildPayload("pending"))
+      dispatch(addToast({ message: "Submitted for review.", type: "success" }))
     } catch (err) {
       console.error("Submit failed:", err?.data || err?.status || err)
+      dispatch(addToast({ message: "Submit failed.", type: "error" }))
     }
   }
 
@@ -104,12 +138,12 @@ function CompetitionForm({ initialData, isEdit }) {
     <div className={styles.pageContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.pageBody}>
-            <div className={styles.bannerContainer}>
-              <FileInput
-  variant="banner"
-  onChange={(e) => setBannerFile(e.target.files[0] || null)}
-  previewUrl={initialData?.banner}
-/>
+          <div className={styles.bannerContainer}>
+            <FileInput
+              variant="banner"
+              onChange={(e) => setBannerFile(e.target.files[0] || null)}
+              previewUrl={initialData?.banner}
+            />
             <div className={styles.bannerOverlay}>
               <div className={styles.bannerTopRight}>
                 <SelectInput
@@ -118,6 +152,7 @@ function CompetitionForm({ initialData, isEdit }) {
                   value={publicity}
                   onChange={setPublicity}
                   variant="filter"
+                  readOnly={isLive}
                 />
               </div>
               <div className={styles.bannerBottomRow}>
@@ -128,6 +163,7 @@ function CompetitionForm({ initialData, isEdit }) {
                       value={title}
                       onChange={e => setTitle(e.target.value)}
                       inlineLabel
+                      readOnly={isLive}
                     />
                     <span className={styles.bannerHost}>by <strong>You</strong></span>
                   </div>
@@ -151,6 +187,7 @@ function CompetitionForm({ initialData, isEdit }) {
               options={typeOptions}
               value={type}
               onChange={setType}
+              readOnly={isLive}
             />
             <div className={styles.detailsGrid}>
               <div className={styles.detailsColumn}>
@@ -175,7 +212,7 @@ function CompetitionForm({ initialData, isEdit }) {
                   value={location}
                   onChange={e => setLocation(e.target.value)}
                 />
-                <CheckboxGroup label="Tags" value={tags} onChange={setTags} direction="row">
+                <CheckboxGroup label="Tags" value={tags} onChange={setTags} direction="row" readOnly={isLive}>
                   {topics.map(t => (
                     <CheckboxInput key={t.id} label={t.name} value={t.id} variant="secondary" />
                   ))}
@@ -211,12 +248,18 @@ function CompetitionForm({ initialData, isEdit }) {
           </div>
           <div className={styles.formActions}>
             <div className={styles.formActionsLeft}>
-              <Button variant="red-secondary" className={styles.formActionBtn} onClick={async () => { if (!initialData?.id) return; if (window.confirm('Delete this competition?')) { await deleteEvent(initialData.id).unwrap(); navigate('/organizer/competitions') } }}>Delete</Button>
+              <Button variant="red-secondary" className={styles.formActionBtn} onClick={async () => { if (!initialData?.id) return; if (window.confirm('Delete this competition?')) { await deleteEvent(initialData.id).unwrap(); navigate('/organizer') } }}>Delete</Button>
             </div>
             <div className={styles.formActionsRight}>
-              <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer/competitions')}>Discard</Button>
-              <Button variant="secondary" className={styles.formActionBtn} onClick={handleSave} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Saving...' : 'Save'}</Button>
-              <Button variant="primary" className={styles.formActionBtn} onClick={handleSubmit} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Submitting...' : 'Submit'}</Button>
+              <Button variant="red-secondary" className={styles.formActionBtn} onClick={() => navigate('/organizer')}>Discard</Button>
+              {isLive ? (
+                <Button variant="primary" className={styles.formActionBtn} onClick={handleSave} disabled={isCreating || isRequesting}>{isCreating || isRequesting ? 'Submitting...' : 'Request Changes'}</Button>
+              ) : (
+                <>
+                  <Button variant="secondary" className={styles.formActionBtn} onClick={handleSave} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Saving...' : 'Save'}</Button>
+                  <Button variant="primary" className={styles.formActionBtn} onClick={handleSubmit} disabled={isCreating || isUpdating}>{isCreating || isUpdating ? 'Submitting...' : 'Submit'}</Button>
+                </>
+              )}
             </div>
           </div>
         </div>

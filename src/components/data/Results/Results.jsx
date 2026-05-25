@@ -56,6 +56,8 @@ const Results = ({ variant = 'cardgroups', sections }) => {
                         title={_.title}
                         category={_.category}
                         userrecords={_.userrecords}
+                        onInvite={_.onInvite}
+                        onClick={_.onClick}
                     />
                 )) :
 

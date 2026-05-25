@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToast } from "../../../features/toast/toastSlice"
 import { format } from "date-fns"
@@ -19,6 +19,7 @@ import { useGetChannelsQuery, useGetMessagesQuery } from "../../../features/api/
 import { useGetFaqQuestionsQuery } from "../../../features/api/faqApi"
 import { useGetTopicsQuery } from "../../../features/api/topicApi"
 import { useGetEventTypesQuery } from "../../../features/api/eventApi"
+import { useGetEditRequestsQuery, useDeleteEditRequestMutation } from "../../../features/api/editRequestApi"
 import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
 import styles from './CompetitionDetailPage.module.css'
 
@@ -107,6 +108,24 @@ function CompetitionDetailPage() {
     const [inviteError, setInviteError] = useState("")
     const [submitError, setSubmitError] = useState("")
     const [withdrawTeam] = useWithdrawTeamMutation()
+
+    const { data: editRequestsData } = useGetEditRequestsQuery(
+        { event: Number(id), request_status: "pending" },
+        { skip: !id || !isOrganizer || comp?.status !== "open" }
+    )
+    const pendingEditRequest = editRequestsData?.results?.[0]
+    const [deleteEditRequest] = useDeleteEditRequestMutation()
+
+    const handleCancelEditRequest = async () => {
+        if (!pendingEditRequest) return
+        try {
+            await deleteEditRequest(pendingEditRequest.id).unwrap()
+            dispatch(addToast({ message: "Edit request cancelled.", type: "success" }))
+        } catch (err) {
+            const detail = err?.data?.detail || "Failed to cancel edit request."
+            dispatch(addToast({ message: detail, type: "error" }))
+        }
+    }
 
     useEffect(() => {
         if (myTeam) {
@@ -199,6 +218,7 @@ function CompetitionDetailPage() {
         } catch (err) {
             const detail = err?.data?.detail || err?.error?.data?.detail || "Failed to save."
             setSubmitError(detail)
+            dispatch(addToast({ message: detail, type: 'error' }))
         }
     }
 
@@ -214,8 +234,9 @@ function CompetitionDetailPage() {
             dispatch(addToast({ message: 'Application submitted for review!', type: 'success' }))
             setApplyOpen(false)
         } catch (err) {
-            const detail = err?.data?.detail || err?.error?.data?.detail || ""
+            const detail = err?.data?.detail || err?.error?.data?.detail || "Failed to submit."
             if (detail) setSubmitError(detail)
+            dispatch(addToast({ message: detail, type: 'error' }))
         }
     }
 
@@ -229,7 +250,10 @@ function CompetitionDetailPage() {
             setTeamName("")
             setTeamPictureFile(null)
             setTeamPicturePreview("")
-        } catch {}
+        } catch (err) {
+            const detail = err?.data?.detail || err?.error?.data?.detail || "Failed to delete application."
+            dispatch(addToast({ message: detail, type: 'error' }))
+        }
     }
 
     const handleWithdraw = async () => {
@@ -241,7 +265,9 @@ function CompetitionDetailPage() {
             setWithdrawOpen(false)
             setWithdrawInput("")
         } catch (err) {
-            setWithdrawError(err?.data?.detail || "Failed to withdraw.")
+            const detail = err?.data?.detail || "Failed to withdraw."
+            setWithdrawError(detail)
+            dispatch(addToast({ message: detail, type: 'error' }))
         }
     }
 
@@ -261,7 +287,9 @@ function CompetitionDetailPage() {
             dispatch(addToast({ message: 'Invitation sent!', type: 'success' }))
             setInviteEmail("")
         } catch (err) {
-            setInviteError(err?.data?.detail || "Failed to send invite.")
+            const detail = err?.data?.detail || "Failed to send invite."
+            setInviteError(detail)
+            dispatch(addToast({ message: detail, type: 'error' }))
         }
     }
 
@@ -271,19 +299,25 @@ function CompetitionDetailPage() {
             await deleteTeamParticipant(myParticipant.id)
             dispatch(addToast({ message: 'You left the team.', type: 'success', duration: 2000 }))
             setApplyOpen(false)
-        } catch {}
+        } catch (err) {
+            const detail = err?.data?.detail || err?.error?.data?.detail || "Failed to leave team."
+            dispatch(addToast({ message: detail, type: 'error' }))
+        }
     }
 
-    if (isLoading) return <SectionedLayout preset={navPreset}><div>Loading...</div></SectionedLayout>
-    if (!comp) return <SectionedLayout preset={navPreset}><div>Competition not found.</div></SectionedLayout>
+    const location = useLocation()
+    const isPreview = location.pathname.startsWith('/organizer')
+
+    if (isLoading) return isPreview ? <div>Loading...</div> : <SectionedLayout preset={navPreset}><div>Loading...</div></SectionedLayout>
+    if (!comp) return isPreview ? <div>Competition not found.</div> : <SectionedLayout preset={navPreset}><div>Competition not found.</div></SectionedLayout>
 
     if (!isStaff && !isOrganizer && comp.status !== "open") {
         navigate("/explore", { replace: true })
         return null
     }
 
-    return (
-        <SectionedLayout preset={navPreset}>
+    const content = (
+        <>
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
                     <SearchBar />
@@ -400,12 +434,17 @@ function CompetitionDetailPage() {
                                 </div>
                             </div>
                         )}
-                        {isOrganizer && comp.status === "open" ? (
-                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/competitions/${comp.id}/edit`)}>Edit Competition</Button>
+                        {isOrganizer && comp.status === "open" && pendingEditRequest ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '20px' }}>
+                                <span style={{ color: 'var(--color-text)', fontWeight: 600 }}>Awaiting admin approval</span>
+                                <Button variant="red-secondary" className={styles.withdrawBtn} style={{ margin: 0 }} onClick={handleCancelEditRequest}>Cancel Request</Button>
+                            </div>
+                        ) : isOrganizer && comp.status === "open" ? (
+                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/organizer/${comp.id}/edit`)}>Edit Competition</Button>
                         ) : isOrganizer && comp.status === "pending" ? (
                             <Button variant="red" className={styles.withdrawBtn} onClick={() => {}}>Cancel Submission</Button>
                         ) : isOrganizer && comp.status === "draft" ? (
-                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/competitions/${comp.id}/edit`)}>Edit Draft</Button>
+                            <Button variant="red" className={styles.withdrawBtn} onClick={() => navigate(`/organizer/${comp.id}/edit`)}>Edit Draft</Button>
                         ) : !isOrganizer && comp.status === "open" && isTeamLeader && (myTeam?.status === "pending" || myTeam?.status === "accepted") ? (
                             <Button variant="red" className={styles.withdrawBtn} onClick={() => setWithdrawOpen(true)}>Withdraw</Button>
                         ) : null}
@@ -590,8 +629,10 @@ function CompetitionDetailPage() {
                     </div>
                 </div>
             </Modal>
-        </SectionedLayout>
+        </>
     )
+
+    return isPreview ? content : <SectionedLayout preset={navPreset}>{content}</SectionedLayout>
 }
 
 export default CompetitionDetailPage

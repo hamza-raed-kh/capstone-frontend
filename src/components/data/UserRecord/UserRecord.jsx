@@ -4,21 +4,24 @@ import { Button } from '../../inputs/Button/Button'
 import Icon from '../../ui/Icon/Icon'
 import styles from './UserRecord.module.css'
 
-const UserRecord = ({ variant = 'invited', avatar, username, userId, onUnfollow, onUnban }) => {
+const UserRecord = ({ variant = 'invited', avatar, username, userId, onClick, onUnfollow, onUnban, onUninvite, onApprove, onReject, onDisqualify, onReturn }) => {
   const navigate = useNavigate();
   const [imgError, setImgError] = useState(false)
 
   const hasAvatar = avatar && !imgError
 
   const redirectProfile = () => {
+    if (onClick) return onClick(userId);
     navigate(userId ? `/profile/${userId}` : '/profile');
   }
 
-  const handleUnfollow = () => { onUnfollow?.(userId) }
-  const handleUnban = () => { onUnban?.(userId) }
-  const handleUninvite = () => {}
-  const handleDisqualify = () => {}
-  const handleReturn = () => {}
+  const handleUnfollow = (e) => { e.stopPropagation(); onUnfollow?.(userId) }
+  const handleUnban = (e) => { e.stopPropagation(); onUnban?.(userId) }
+  const handleUninvite = (e) => { e.stopPropagation(); onUninvite?.(userId) }
+  const handleDisqualify = (e) => { e.stopPropagation(); onDisqualify?.(userId) }
+  const handleReturn = (e) => { e.stopPropagation(); onReturn?.(userId) }
+  const handleApprove = (e) => { e.stopPropagation(); onApprove?.(userId) }
+  const handleReject = (e) => { e.stopPropagation(); onReject?.(userId) }
 
   const variantButtons = () => {
     switch(variant){
@@ -53,10 +56,10 @@ const UserRecord = ({ variant = 'invited', avatar, username, userId, onUnfollow,
         return (
           <>
             <div className={`${styles.userRecordButton}`}>
-              <Button variant="red-secondary" onClick={handleUninvite}>Reject</Button>
+              <Button variant="red-secondary" onClick={handleReject}>Reject</Button>
             </div>
             <div className={`${styles.userRecordButton}`}>
-              <Button variant="green" onClick={handleUninvite}>Approve</Button>
+              <Button variant="green" onClick={handleApprove}>Approve</Button>
             </div>
           </>
         );
