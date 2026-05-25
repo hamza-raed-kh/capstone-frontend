@@ -7,10 +7,15 @@
 }
 
 .cards{
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    width: 100%;
+}
+
+.cardsGrid{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
     justify-content: space-between;
     gap: 16px;
-
     width: 100%;
 }
