@@ -1,16 +1,18 @@
+import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetMeQuery, useGetUserQuery } from "../../../features/api/authApi"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionHeader from "../../../components/ui/SectionHeader/SectionHeader"
-import EventCard from "../../../components/data/EventCard/EventCard"
 import CardGroup from "../../../components/data/CardGroup/CardGroup"
+import Icon from "../../../components/ui/Icon/Icon"
 import styles from './ProfilePage.module.css'
 import { Button } from '../../../components/inputs/Button/Button'
 
 function ProfilePage() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const [imgError, setImgError] = useState(false)
 
   const { data: me } = useGetMeQuery()
   const { data: user } = useGetUserQuery(Number(id), { skip: !id })
@@ -21,7 +23,7 @@ function ProfilePage() {
     ? [profile.first_name, profile.last_name].filter(Boolean).join(' ') || profile.email
     : 'Loading...'
 
-  const avatarUrl = profile?.profile_picture || 'https://i.pravatar.cc/150'
+  const hasAvatar = profile?.profile_picture && !imgError
 
   const recentEvents = [
     {
@@ -66,7 +68,18 @@ function ProfilePage() {
         </div>
         <div className={styles.content}>
           <div className={styles.profileDetails}>
-            <img className={styles.avatar} src={avatarUrl} alt={displayName} />
+            {hasAvatar ? (
+              <img
+                className={styles.avatar}
+                src={profile.profile_picture}
+                alt={displayName}
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className={styles.avatarPlaceholder}>
+                <Icon icon="ic:round-person" size={40} />
+              </div>
+            )}
             <div className={styles.profileInfo}>
               <div className={styles.profileHeader}>
                 <span className={styles.name}>{displayName}</span>

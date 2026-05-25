@@ -45,21 +45,22 @@
 }
 
 .userRecordAvatar {
-    /* Icon */
-
     box-sizing: border-box;
-
     width: 37px;
     height: 37px;
-
     border: 2px solid var(--color-main-accent);
     border-radius: 18.5px;
-
-
-    /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
+}
+
+.avatarPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-accent);
+    color: var(--color-text);
 }
 
 .userRecordUsername {

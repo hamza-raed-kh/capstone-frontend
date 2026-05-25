@@ -9,8 +9,6 @@ import {
 } from "../../../features/api/followApi"
 import styles from './FollowingPage.module.css'
 
-const DEFAULT_AVATAR = "https://i.pravatar.cc/150"
-
 function getDisplayName(user) {
     if (user.first_name && user.last_name) return `${user.first_name} ${user.last_name}`
     if (user.first_name) return user.first_name
@@ -39,7 +37,7 @@ function FollowingPage() {
             const u = item.followed_detail
             return {
                 variant: "followed",
-                avatar: u?.profile_picture || `${DEFAULT_AVATAR}?u=${u?.id}`,
+                avatar: u?.profile_picture,
                 username: getDisplayName(u || {}),
                 userId: u?.id,
                 onUnfollow: handleUnfollow,
@@ -54,7 +52,7 @@ function FollowingPage() {
             const u = item.blocked_detail
             return {
                 variant: "banned",
-                avatar: u?.profile_picture || `${DEFAULT_AVATAR}?u=${u?.id}`,
+                avatar: u?.profile_picture,
                 username: getDisplayName(u || {}),
                 userId: u?.id,
                 onUnban: handleUnban,
