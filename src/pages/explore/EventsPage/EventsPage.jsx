@@ -14,6 +14,7 @@ import styles from './EventsPage.module.css'
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
+    hideBanner: true,
     banner_url: event.banner,
     info: {
       title: event.title,

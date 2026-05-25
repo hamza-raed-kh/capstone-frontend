@@ -61,6 +61,7 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
                                 info={_.info}
                                 details={_.details}
                                 onClick={_.onClick}
+                                hideBanner={_.hideBanner}
                             />
                         ) : (
                             <EventCard
@@ -71,6 +72,7 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
                                 details={_.details}
                                 button={_.button}
                                 onClick={_.onClick}
+                                hideBanner={_.hideBanner}
                             />
                         )
                     )}

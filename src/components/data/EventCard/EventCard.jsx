@@ -18,7 +18,7 @@ import CategoryTag from '../../ui/CategoryTag/CategoryTag';
  * @param {Object} props.onClick - The function to be called when the eventcard is clicked.
  * @returns {JSX.Element} The rendered eventcard element.
  */
-const EventCard = ({ variant = 'main', banner_url, info, details, button, onClick }) => {
+const EventCard = ({ variant = 'main', banner_url, info, details, button, onClick, hideBanner }) => {
     const [imgError, setImgError] = useState(false)
     useEffect(() => { setImgError(false) }, [banner_url])
     const showPlaceholder = !banner_url || imgError
@@ -52,13 +52,13 @@ const EventCard = ({ variant = 'main', banner_url, info, details, button, onClic
 
     return (
         <div className={`${styles.eventcard}`} onClick={onClick.view}>
-            {showPlaceholder ? (
+            {!hideBanner && (showPlaceholder ? (
                 <div className={`${styles.eventcardBanner} ${styles.eventcardBannerPlaceholder}`}>
                     <span className={styles.eventcardBannerText}>{info?.title || "Event"}</span>
                 </div>
             ) : (
                 <img className={`${styles.eventcardBanner}`} src={banner_url} alt="" onError={() => setImgError(true)} />
-            )}
+            ))}
             <div className={`${styles.eventcardInfo}`}>
                 <p className={`${styles.eventcardInfoTitle}`}>{info.title}</p>
                 <p className={`${styles.eventcardInfoDescription}`}>{info.description}</p>

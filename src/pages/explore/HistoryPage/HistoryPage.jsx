@@ -32,6 +32,7 @@ function mapTeamToCard(team, navigate) {
   const rank = team.ranking
   return {
     variant: 'main',
+    hideBanner: true,
     banner_url: ev.banner,
     info: {
       title: ev.title,

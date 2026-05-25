@@ -30,6 +30,7 @@ function mapTeamToCard(team, navigate) {
   const ev = team.event_detail
   return {
     variant: 'main',
+    hideBanner: true,
     banner_url: ev.banner,
     info: {
       title: ev.title,
