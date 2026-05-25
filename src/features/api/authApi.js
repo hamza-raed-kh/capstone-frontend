@@ -48,6 +48,9 @@ export const authApi = apiSlice.injectEndpoints({
       query: () => "users/me/",
       providesTags: ["User"],
     }),
+    getUser: builder.query({
+      query: (id) => `users/${id}/`,
+    }),
     updateMe: builder.mutation({
       query: (body) => ({
         url: "users/me/",
@@ -88,4 +91,5 @@ export const {
   useDeleteMeMutation,
   useGetMeInterestsQuery,
   useSetMeInterestsMutation,
+  useGetUserQuery,
 } = authApi;

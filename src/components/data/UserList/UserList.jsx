@@ -67,6 +67,9 @@ const UserList = ({ variant = "closeable", icon, title, category, userrecords })
                             variant={_.variant}
                             avatar={_.avatar}
                             username={_.username}
+                            userId={_.userId}
+                            onUnfollow={_.onUnfollow}
+                            onUnban={_.onUnban}
                         />
                     ) :
                     (<></>)

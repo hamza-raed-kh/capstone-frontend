@@ -13,15 +13,15 @@ import styles from './UserRecord.module.css'
  * @param {Function} props.onClick - The function to be called when the userrecord icon is clicked.
  * @returns {JSX.Element} The rendered userrecord element.
  */
-const UserRecord = ({ variant = 'invited', avatar, username }) => {
+const UserRecord = ({ variant = 'invited', avatar, username, userId, onUnfollow, onUnban }) => {
   const navigate = useNavigate();
 
   const redirectProfile = () => {
-    navigate('/profile');
+    navigate(userId ? `/profile/${userId}` : '/profile');
   }
 
-  const handleUnfollow = () => {}
-  const handleUnban = () => {}
+  const handleUnfollow = () => { onUnfollow?.(userId) }
+  const handleUnban = () => { onUnban?.(userId) }
   const handleUninvite = () => {}
   const handleDisqualify = () => {}
   const handleReturn = () => {}

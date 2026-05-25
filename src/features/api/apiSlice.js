@@ -58,6 +58,8 @@ export const apiSlice = createApi({
     "EventInvitation",
     "FAQQuestion",
     "EventEditRequest",
+    "Following",
+    "Blocked",
   ],
   endpoints: () => ({}),
 });

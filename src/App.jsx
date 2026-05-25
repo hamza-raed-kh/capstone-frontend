@@ -173,6 +173,10 @@ const router = createBrowserRouter([
             element: <ProfilePage />,
           },
           {
+            path: "profile/:id",
+            element: <ProfilePage />,
+          },
+          {
             path: "competition/:id",
             element: <CompetitionDetailPage />
           },
