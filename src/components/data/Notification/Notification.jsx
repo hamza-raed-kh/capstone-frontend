@@ -13,17 +13,9 @@ import styles from './Notification.module.css';
  * @param {Function} [props.onReject] - Optional callback for a Reject action.
  */
 
-const onAccept = () => {
-  console.log('Accepted!');
-}
-
-const onReject = () => {
-  console.log('Rejected!');
-}
-
-const Notification = ({ date, children, onAccept, onReject }) => {
+const Notification = ({ date, children, onClick, onAccept, onReject }) => {
   return (
-    <div className={styles.notificationCard}>
+    <div className={`${styles.notificationCard} ${onClick ? styles.clickable : ""}`} onClick={onClick}>
       {/* Row 1: Icon and Date */}
       <div className={styles.header}>
         <Icon icon="ph:bell-fill" className={styles.bellIcon} />

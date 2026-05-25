@@ -159,7 +159,7 @@ function CompetitionDetailPage() {
                                                     {actionButton().text}
                                                 </Button>
                                             )}
-                                            <button className={styles.messageBtn} onClick={() => navigate('/community/general')}>
+                                            <button className={styles.messageBtn} onClick={() => navigate(`/community/${id}`)}>
                                                 <Icon icon="fluent:chat-32-filled" size={20} color="white" />
                                             </button>
                                         </div>

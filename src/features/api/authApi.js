@@ -23,6 +23,20 @@ export const authApi = apiSlice.injectEndpoints({
         } catch {}
       },
     }),
+    adminLogin: builder.mutation({
+      query: (body) => ({
+        url: "auth/admin-login/",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem("accessToken", data.access);
+          localStorage.setItem("refreshToken", data.refresh);
+        } catch {}
+      },
+    }),
     refreshToken: builder.mutation({
       query: (body) => ({
         url: "auth/token/refresh/",
@@ -48,14 +62,30 @@ export const authApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getMeInterests: builder.query({
+      query: () => "users/me/interests/",
+      providesTags: ["UserInterest"],
+      transformResponse: (response) => response.map((item) => item.topic.id),
+    }),
+    setMeInterests: builder.mutation({
+      query: (topicIds) => ({
+        url: "users/me/interests/",
+        method: "PUT",
+        body: { topic_ids: topicIds },
+      }),
+      invalidatesTags: ["UserInterest"],
+    }),
   }),
 });
 
 export const {
   useRegisterMutation,
   useLoginMutation,
+  useAdminLoginMutation,
   useRefreshTokenMutation,
   useGetMeQuery,
   useUpdateMeMutation,
   useDeleteMeMutation,
+  useGetMeInterestsQuery,
+  useSetMeInterestsMutation,
 } = authApi;

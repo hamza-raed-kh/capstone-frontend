@@ -42,7 +42,7 @@ function ExplorePage() {
     const navigate = useNavigate()
     const filters = useSelector((state) => state.filters)
 
-    const queryParams = {}
+    const queryParams = { status: "open" }
     if (filters.search) queryParams.search = filters.search
     if (filters.status) queryParams.status = filters.status
     if (filters.afterDate) queryParams.start_date__gte = filters.afterDate.split("T")[0]

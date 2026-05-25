@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import EventCard from '../EventCard/EventCard'
+import AdminEventCard from '../AdminEventCard/AdminEventCard'
 import SectionHeader from '../../ui/SectionHeader/SectionHeader'
 import styles from './CardGroup.module.css'
 
@@ -37,15 +38,25 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
             <div className={`${styles.cards}`}>
                 {open?
                     eventcards.map((_,i) => 
-                        <EventCard
-                            key={i}
-                            variant={_.variant}
-                            banner_url={_.banner_url}
-                            info={_.info}
-                            details={_.details}
-                            button={_.button}
-                            onClick={_.onClick}
-                        />
+                        _.variant === 'admin' ? (
+                            <AdminEventCard
+                                key={i}
+                                banner_url={_.banner_url}
+                                info={_.info}
+                                details={_.details}
+                                onClick={_.onClick}
+                            />
+                        ) : (
+                            <EventCard
+                                key={i}
+                                variant={_.variant}
+                                banner_url={_.banner_url}
+                                info={_.info}
+                                details={_.details}
+                                button={_.button}
+                                onClick={_.onClick}
+                            />
+                        )
                     ) :
                     (<></>)
                 }

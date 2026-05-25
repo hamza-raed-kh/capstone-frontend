@@ -5,17 +5,20 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toggleLeftSidebar } from "../../../features/layout/layoutSlice"
 import { logOut } from "../../../features/user/userThunks"
+import { useGetMeQuery } from "../../../features/api/authApi"
 import { Button } from '../../inputs/Button/Button'
 import styles from './LeftSection.module.css'
 import Icon from '../../ui/Icon/Icon'
 
-function LeftSection({ preset }) {
+function LeftSection({ preset, community_links }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { data: userData } = useGetMeQuery();
 
     const handleLogout = () => {
+        const isAdmin = userData?.is_staff;
         dispatch(logOut());
-        navigate('/login');
+        navigate(isAdmin ? '/admin/login' : '/login');
     };
 
     return (
@@ -27,7 +30,7 @@ function LeftSection({ preset }) {
                     </div>
                     <h1 className={styles.menuTitle} style={{ cursor: 'pointer' }} onClick={() => navigate('/explore')}>Nizal</h1>
                 </div>
-                <Navigation preset={preset}/>
+                <Navigation preset={preset} community_links={community_links}/>
                 {preset === "account" && (
                     <div className={styles.logoutSection}>
                         <Button variant="red-secondary" onClick={handleLogout} className={styles.logoutButton}>

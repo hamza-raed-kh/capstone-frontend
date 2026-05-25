@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { clearTokens } from "../user/userSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL || "http://localhost:8000/api/",
@@ -25,6 +26,7 @@ const baseQueryWithReauth = async (args, api, extra) => {
       } else {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        api.dispatch(clearTokens());
       }
     }
   }
@@ -36,6 +38,7 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: [
     "User",
+    "UserInterest",
     "Topic",
     "Event",
     "EventType",
