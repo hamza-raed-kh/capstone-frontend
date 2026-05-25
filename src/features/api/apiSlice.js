@@ -44,6 +44,7 @@ export const apiSlice = createApi({
     "EventType",
     "Team",
     "TeamParticipant",
+    "TeamInvitation",
     "TextQuestion",
     "NumericQuestion",
     "ChoiceQuestion",
