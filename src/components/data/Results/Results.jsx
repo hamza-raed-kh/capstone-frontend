@@ -41,11 +41,13 @@ const Results = ({ variant = 'cardgroups', sections }) => {
             {variant === 'cardgroups'?
                 sections.map((_, index) => (
                     <CardGroup
-                    key={index}
-                    icon={_.icon}
-                    title={_.title}
-                    category={_.category}
-                    eventcards={_.eventcards}/>
+                        key={index}
+                        variant={_.variant}
+                        icon={_.icon}
+                        title={_.title}
+                        category={_.category}
+                        eventcards={_.eventcards}
+                    />
                 )) :
 
             variant === 'userlists'?

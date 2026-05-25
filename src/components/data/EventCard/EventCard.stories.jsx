@@ -25,7 +25,7 @@ export const Main = {
     info: {title: "Web3 Hackathon", description: "Create decentralized applications using blockchain technology and smart  contracts. Build innovative DeFi, NFT, or DAO solutions that"},
     details: {prize: "Prize", participants_now: "Now", participants_max: "Max", date_start: "Start", date_end: "End", virtual: true, location: "Location", categories: ["Crypto", "AI"]},
     button: {variant: "primary", children: "Apply"},
-    onClick: {view: function(){}},
+    onClick: {view: function(){}, buttonLink: function(){}},
   },
 };
 
