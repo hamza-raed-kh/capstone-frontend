@@ -1,4 +1,4 @@
-import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import Icon from '../../ui/Icon/Icon';
 import styles from './FileInput.module.css';
 
@@ -26,11 +26,15 @@ const FileInput = forwardRef(({ label, onChange, accept, variant = "dropzone", p
     if (onChange) onChange(e);
   };
 
+  useEffect(() => {
+    setInternalPreview(null);
+  }, [previewUrl]);
+
   const isPill = variant === 'pill';
   const isAvatar = variant === 'avatar';
   const isBanner = variant === 'banner';
   const displayPlaceholder = placeholder || (isPill ? 'Upload File' : (isAvatar ? 'Upload photo' : (isBanner ? 'Upload banner' : 'Click to upload a file')));
-  const currentPreview = internalPreview || previewUrl;
+  const currentPreview = previewUrl || internalPreview;
 
   const handleClick = () => {
     if (!readOnly) inputRef.current?.click();
