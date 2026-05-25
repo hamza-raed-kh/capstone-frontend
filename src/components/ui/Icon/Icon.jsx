@@ -20,7 +20,7 @@ const Icon = ({ icon, color, size = 24, className = '', ...props }) => {
       width={size}
       height={size}
       className={`${styles.icon} ${className}`}
-      style={{ color: color || 'inherit' }}
+      style={color ? { color } : undefined}
       {...props}
     />
   );
