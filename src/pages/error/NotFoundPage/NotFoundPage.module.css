@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    gap: 1rem;
+}
+
+.code {
+    font-size: 6rem;
+    font-weight: 800;
+    color: var(--color-main);
+    margin: 0;
+    line-height: 1;
+}
+
+.message {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    margin: 0 0 1rem;
+}
+
+.container>button {
+    width: auto;
+}

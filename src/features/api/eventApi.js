@@ -41,6 +41,14 @@ export const eventApi = apiSlice.injectEndpoints({
       query: () => "event-types/",
       providesTags: ["EventType"],
     }),
+    inviteToEvent: builder.mutation({
+      query: ({ id, username }) => ({
+        url: `events/${id}/invite/`,
+        method: "POST",
+        body: { username },
+      }),
+      invalidatesTags: ["EventInvitation"],
+    }),
   }),
 });
 
@@ -51,4 +59,5 @@ export const {
   useUpdateEventMutation,
   useDeleteEventMutation,
   useGetEventTypesQuery,
+  useInviteToEventMutation,
 } = eventApi;

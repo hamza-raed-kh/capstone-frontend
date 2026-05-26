@@ -1,90 +1,145 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useChangePasswordMutation, useDeleteMeMutation } from '../../../features/api/authApi'
+import { logOut } from '../../../features/user/userThunks'
 import { Button } from '../../../components/inputs/Button/Button'
 import SectionHeader from '../../../components/ui/SectionHeader/SectionHeader'
 import TextField from '../../../components/inputs/TextField/TextField'
-import SectionedLayout from '../../../layouts/SectionedLayout/SectionedLayout'
-import SearchBar from '../../../components/ui/SearchBar/SearchBar'
+import Modal from '../../../components/ui/Modal/Modal'
 import styles from './SecurityPage.module.css'
 
-/**
- * A securitypage component with different visual styles.
- * This component supports various `variants` that apply different CSS classes
- * to the securitypage, allowing for a consistent look and feel across the application.
- *
- * @param {object} props - The properties for the securitypage.
- * @param {Function} props.onDelete - The function to be called when the "Delete Account" string is clicked.
- * @returns {JSX.Element} The rendered securitypage element.
- */
-const SecurityPage = ({ onDelete }) => {
-    let [password, setPassword] = useState("")
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value)
+const SecurityPage = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [currentPassword, setCurrentPassword] = useState("")
+    const [newPassword, setNewPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState(false)
+
+    const [deletePassword, setDeletePassword] = useState("")
+    const [deleteError, setDeleteError] = useState("")
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+
+    const [changePassword, { isLoading }] = useChangePasswordMutation()
+    const [deleteMe, { isLoading: isDeleting }] = useDeleteMeMutation()
+
+    const handleDiscard = () => {
+        setCurrentPassword("")
+        setNewPassword("")
+        setConfirmPassword("")
+        setError("")
+        setSuccess(false)
     }
 
-    let [confirm, setConfirm] = useState("")
-    const handleConfirmChange = (event) => {
-        setConfirm(event.target.value)
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setError("")
+        setSuccess(false)
 
-    const handleDiscard = (e) => {
-        setPassword("")
-        setConfirm("")
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!password.trim() || !confirm.trim()) {
-            alert("Please fill all fields!");
+        if (!currentPassword.trim() || !newPassword.trim() || !confirmPassword.trim()) {
+            setError("Please fill all fields.")
+            return
         }
-        else if (password !== confirm) {
-            alert("WARNING: Both passwords don't match!");
+
+        if (newPassword !== confirmPassword) {
+            setError("New passwords do not match.")
+            return
         }
-        else {
-            // TODO: Add Axios request here.
-            alert("Input is valid. :)\nRequest to backend to be implemented soon!")
+
+        try {
+            await changePassword({
+                current_password: currentPassword,
+                new_password: newPassword,
+                confirm_new_password: confirmPassword,
+            }).unwrap()
+            setSuccess(true)
+            setCurrentPassword("")
+            setNewPassword("")
+            setConfirmPassword("")
+        } catch (err) {
+            const detail = err?.data?.current_password?.[0]
+                || err?.data?.confirm_new_password?.[0]
+                || err?.data?.detail
+                || "Failed to change password."
+            setError(detail)
         }
     }
 
-    const handleDelete = (e) => {
-        // TODO: Add Axios request here.
-        alert("Command to delete account recieved. :)\nDelete confirmation Modal coming soon!")
+    const confirmDelete = () => {
+        setDeletePassword("")
+        setDeleteError("")
+        setDeleteModalOpen(true)
+    }
+
+    const handleDelete = async () => {
+        setDeleteError("")
+        if (!deletePassword.trim()) {
+            setDeleteError("Please enter your password.")
+            return
+        }
+        try {
+            await deleteMe({ password: deletePassword }).unwrap()
+            setDeleteModalOpen(false)
+            dispatch(logOut())
+            navigate('/login', { replace: true })
+        } catch (err) {
+            const detail = err?.data?.detail || "Failed to delete account."
+            setDeleteError(detail)
+        }
     }
 
     return (
-        <SectionedLayout preset="account">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">Account Center</SearchBar>
-                </div>
-                <div className={`${styles.bodyContainer}`}>
-                    <div className={`${styles.SectionSecurity}`}>
-                        <SectionHeader icon={'iconamoon:shield-yes-fill'} title={'Security'} />
-                        <form className={styles.SecurityForm} onSubmit={handleSubmit}>
-                            <div className={`${styles.SecurityFields}`}>
-                                <TextField label="New Password" type="textarea" value={password} onChange={handlePasswordChange} />
-                                <TextField label="Confirm" type="password" value={confirm} onChange={handleConfirmChange} />
-                            </div>
-                            <div className={`${styles.SecurityButtons}`}>
-                                <div className={`${styles.SecurityButtonsDiscard}`}>
-                                    <Button variant={"red-secondary"} type="reset" children={"Discard"} onClick={handleDiscard} />
-                                </div>
-                                <div className={`${styles.SecurityButtonsSave}`}>
-                                    <Button variant={"primary"} type="submit" children={"Save"} />
-                                </div>
-                            </div>
-                        </form>
+        <div className={`${styles.bodyContainer}`}>
+            <div className={`${styles.SectionSecurity}`}>
+                <SectionHeader icon={'iconamoon:shield-yes-fill'} title={'Security'} />
+                <form className={styles.SecurityForm} onSubmit={handleSubmit}>
+                    <div className={`${styles.SecurityFields}`}>
+                        <TextField label="Current Password" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                        <TextField label="New Password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        <TextField label="Confirm New Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
-                    <div className={`${styles.SectionDanger}`}>
-                        <SectionHeader variant={'red'} icon={'fluent:warning-32-filled'} title={'Danger Zone'} />
-                        <div className={`${styles.DangerDelete}`}>
-                            <div className={`${styles.DangerDeleteButton}`}>
-                                <Button variant={"red-secondary"} children={"Delete Account"} onClick={handleDelete} />
-                            </div>
+                    {error && <p className={styles.error}>{error}</p>}
+                    {success && <p className={styles.success}>Password changed successfully.</p>}
+                    <div className={`${styles.SecurityButtons}`}>
+                        <div className={`${styles.SecurityButtonsDiscard}`}>
+                            <Button variant={"red-secondary"} type="reset" children={"Discard"} onClick={handleDiscard} />
                         </div>
+                        <div className={`${styles.SecurityButtonsSave}`}>
+                            <Button variant={"primary"} type="submit" children={isLoading ? "Saving..." : "Save"} />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div className={`${styles.SectionDanger}`}>
+                <SectionHeader variant={'red'} icon={'fluent:warning-32-filled'} title={'Danger Zone'} />
+                <div className={`${styles.DangerDelete}`}>
+                    <div className={`${styles.DangerDeleteButton}`}>
+                        <Button variant={"red-secondary"} children={"Delete Account"} onClick={confirmDelete} />
                     </div>
                 </div>
             </div>
-        </SectionedLayout>
+
+            <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Account">
+                <div className={styles.deleteModalBody}>
+                    <p className={styles.deleteModalText}>Enter your password to confirm account deletion. This action cannot be undone.</p>
+                    <form onSubmit={(e) => { e.preventDefault(); handleDelete() }}>
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={deletePassword}
+                            onChange={(e) => setDeletePassword(e.target.value)}
+                        />
+                        {deleteError && <p className={styles.error}>{deleteError}</p>}
+                        <div className={styles.deleteModalActions}>
+                            <Button variant="red-secondary" onClick={() => setDeleteModalOpen(false)}>Cancel</Button>
+                            <Button variant="primary" type="submit" children={isDeleting ? "Deleting..." : "Delete"} />
+                        </div>
+                    </form>
+                </div>
+            </Modal>
+        </div>
     );
 }
 

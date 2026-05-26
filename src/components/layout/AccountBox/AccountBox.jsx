@@ -1,18 +1,29 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Icon from '@/components/ui/Icon/Icon'
+import { useGetMeQuery } from "../../../features/api/authApi"
 import styles from './AccountBox.module.css'
 
 function AccountBox() {
     const navigate = useNavigate()
-    const profile = {
-        avatar: 'https://imgs.search.brave.com/Nu92Ba-Z_C_AJh8giZUFnICO6fmpksx3f_IwdQ58Srk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c3RvY2t2YXVsdC5u/ZXQvZGF0YS8yMDE1/LzA5LzA2LzE3Nzk1/OC90aHVtYjE2Lmpw/Zw',
-        name: 'Hamza Khattab'
-    }
+    const { data: user } = useGetMeQuery()
+    const [imgError, setImgError] = useState(false)
 
-    return <div className={styles.container} onClick={() => navigate('/account/profile')}>
-        <img className={styles.accountAvatar} src={profile.avatar} alt={profile.name} />
-        <p className={styles.accountName}>{profile.name}</p>
-        <Icon size={28} icon="iconamoon:arrow-right-2-bold" className={styles.accountArrow} />
+    const name = user ? `${user.first_name} ${user.last_name}`.trim() || "User" : "Loading..."
+    const hasAvatar = user?.profile_picture && !imgError
+
+    return <div className={styles.container}>
+        {hasAvatar ? (
+            <img className={styles.accountAvatar} src={user.profile_picture} alt={name} onError={() => setImgError(true)} />
+        ) : (
+            <div className={`${styles.accountAvatar} ${styles.avatarPlaceholder}`}>
+                <Icon icon="mdi:account-circle" size={32} />
+            </div>
+        )}
+        <p className={styles.accountName}>{name}</p>
+        <div className={styles.arrowWrapper} onClick={() => navigate('/account/profile')}>
+            <Icon size={24} icon="iconamoon:arrow-right-2-bold" />
+        </div>
     </div>
 }
 

@@ -54,6 +54,18 @@
     background: var(--gradient-main);
 }
 
+.avatarPlaceholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: var(--gradient-main);
+    color: var(--color-white);
+}
+
 .profileInfo {
     display: flex;
     flex-direction: column;
@@ -105,3 +117,4 @@
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
     gap: 16px;
 }
+

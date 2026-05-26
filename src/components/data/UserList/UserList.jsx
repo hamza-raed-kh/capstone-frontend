@@ -21,7 +21,7 @@ import inviteStyles from './InviteModal.module.css'
  * @param {Array<Object>} props.userrecords - The list of card objects that need to be rendered.
  * @returns {JSX.Element} The rendered cardgroup element.
  */
-const UserList = ({ variant = "closeable", icon, title, category, userrecords }) => {
+const UserList = ({ variant = "closeable", icon, title, category, userrecords, onInvite, onClick }) => {
     let [open, setOpen] = useState(true)
     let [inviteModalOpen, setInviteModalOpen] = useState(false)
     let [inviteInput, setInviteInput] = useState("")
@@ -67,6 +67,15 @@ const UserList = ({ variant = "closeable", icon, title, category, userrecords })
                             variant={_.variant}
                             avatar={_.avatar}
                             username={_.username}
+                            userId={_.userId}
+                            onUnfollow={_.onUnfollow}
+                            onUnban={_.onUnban}
+                            onUninvite={_.onUninvite}
+                            onApprove={_.onApprove}
+                            onReject={_.onReject}
+                            onDisqualify={_.onDisqualify}
+                            onReturn={_.onReturn}
+                            onClick={_.onClick || onClick}
                         />
                     ) :
                     (<></>)
@@ -108,7 +117,11 @@ const UserList = ({ variant = "closeable", icon, title, category, userrecords })
                     </div>
                     <div className={inviteStyles.footer}>
                         <Button variant="red-secondary" onClick={() => setInviteModalOpen(false)}>Cancel</Button>
-                        <Button variant="primary" onClick={() => setInviteModalOpen(false)}>Invite</Button>
+                        <Button variant="primary" onClick={() => {
+                            invitedUsers.forEach(u => onInvite?.(u.username));
+                            setInvitedUsers([]);
+                            setInviteModalOpen(false);
+                        }}>Invite</Button>
                     </div>
                 </div>
             </Modal>

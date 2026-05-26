@@ -44,6 +44,7 @@ export const apiSlice = createApi({
     "EventType",
     "Team",
     "TeamParticipant",
+    "TeamInvitation",
     "TextQuestion",
     "NumericQuestion",
     "ChoiceQuestion",
@@ -58,6 +59,8 @@ export const apiSlice = createApi({
     "EventInvitation",
     "FAQQuestion",
     "EventEditRequest",
+    "Following",
+    "Blocked",
   ],
   endpoints: () => ({}),
 });

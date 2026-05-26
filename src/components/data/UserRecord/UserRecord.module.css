@@ -45,27 +45,26 @@
 }
 
 .userRecordAvatar {
-    /* Icon */
-
     box-sizing: border-box;
-
     width: 37px;
     height: 37px;
-
     border: 2px solid var(--color-main-accent);
     border-radius: 18.5px;
-
-
-    /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
 }
 
-.userRecordUsername {
-    /* Hamza Khattab */
+.avatarPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+}
 
+.userRecordUsername {
     width: 0px;
+    white-space: nowrap;
 
     font-style: normal;
     font-weight: 600;

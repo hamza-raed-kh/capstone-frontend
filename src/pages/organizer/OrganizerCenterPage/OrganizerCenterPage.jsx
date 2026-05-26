@@ -3,7 +3,6 @@ import { format } from "date-fns"
 import FilterRow from "../../../components/data/FilterRow/FilterRow"
 import Results from "../../../components/data/Results/Results"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import { Button } from "../../../components/inputs/Button/Button"
 import { useGetMeQuery } from "../../../features/api/authApi"
 import { useGetEventsQuery } from "../../../features/api/eventApi"
@@ -22,7 +21,7 @@ function getStatusGroup(status) {
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
-    banner_url: event.banner || `https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80`,
+    banner_url: event.banner,
     info: {
       title: event.title,
       description: event.description || "No description provided.",
@@ -37,8 +36,8 @@ function mapEventToCard(event, navigate) {
       location: event.location || "Virtual",
       categories: [],
     },
-    button: { variant: "primary", children: "View" },
-    onClick: { view: () => navigate(`/competition/${event.id}`) },
+    button: { variant: "primary", children: "Preview" },
+    onClick: { view: () => navigate(`/organizer/${event.id}/preview`) },
   }
 }
 
@@ -79,25 +78,23 @@ function OrganizerCenterPage() {
       }))
 
     return (
-        <SectionedLayout preset="account">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar />
-                </div>
-                <div className={styles.pageFiltersSection}>
-                    <FilterRow />
-                </div>
-                <div className={styles.pageResultsSection}>
-                    {isLoading ? <div>Loading...</div> : results.length === 0 ? (
-                        <div className={styles.emptyState}>
-                            <h2>No competitions yet</h2>
-                            <p>Create your first competition to get started.</p>
-                            <Button variant="primary" onClick={() => navigate('/organizer/create')}>Create Competition</Button>
-                        </div>
-                    ) : <Results variant={'cardgroups'} sections={sections} />}
-                </div>
+        <div className={styles.pageContainer}>
+            <div className={styles.pageSearchSection}>
+                <SearchBar />
             </div>
-        </SectionedLayout>
+            <div className={styles.pageFiltersSection}>
+                <FilterRow />
+            </div>
+            <div className={styles.pageResultsSection}>
+                {isLoading ? <div>Loading...</div> : results.length === 0 ? (
+                    <div className={styles.emptyState}>
+                        <h2>No competitions yet</h2>
+                        <p>Create your first competition to get started.</p>
+                        <Button variant="primary" onClick={() => navigate('/organizer/create')}>Create Competition</Button>
+                    </div>
+                ) : <Results variant={'cardgroups'} sections={sections} />}
+            </div>
+        </div>
     )
 }
 

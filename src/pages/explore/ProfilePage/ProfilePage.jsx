@@ -1,19 +1,33 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useNavigate, useParams, Navigate } from "react-router-dom"
+import { useGetMeQuery, useGetUserQuery } from "../../../features/api/authApi"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionHeader from "../../../components/ui/SectionHeader/SectionHeader"
-import EventCard from "../../../components/data/EventCard/EventCard"
 import CardGroup from "../../../components/data/CardGroup/CardGroup"
+import Icon from "../../../components/ui/Icon/Icon"
 import styles from './ProfilePage.module.css'
 import { Button } from '../../../components/inputs/Button/Button'
 
 function ProfilePage() {
   const navigate = useNavigate()
-  const profile = {
-    avatar: 'https://search.beastfly.win/image_proxy?url=https%3A%2F%2Fimgs.search.brave.com%2FhnQ7lLSxa7xnk1DpWsDAFdSYVQLnjb7yvJoewqqY0A4%2Frs%3Afit%3A500%3A0%3A1%3A0%2Fg%3Ace%2FaHR0cHM6Ly9zaG9w%2FLnJveWFsYXJhYmlh%2FbnMuY29tL2Nkbi9z%2FaG9wL2ZpbGVzL2dh%2FemFsLWFsLXNoYXFh%2FYi0wMS5qcGc_dj0x%2FNzExMTQ0NTIyJndp%2FZHRoPTE5NDY&h=71e621cb5ee255464f3a58550b8e7e77233f06862f8af1687ec1973cda9fd8c4',
-    name: 'Hamza Khattab',
-    year: '2004'
+  const { id } = useParams()
+  const [imgError, setImgError] = useState(false)
+
+  const { data: me } = useGetMeQuery()
+  const { data: user, error: userError } = useGetUserQuery(Number(id), { skip: !id })
+
+  const profile = id ? user : me
+
+  if (id && userError?.status === 404) {
+    return <Navigate to="/404" replace />
   }
+
+  const displayName = profile
+    ? [profile.first_name, profile.last_name].filter(Boolean).join(' ') || profile.email
+    : 'Loading...'
+
+  const hasAvatar = profile?.profile_picture && !imgError
 
   const recentEvents = [
     {
@@ -58,25 +72,28 @@ function ProfilePage() {
         </div>
         <div className={styles.content}>
           <div className={styles.profileDetails}>
-            <img className={styles.avatar} src={profile.avatar} alt={profile.name} />
+            {hasAvatar ? (
+              <img
+                className={styles.avatar}
+                src={profile.profile_picture}
+                alt={displayName}
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className={styles.avatarPlaceholder}>
+                <Icon icon="mdi:account-circle" size={72} />
+              </div>
+            )}
             <div className={styles.profileInfo}>
               <div className={styles.profileHeader}>
-                <span className={styles.name}>{profile.name}</span>
-                <Button variant="secondary" onClick={() => navigate('/login')}>Follow</Button>
+                <span className={styles.name}>{displayName}</span>
+                {!id && <Button variant="secondary" onClick={() => navigate('/login')}>Follow</Button>}
               </div>
-              <span className={styles.year}>
-                <span className={styles.smurf}>
-                  Smurf
-                </span>
-                <span className={styles.ofYear}>
-                  of {profile.year}
-                </span>
-              </span>
             </div>
           </div>
           <div className={styles.profileBio}>
             <h3>About Me</h3>
-            This is a bio.
+            {profile?.bio || 'This is a bio.'}
           </div>
 
           <CardGroup

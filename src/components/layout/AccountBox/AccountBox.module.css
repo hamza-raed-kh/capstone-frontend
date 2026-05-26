@@ -9,13 +9,20 @@
     color: var(--color-text);
     border-radius: 1.5rem;
     font-size: 12px;
-    cursor: pointer;
 }
 
 .accountAvatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
 }
 
 .accountName {
@@ -25,5 +32,17 @@
     color: var(--color-main);
 }
 
-/* .accountArrow {
-} */
+.arrowWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-main);
+    transition: background-color 0.15s;
+}
+
+.arrowWrapper:hover {
+    background-color: var(--color-white);
+}

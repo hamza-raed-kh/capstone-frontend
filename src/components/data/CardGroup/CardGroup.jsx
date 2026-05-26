@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import EventCard from '../EventCard/EventCard'
 import AdminEventCard from '../AdminEventCard/AdminEventCard'
 import SectionHeader from '../../ui/SectionHeader/SectionHeader'
@@ -19,6 +19,22 @@ import styles from './CardGroup.module.css'
  */
 const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) => {
     let [open, setOpen] = useState(true)
+    const innerRef = useRef(null)
+    const [height, setHeight] = useState(0)
+
+    useEffect(() => {
+        const el = innerRef.current
+        if (!el) return
+        setHeight(el.scrollHeight)
+        const ro = new ResizeObserver(([entry]) => {
+            const h = entry.contentBoxSize
+                ? entry.contentBoxSize[0].blockSize
+                : entry.target.scrollHeight
+            setHeight((prev) => Math.max(prev, h))
+        })
+        ro.observe(el)
+        return () => ro.disconnect()
+    }, [eventcards])
 
     const handleToggleOpen = (e) => {
         setOpen(!open);
@@ -35,9 +51,9 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
                 />):
                 (<></>)
             }
-            <div className={`${styles.cards}`}>
-                {open?
-                    eventcards.map((_,i) => 
+            <div className={styles.cards} style={{ maxHeight: open ? height : 0 }}>
+                <div ref={innerRef} className={styles.cardsGrid}>
+                    {eventcards.map((_,i) => 
                         _.variant === 'admin' ? (
                             <AdminEventCard
                                 key={i}
@@ -45,6 +61,7 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
                                 info={_.info}
                                 details={_.details}
                                 onClick={_.onClick}
+                                hideBanner={_.hideBanner}
                             />
                         ) : (
                             <EventCard
@@ -55,11 +72,11 @@ const CardGroup = ({variant = "closeable", icon, title, category, eventcards}) =
                                 details={_.details}
                                 button={_.button}
                                 onClick={_.onClick}
+                                hideBanner={_.hideBanner}
                             />
                         )
-                    ) :
-                    (<></>)
-                }
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -1,30 +1,27 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../inputs/Button/Button'
+import Icon from '../../ui/Icon/Icon'
 import styles from './UserRecord.module.css'
 
-/**
- * A userrecord component with different visual styles.
- * This component supports various `variants` that apply different CSS classes
- * to the userrecord, allowing for a consistent look and feel across the application.
- *
- * @param {object} props - The properties for the userrecord.
- * @param {'followed' | 'banned' | 'invited' | 'applicant' | 'participant' | 'disqualified' | 'result'} [props.variant='search'] - The visual variant of the userrecord.
- * @param {string} props.children - The string to be displayed inside the bar's 'placeholder' variant.
- * @param {Function} props.onClick - The function to be called when the userrecord icon is clicked.
- * @returns {JSX.Element} The rendered userrecord element.
- */
-const UserRecord = ({ variant = 'invited', avatar, username }) => {
+const UserRecord = ({ variant = 'invited', avatar, username, userId, onClick, onUnfollow, onUnban, onUninvite, onApprove, onReject, onDisqualify, onReturn }) => {
   const navigate = useNavigate();
+  const [imgError, setImgError] = useState(false)
+
+  const hasAvatar = avatar && !imgError
 
   const redirectProfile = () => {
-    navigate('/profile');
+    if (onClick) return onClick(userId);
+    navigate(userId ? `/profile/${userId}` : '/profile');
   }
 
-  const handleUnfollow = () => {}
-  const handleUnban = () => {}
-  const handleUninvite = () => {}
-  const handleDisqualify = () => {}
-  const handleReturn = () => {}
+  const handleUnfollow = (e) => { e.stopPropagation(); onUnfollow?.(userId) }
+  const handleUnban = (e) => { e.stopPropagation(); onUnban?.(userId) }
+  const handleUninvite = (e) => { e.stopPropagation(); onUninvite?.(userId) }
+  const handleDisqualify = (e) => { e.stopPropagation(); onDisqualify?.(userId) }
+  const handleReturn = (e) => { e.stopPropagation(); onReturn?.(userId) }
+  const handleApprove = (e) => { e.stopPropagation(); onApprove?.(userId) }
+  const handleReject = (e) => { e.stopPropagation(); onReject?.(userId) }
 
   const variantButtons = () => {
     switch(variant){
@@ -59,10 +56,10 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
         return (
           <>
             <div className={`${styles.userRecordButton}`}>
-              <Button variant="red-secondary" onClick={handleUninvite}>Reject</Button>
+              <Button variant="red-secondary" onClick={handleReject}>Reject</Button>
             </div>
             <div className={`${styles.userRecordButton}`}>
-              <Button variant="green" onClick={handleUninvite}>Approve</Button>
+              <Button variant="green" onClick={handleApprove}>Approve</Button>
             </div>
           </>
         );
@@ -105,7 +102,13 @@ const UserRecord = ({ variant = 'invited', avatar, username }) => {
   return (
     <div className={`${styles.userRecordContainer}`}>
       <div className={`${styles.userRecordUser}`} onClick={redirectProfile}>
-        <img className={`${styles.userRecordAvatar}`} src={avatar} alt={'Name'}/>
+        {hasAvatar ? (
+          <img className={`${styles.userRecordAvatar}`} src={avatar} alt={username} onError={() => setImgError(true)}/>
+        ) : (
+          <div className={`${styles.userRecordAvatar} ${styles.avatarPlaceholder}`}>
+            <Icon icon="mdi:account-circle" size={33} />
+          </div>
+        )}
         <p className={`${styles.userRecordUsername}`}>
           {username}
         </p>

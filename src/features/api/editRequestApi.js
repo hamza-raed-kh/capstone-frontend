@@ -18,6 +18,13 @@ export const editRequestApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["EventEditRequest"],
     }),
+    deleteEditRequest: builder.mutation({
+      query: (id) => ({
+        url: `event-edit-requests/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["EventEditRequest"],
+    }),
     approveEditRequest: builder.mutation({
       query: (id) => ({
         url: `event-edit-requests/${id}/approve/`,
@@ -39,6 +46,7 @@ export const {
   useGetEditRequestsQuery,
   useGetEditRequestQuery,
   useCreateEditRequestMutation,
+  useDeleteEditRequestMutation,
   useApproveEditRequestMutation,
   useRejectEditRequestMutation,
 } = editRequestApi;

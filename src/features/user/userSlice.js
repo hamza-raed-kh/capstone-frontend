@@ -6,7 +6,7 @@ const initialState = {
   isLoggedIn: !!localStorage.getItem("accessToken"),
   user: null,
   isStaff: false,
-  theme: "light",
+  theme: "system",
   interests: [],
 };
 

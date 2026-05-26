@@ -8,6 +8,7 @@ import ProfilePage from "./pages/explore/ProfilePage/ProfilePage"
 import DraftSubmissionPage from "./pages/admin/DraftSubmissionPage/DraftSubmissionPage";
 import ChannelPage from "./pages/community/ChannelPage/ChannelPage";
 import FollowingPage from "./pages/account/FollowingPage/FollowingPage";
+import NotFoundPage from "./pages/error/NotFoundPage/NotFoundPage";
 
 import CompetitionDetailPage from "./pages/competition/CompetitionDetailPage/CompetitionDetailPage";
 import CompetitionCreatePage from "./pages/organizer/CompetitionCreatePage/CompetitionCreatePage";
@@ -24,7 +25,7 @@ import React from "react";
 import PersonalizationPage from "./pages/account/PersonalizationPage/PersonalizationPage";
 import ToastContainer from "./components/ui/Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTheme, selectIsLoggedIn, setUser } from "./features/user/userSlice";
+import { selectTheme, selectIsLoggedIn, setUser, setTheme } from "./features/user/userSlice";
 import { useGetMeQuery } from "./features/api/authApi";
 import OrganizerCenterPage from "./pages/organizer/OrganizerCenterPage/OrganizerCenterPage";
 import ParticipantsPage from "./pages/organizer/ParticipantsPage/ParticipantsPage";
@@ -33,6 +34,9 @@ import HistoryPage from "./pages/explore/HistoryPage/HistoryPage";
 import CompetitionDashboard from "./pages/organizer/CompetitionDashboard/CompetitionDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard/AdminDashboard";
 import CommunityLayout from "./layouts/CommunityLayout/CommunityLayout";
+import AccountCenterLayout from "./layouts/AccountCenterLayout/AccountCenterLayout";
+import OrganizerCenterLayout from "./layouts/OrganizerCenterLayout/OrganizerCenterLayout";
+import SectionedLayout from "./layouts/SectionedLayout/SectionedLayout";
 
 /**
  * A layout component that wraps the main content of the application.
@@ -56,6 +60,7 @@ const RootLayout = () => {
   React.useEffect(() => {
     if (userData) {
       dispatch(setUser(userData));
+      if (userData.theme) dispatch(setTheme(userData.theme));
     }
   }, [userData, dispatch]);
 
@@ -111,7 +116,7 @@ const AdminRoute = ({ children }) => {
   if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
   if (isLoading) return null;
   if (isSuccess && !userData?.is_staff) return <Navigate to="/admin/login" replace />;
-  return children;
+  return <SectionedLayout preset="admin">{children}</SectionedLayout>;
 };
 
 const router = createBrowserRouter([
@@ -172,12 +177,12 @@ const router = createBrowserRouter([
             element: <ProfilePage />,
           },
           {
-            path: "competition/:id",
-            element: <CompetitionDetailPage />
+            path: "profile/:id",
+            element: <ProfilePage />,
           },
           {
-            path: "competitions/:id/edit",
-            element: <CompetitionEditPage />
+            path: "competition/:id",
+            element: <CompetitionDetailPage />
           },
           
           // Community Navbar pages
@@ -199,6 +204,7 @@ const router = createBrowserRouter([
           // Account Navbar pages
           {
             path: "account",
+            element: <AccountCenterLayout />,
             children: [
               {
                 path: "profile",
@@ -219,12 +225,13 @@ const router = createBrowserRouter([
             ],
           },
 
-          // Organized Navbar pages
+          // Organizer Navbar pages
           {
             path: "organizer",
+            element: <OrganizerCenterLayout />,
             children: [
               {
-                path: "competitions",
+                index: true,
                 element: <OrganizerCenterPage />,
               },
               {
@@ -236,16 +243,20 @@ const router = createBrowserRouter([
                 element: <CompetitionEditPage />
               },
               {
+                path: ":id/dashboard",
+                element: <CompetitionDashboard />
+              },
+              {
+                path: ":id/preview",
+                element: <CompetitionDetailPage />
+              },
+              {
                 path: ":id/form",
                 element: <FormManagementPage />
               },
               {
                 path: ":id/participants",
                 element: <ParticipantsPage />
-              },
-              {
-                path: ":id/dashboard",
-                element: <CompetitionDashboard />
               },
             ],
           },
@@ -278,6 +289,14 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "404",
+        element: <NotFoundPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

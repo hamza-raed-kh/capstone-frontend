@@ -17,7 +17,7 @@ const PRESETS = {
     { label: "Following", to: "/account/following", icon: "ic:round-people" },
     { label: "Security", to: "/account/security", icon: "iconamoon:shield-yes-fill" },
     { label: "Preferences", to: "/account/preferences", icon: "mdi:gear" },
-    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
+    { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
   ],
   admin: [
     { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
@@ -26,16 +26,17 @@ const PRESETS = {
   ],
 };
 
-function getOrganizerLinks(competitionId) {
+function getOrganizerLinks(competitionId, hasBackLink) {
   if (!competitionId) {
-    return [
-      { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
-      { label: "Create Competition", to: "/organizer/create", icon: "mage:edit-pen-fill" },
-    ];
+    const links = [];
+    if (!hasBackLink) {
+      links.push({ label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" });
+    }
+    links.push({ label: "Create Competition", to: "/organizer/create", icon: "mage:edit-pen-fill" });
+    return links;
   }
   return [
-    { label: "Organizer Center", to: "/organizer/competitions", icon: "fluent:calendar-24-filled" },
-    { label: "Preview", to: `/competition/${competitionId}`, icon: "material-symbols:visibility-rounded", end: true },
+    { label: "Preview", to: `/organizer/${competitionId}/preview`, icon: "material-symbols:visibility-rounded", end: true },
     { label: "Form Management", to: `/organizer/${competitionId}/form`, icon: "mdi:form-outline" },
     { label: "Participant Management", to: `/organizer/${competitionId}/participants`, icon: "ic:round-people" },
     { label: "Statistics", to: `/organizer/${competitionId}/dashboard`, icon: "uis:chart" },
@@ -50,10 +51,10 @@ function getOrganizerLinks(competitionId) {
  * @param {'home' | 'comunity' | 'account' | 'organizer' | 'admin'} [props.preset] - Configuration of preset links to use.
  * @param {(seperator_name): {Array<{lable: string, to: string, icon: string}>}} [props.community_link] - Non-preset links to be used in the case of community.
  */
-const Navigation = ({ preset, community_links }) => {
+const Navigation = ({ preset, community_links, backLink }) => {
   const competitionId = useSelector((state) => state.competition.currentId);
   const isStaff = useSelector(selectIsStaff);
-  let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId) : preset !== "community" ? [...PRESETS[preset]] : [];
+  let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId, !!backLink) : preset !== "community" ? [...PRESETS[preset]] : [];
   if (preset === "account" && isStaff) {
     activeLinks.push({ label: "Admin Dashboard", to: "/admin/dashboard", icon: "uis:chart" });
   }
@@ -109,16 +110,28 @@ const Navigation = ({ preset, community_links }) => {
               ))}
             </>
           ))) :
-          (activeLinks.map((link, index) => (
-            <NavLink
-              key={index}
-              to={link.to}
-              label={link.label}
-              icon={link.icon}
-              disabled={link.disabled}
-              end={link.end}
-            />
-          )))}
+          (
+            <>
+              {backLink && (
+                <NavLink
+                  to={backLink.to}
+                  label={backLink.label}
+                  icon="mdi:arrow-left"
+                  end={backLink.end}
+                />
+              )}
+              {activeLinks.map((link, index) => (
+                <NavLink
+                  key={index}
+                  to={link.to}
+                  label={link.label}
+                  icon={link.icon}
+                  disabled={link.disabled}
+                  end={link.end}
+                />
+              ))}
+            </>
+          )}
       </ul>
     </nav>
   );

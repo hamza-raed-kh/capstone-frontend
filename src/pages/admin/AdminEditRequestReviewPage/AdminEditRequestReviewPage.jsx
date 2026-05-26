@@ -35,8 +35,8 @@ function AdminEditRequestReviewPage() {
         }
     }
 
-    if (isLoading) return <AdminLayout pageName="Edit Request Review"><div>Loading...</div></AdminLayout>
-    if (!req) return <AdminLayout pageName="Edit Request Review"><div>Edit request not found.</div></AdminLayout>
+    if (isLoading) return <AdminLayout pageName="Edit Request Review"><div className={detailStyles.contentContainer}>Loading...</div></AdminLayout>
+    if (!req) return <AdminLayout pageName="Edit Request Review"><div className={detailStyles.contentContainer}>Edit request not found.</div></AdminLayout>
 
     return (
         <AdminLayout pageName="Edit Request Review">
@@ -57,7 +57,7 @@ function AdminEditRequestReviewPage() {
                                         alt="Requestor"
                                     />
                                     <div className={detailStyles.bannerTitleGroup}>
-                                        <span className={detailStyles.bannerTitle}>{req.title || `Edit Request #${req.id}`}</span>
+                                        <span className={detailStyles.bannerTitle}>{req.event_detail?.title || `Edit Request #${req.id}`}</span>
                                         <span className={detailStyles.bannerHost}>
                                             by User #{req.requested_by} · {req.created_at ? format(req.created_at, "MMM d, yyyy") : ""} · Event #{req.event}
                                         </span>

@@ -1,50 +1,84 @@
-import FilterRow from "../../../components/data/FilterRow/FilterRow"
+import { useCallback, useMemo } from "react"
 import Results from "../../../components/data/Results/Results"
-import SearchBar from "../../../components/ui/SearchBar/SearchBar"
-import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
+import { useGetMeQuery } from "../../../features/api/authApi"
+import {
+    useGetMyFollowingQuery,
+    useGetBlockedUsersQuery,
+    useUnfollowUserMutation,
+    useUnbanUserMutation,
+} from "../../../features/api/followApi"
 import styles from './FollowingPage.module.css'
 
+function getDisplayName(user) {
+    if (user.first_name && user.last_name) return `${user.first_name} ${user.last_name}`
+    if (user.first_name) return user.first_name
+    return user.email
+}
+
 function FollowingPage() {
-    let single_userrecord = {
-            variant: "invited",
-            avatar: "https://imgs.search.brave.com/Nu92Ba-Z_C_AJh8giZUFnICO6fmpksx3f_IwdQ58Srk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c3RvY2t2YXVsdC5u/ZXQvZGF0YS8yMDE1/LzA5LzA2LzE3Nzk1/OC90aHVtYjE2Lmpw/Zw",
-            username: "Simon",
-    }
-    
-    let userrecords = [
-        single_userrecord,
-        single_userrecord,
-        single_userrecord,
-        single_userrecord,
-    ]
-    
-    let userlists =[
-        {icon: '', title: 'Followed', category: '', userrecords: userrecords.map(obj => ({
-                ...obj,
+    const { data: me } = useGetMeQuery()
+    const { data: followingData } = useGetMyFollowingQuery(me?.id, { skip: !me?.id })
+    const { data: blockedData } = useGetBlockedUsersQuery()
+    const [unfollowUser] = useUnfollowUserMutation()
+    const [unbanUser] = useUnbanUserMutation()
+
+    const handleUnfollow = useCallback((userId) => {
+        if (userId) unfollowUser(userId)
+    }, [unfollowUser])
+
+    const handleUnban = useCallback((userId) => {
+        if (userId) unbanUser(userId)
+    }, [unbanUser])
+
+    const userlists = useMemo(() => {
+        const sections = []
+
+        const followed = (followingData || []).map((item) => {
+            const u = item.followed_detail
+            return {
                 variant: "followed",
-            }))
-        },
-        {icon: '', title: 'Banned', category: '', userrecords: userrecords.map(obj => ({
-                ...obj,
+                avatar: u?.profile_picture,
+                username: getDisplayName(u || {}),
+                userId: u?.id,
+                onUnfollow: handleUnfollow,
+            }
+        })
+
+        if (followed.length) {
+            sections.push({ icon: "ic:round-people", title: "Followed", userrecords: followed })
+        }
+
+        const banned = (blockedData || []).map((item) => {
+            const u = item.blocked_detail
+            return {
                 variant: "banned",
-            }))
-        },
-    ]
+                avatar: u?.profile_picture,
+                username: getDisplayName(u || {}),
+                userId: u?.id,
+                onUnban: handleUnban,
+            }
+        })
+
+        if (banned.length) {
+            sections.push({ icon: "ic:round-block", title: "Banned", userrecords: banned })
+        }
+
+        return sections
+    }, [followingData, blockedData, handleUnfollow, handleUnban])
 
     return (
-        <SectionedLayout preset="account">
-            <div className={styles.pageContainer}>
-                <div className={styles.pageSearchSection}>
-                    <SearchBar />
-                </div>
-                <div className={styles.pageFiltersSection}>
-                    <FilterRow />
-                </div>
+        <>
+            {userlists.length > 0 && (
                 <div className={styles.pageResultsSection}>
-                    <Results variant={'userlists'} sections={userlists}/>
+                    <Results variant={'userlists'} sections={userlists} />
                 </div>
-            </div>
-        </SectionedLayout>
+            )}
+            {!userlists.length && (
+                <div className={styles.pageResultsSection}>
+                    <p className={styles.emptyText}>No followed or banned users yet.</p>
+                </div>
+            )}
+        </>
     )
 }
 

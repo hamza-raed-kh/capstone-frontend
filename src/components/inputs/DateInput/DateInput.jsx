@@ -44,13 +44,13 @@ const DateInput = ({ label, placeholder = "Pick a date", value, onChange, disabl
             <DayPicker
               mode="single"
               selected={value}
+              defaultMonth={value || new Date()}
               onSelect={(date) => {
                 if (onChange) onChange(date);
                 setIsOpen(false);
               }}
               captionLayout="dropdown"
               startMonth={new Date(1900, 0)}
-              endMonth={new Date()}
               disabled={disabled}
               {...props}
             />

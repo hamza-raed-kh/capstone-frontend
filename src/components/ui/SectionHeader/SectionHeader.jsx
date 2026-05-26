@@ -38,11 +38,8 @@ const SectionHeader = ({variant="main", icon, title, category, opened}) => {
             </div>
             
             {opened?
-                (<div className={`${styles.sectionHeaderCollapseIcon} `}>
-                    {opened.open === true?
-                        <Icon icon={"iconamoon:arrow-down-2"} size={24}/> :
-                        <Icon icon={"iconamoon:arrow-right-2"} size={24}/>
-                    }
+                (<div className={`${styles.sectionHeaderCollapseIcon} ${opened.open ? "" : styles.collapsed}`}>
+                    <Icon icon={"iconamoon:arrow-down-2"} size={24}/>
                 </div>):
                 (<></>)
             }

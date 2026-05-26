@@ -60,21 +60,46 @@
     width: 100%;
 }
 
-.menuTitle {
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 125%;
-    /* identical to box height, or 40px */
+.logoContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 12px;
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+}
 
-    /* color: #000000; */
+[data-theme="dark"] .logoContainer {
+    background: var(--gradient-main);
+}
 
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
-    flex-grow: 1;
+.logoMenuBtn {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-accent);
+}
+
+[data-theme="dark"] .logoMenuBtn {
+    color: white;
+}
+
+.logoImage {
+    width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+[data-theme="dark"] .logoImage {
+    filter: brightness(0) invert(1);
 }
