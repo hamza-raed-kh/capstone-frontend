@@ -25,6 +25,7 @@ import styles from './CompetitionDetailPage.module.css'
 
 function CompetitionDetailPage() {
     const { id } = useParams()
+    const location = useLocation();
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { data: comp, isLoading } = useGetEventQuery(Number(id))
@@ -69,7 +70,13 @@ function CompetitionDetailPage() {
     useEffect(() => {
         if (id) dispatch(setCurrentCompetition(Number(id)))
         return () => dispatch(clearCurrentCompetition())
-    }, [id, dispatch])
+    }, [id, dispatch]);
+
+    useEffect(() => {
+        if(location.state?.applicationModal === 'open'){
+            setApplyOpen(true);
+        }
+    }, [location.state]);
 
     const isStaff = me?.is_staff
     const navPreset = isStaff ? "admin" : isOrganizer ? "organizer" : "home"
