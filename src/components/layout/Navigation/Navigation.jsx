@@ -96,7 +96,7 @@ const Navigation = ({ preset, community_links, backLink }) => {
         {preset === "community" ?
           (Object.entries(community_links).map(([category, links], index) => (
             <>
-              <div className={styles.separator}>
+              <div className={styles.separator} key={index}>
                 {category} <hr className={styles.separatorLine} />
               </div>
               {links.map((link, index) => (

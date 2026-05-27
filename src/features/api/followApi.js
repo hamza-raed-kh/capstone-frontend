@@ -19,6 +19,18 @@ export const followApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Following"],
     }),
+    followUser: builder.mutation({
+      query: (userId) => ({
+        url: `users/${userId}/follow/`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Following"],
+    }),
+    getFollowed: builder.query({
+      query: (userId) => `users/${userId}/followed/`,
+      providesTags: ["Following"],
+      transformResponse: (response) => response.results || response,
+    }),
     unbanUser: builder.mutation({
       query: (userId) => ({
         url: `users/${userId}/block/`,
@@ -33,5 +45,7 @@ export const {
   useGetMyFollowingQuery,
   useGetBlockedUsersQuery,
   useUnfollowUserMutation,
+  useFollowUserMutation,
+  useGetFollowedQuery,
   useUnbanUserMutation,
 } = followApi;
