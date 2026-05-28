@@ -17,33 +17,64 @@ import { Button } from '../../../components/inputs/Button/Button'
 import { useCallback } from "react"
 
 function mapEventToCard(event, navigate) {
-  return {
-	variant: 'main',
-	banner_url: event.banner,
-	info: {
-	  title: event.title,
-	  description: event.description || "No description provided.",
-	},
-	details: {
-	  prize: event.reward || "No prize",
-	  participants_now: "?",
-	  participants_max: event.capacity ?? "No limit",
-	  date_start: event.start_date ? format(event.start_date, "MMM d") : "TBA",
-	  date_end: event.end_date ? format(event.end_date, "MMM d") : "TBA",
-	  virtual: !event.location,
-	  location: event.location || "Virtual",
-	  categories: [],
-	},
-	button: { variant: "primary", children: "Apply" },
-	onClick: {
-		view: () => navigate(`/competition/${event.id}`),
-		buttonLink: () => navigate(`/competition/${event.id}`, {
-			state: {
-				applicationModal: 'open',
-			}
-		}),
-	},
-  }
+  	function getButtonVariant() {
+		switch(event.team_event_ranking) {
+			case 1:
+				return 'golden';
+			
+			case 2:
+				return 'silver';
+			
+			case 3:
+				return 'bronze';
+			
+			default:
+				return 'disabled';
+		}
+	}
+	function getNumSuffix() {
+		let rank = event.team_event_ranking
+		if(rank % 100 <20 && rank % 100 >=10 ){
+			return 'th';
+		}
+		switch(rank % 10) {
+			case 1:
+				return 'st';
+			
+			case 2:
+				return 'nd';
+			
+			case 3:
+				return 'rd';
+			
+			default:
+				return 'th';
+		}
+	}
+	return {
+		variant: 'main',
+		info: {
+			title: event.title,
+			description: event.description || "No description provided.",
+		},
+		details: {
+			prize: event.reward || "No prize",
+			participants_now: "?",
+			participants_max: event.capacity ?? "No limit",
+			date_start: event.start_date ? format(event.start_date, "MMM d") : "TBA",
+			date_end: event.end_date ? format(event.end_date, "MMM d") : "TBA",
+			virtual: !event.location,
+			location: event.location || "Virtual",
+			categories: [],
+		},
+		button: {
+			variant: getButtonVariant(),
+			children: `${event.team_event_ranking || '--'}${getNumSuffix()}`
+		},
+		onClick: {
+			view: () => navigate(`/competition/${event.id}`),
+		},
+	}
 }
 
 function ProfilePage() {
@@ -54,7 +85,8 @@ function ProfilePage() {
 	const { data: me } = useGetMeQuery()
 	const { data: user, error: userError } = useGetUserQuery(Number(id), { skip: !id })
 	const { data: followed } = useGetFollowedQuery(Number(id), { skip: !id })
-	const { data: events } = useGetParticipatedEventsQuery(Number(id))
+	const { data: events } = useGetParticipatedEventsQuery(Number(id || me?.id))
+	
 	const [unfollowUser] = useUnfollowUserMutation();
 	const [followUser] = useFollowUserMutation();
   
@@ -113,9 +145,6 @@ function ProfilePage() {
 	// 	// },
 	// ];
 	const recentEvents = (events || []).map((ev) => mapEventToCard(ev, navigate))
-
-	console.log('recentEvents: ', recentEvents);
-
 
 	return (
 		<SectionedLayout preset="home">

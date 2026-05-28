@@ -7,9 +7,7 @@ export const eventApi = apiSlice.injectEndpoints({
       providesTags: ["Event"],
     }),
     getParticipatedEvents: builder.query({
-      query: (id) => { console.log('ddddd');
-      
-        return `events/participated/?user_id=${id}`},
+      query: (id) => `events/participated/?user_id=${id}`,
       providesTags: ["Event"],
     }),
     getEvent: builder.query({
