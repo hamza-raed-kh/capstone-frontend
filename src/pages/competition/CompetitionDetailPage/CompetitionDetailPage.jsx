@@ -506,14 +506,16 @@ function CompetitionDetailPage() {
                                 </div>
                                 <div className={styles.bannerBottomRow}>
                                     <div className={styles.bannerBottomLeft}>
-                                        {organizerUser?.profile_picture ? (
-                                            <img className={styles.hostAvatar} src={organizerUser.profile_picture} alt={organizerUser.first_name} />
-                                        ) : (
-                                            <Icon icon="mdi:account-circle" size={48} className={styles.hostAvatar} />
-                                        )}
+                                        <div className={styles.profileLink} onClick={() => navigate(`/profile/${comp.organizer}`)}>
+                                            {organizerUser?.profile_picture ? (
+                                                <img className={styles.hostAvatar} src={organizerUser.profile_picture} alt={organizerUser.first_name} />
+                                            ) : (
+                                                <Icon icon="mdi:account-circle" size={48} className={styles.hostAvatar} />
+                                            )}
+                                        </div>
                                         <div className={styles.bannerTitleGroup}>
                                             <span className={styles.bannerTitle}>{comp.title}</span>
-                                            <span className={styles.bannerHost}>by {organizerUser ? `${organizerUser.first_name} ${organizerUser.last_name}` : "Organizer"}</span>
+                                            <span className={styles.bannerHost} onClick={() => navigate(`/profile/${comp.organizer}`)}>by {organizerUser ? `${organizerUser.first_name} ${organizerUser.last_name}` : "Organizer"}</span>
                                         </div>
                                     </div>
                                     <div className={styles.bannerBottomRight}>
