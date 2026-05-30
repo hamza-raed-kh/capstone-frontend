@@ -53,13 +53,33 @@
 .sectionHeaderIcon {
     /* Icon */
 
-    color: var(--color-white);
+    color: white;
 
 
     /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
+}
+
+.sectionHeaderMain {
+    /* Frame 22 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+
+    /* width: auto; */
+    /* height: auto; */
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
 }
 
 .sectionHeaderName {
@@ -73,7 +93,7 @@
     line-height: 34px;
     /* identical to box height */
 
-    color: var(--color-white);
+    color: white;
 
 
     /* Inside auto layout */
@@ -92,7 +112,7 @@
     font-size: 20px;
     line-height: 24px;
 
-    color: var(--color-bg-accent);
+    color: white;
 
 
     /* Inside auto layout */

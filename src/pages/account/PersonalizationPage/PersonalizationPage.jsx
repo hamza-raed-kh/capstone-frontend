@@ -44,12 +44,11 @@ const PersonalizationPage = () => {
     const root = document.documentElement;
     const applyTheme = (t) => {
       if (!t) return;
-      if (t === 'system') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      } else {
-        root.setAttribute('data-theme', t);
-      }
+      const isDark = t === 'system'
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        : t === 'dark';
+      root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      root.classList.toggle('dark', isDark);
     };
     applyTheme(draftTheme);
     return () => applyTheme(savedTheme);

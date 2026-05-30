@@ -69,12 +69,11 @@ const RootLayout = () => {
     const root = document.documentElement;
     
     const applyTheme = () => {
-      if (theme === 'system') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      } else {
-        root.setAttribute('data-theme', theme);
-      }
+      const isDark = theme === 'system'
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        : theme === 'dark';
+      root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      root.classList.toggle('dark', isDark);
     };
 
     applyTheme();
@@ -83,6 +82,7 @@ const RootLayout = () => {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const listener = (e) => {
         root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        root.classList.toggle('dark', e.matches);
       };
       mediaQuery.addEventListener('change', listener);
       return () => mediaQuery.removeEventListener('change', listener);
