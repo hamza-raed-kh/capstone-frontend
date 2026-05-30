@@ -82,7 +82,7 @@
 }
 
 .pillButton:hover {
-  background-color: #f8fafc;
+  background-color: var(--color-light-accent);
 }
 
 .pillButton:focus-within {

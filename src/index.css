@@ -150,6 +150,7 @@ body::before {
   --gradient-gold: linear-gradient(180deg, #FDE68A, #D97706);
   --gradient-silver: linear-gradient(180deg, #E2E8F0, #64748B);
   --gradient-bronze: linear-gradient(180deg, #FDBA74, #92400E);
+  --gradient-danger: linear-gradient(180deg, #E53E3E, #B91C1C);
 
   --shadow-main: rgba(0, 0, 0, 0.4);
 

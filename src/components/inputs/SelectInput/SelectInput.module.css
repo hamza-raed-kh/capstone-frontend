@@ -59,7 +59,7 @@
 }
 
 .filterTrigger:hover {
-  background-color: #f8fafc;
+  background-color: var(--color-light-accent);
 }
 
 .filterTrigger[data-state="open"] {
@@ -75,7 +75,7 @@
 .divider {
   width: 1px;
   height: 14px;
-  background-color: #e2e8f0;
+  background-color: var(--color-light-accent);
 }
 
 .triggerIcon {
@@ -92,7 +92,7 @@
 }
 
 .popoverContent {
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 12px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   padding: 8px;

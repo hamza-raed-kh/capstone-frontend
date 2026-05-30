@@ -57,7 +57,7 @@
 }
 
 .filterTrigger:hover {
-  background-color: #f8fafc;
+  background-color: var(--color-light-accent);
 }
 
 .filterTrigger[data-state="open"] {
@@ -73,7 +73,7 @@
 .divider {
   width: 1px;
   height: 14px;
-  background-color: #e2e8f0;
+  background-color: var(--color-light-accent);
 }
 
 .valueText {
@@ -93,13 +93,15 @@
 }
 
 .popoverContent {
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 12px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   padding: 16px;
   animation: var(--animation-slide-up-fade);
   z-index: 1000;
   color: var(--color-text);
+
+  --rdp-accent-color: var(--color-main);
 }
 
 .readOnly {
@@ -107,6 +109,14 @@
   pointer-events: none;
 }
 
+.popoverContent :global(.rdp button) {
+  color: var(--color-text);
+}
+
+.popoverContent :global(.rdp-selected) button {
+  color: var(--color-white);
+}
+
 .popoverArrow {
-  fill: white;
+  fill: var(--color-white);
 }

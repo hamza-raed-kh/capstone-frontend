@@ -35,7 +35,7 @@ const ChatInput = ({ readOnly = false, onSend, placeholder = "Send a message..."
       />
       {!readOnly && (
       <button className={styles.inputIcon} onClick={handleSend} type="button">
-        <Icon icon={'streamline:send-email-solid'} color={'white'} size={40} />
+        <Icon icon={'streamline:send-email-solid'} color={'white'} size={24} />
       </button>
       )}
     </div>

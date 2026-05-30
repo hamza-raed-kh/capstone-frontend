@@ -48,7 +48,7 @@
 .button:hover[data-state="unchecked"] {
   border-color: var(--color-main);
   color: var(--color-main);
-  background-color: #f8fafc;
+  background-color: var(--color-light-accent);
 }
 
 .button:hover[data-state="unchecked"][data-value="female"] {
