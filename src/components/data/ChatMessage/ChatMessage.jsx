@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './ChatMessage.module.css'
+import { useSelector } from 'react-redux';
 
 /**
  * A chatmessage component with different visual styles.
@@ -9,16 +10,22 @@ import styles from './ChatMessage.module.css'
  * @param {object} props - The properties for the chatmessage.
  * @param {'default' | 'brief'} props.variant - The name of the message sender.
  * @param {string} props.username - The name of the message sender.
+ * @param {string} props.userId - The id of the message sender.
  * @param {string} props.avatar - The path to the sender's avatar.
  * @param {string} props.timestamp - The timestamp of when the message was sent.
  * @param {string} props.body - The text content of the message.
  * @returns {JSX.Element} The rendered chatmessage element.
  */
-const ChatMessage = ({ variant = 'default', avatar, username, timestamp, body }) => {
+const ChatMessage = ({ variant = 'default', avatar, username, userId, timestamp, body }) => {
   const navigate = useNavigate();
+  const myId = useSelector((state) => state.user.user.id);
 
   const redirectProfile = () => {
-    navigate('/profile');
+    if(myId === userId){
+        navigate('/profile');
+    } else {
+        navigate(`/profile/${userId}`);
+    }
   }
 
     const timeSent = () => {

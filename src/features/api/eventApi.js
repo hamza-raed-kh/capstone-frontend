@@ -6,6 +6,10 @@ export const eventApi = apiSlice.injectEndpoints({
       query: (params) => ({ url: "events/", params }),
       providesTags: ["Event"],
     }),
+    getParticipatedEvents: builder.query({
+      query: (id) => `events/participated/?user_id=${id}`,
+      providesTags: ["Event"],
+    }),
     getEvent: builder.query({
       query: (id) => `events/${id}/`,
       providesTags: (result, error, id) => [{ type: "Event", id }],
@@ -54,6 +58,7 @@ export const eventApi = apiSlice.injectEndpoints({
 
 export const {
   useGetEventsQuery,
+  useGetParticipatedEventsQuery,
   useGetEventQuery,
   useCreateEventMutation,
   useUpdateEventMutation,

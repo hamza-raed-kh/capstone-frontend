@@ -312,7 +312,6 @@ function CompetitionDetailPage() {
         }
     }
 
-    const location = useLocation()
     const isPreview = location.pathname.startsWith('/organizer')
 
     if (isLoading) return isPreview ? <div>Loading...</div> : <SectionedLayout preset={navPreset}><div>Loading...</div></SectionedLayout>
