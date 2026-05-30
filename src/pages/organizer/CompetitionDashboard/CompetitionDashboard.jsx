@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { setCurrentCompetition, clearCurrentCompetition } from "@/features/competition/competitionSlice"
@@ -8,43 +8,85 @@ import PieChartStatistic from "@/components/charts/PieChartStatistic/PieChartSta
 import LineChartStatistic from "@/components/charts/LineChartStatistic/LineChartStatistic"
 import SectionHeader from "@/components/ui/SectionHeader/SectionHeader"
 import BarChartStatistic from "@/components/charts/BarChartStatistic/BarChartStatistic"
+import { useGetEventQuery } from "@/features/api/eventApi"
+import { useGetTeamsQuery } from "@/features/api/teamApi"
 
 import styles from './CompetitionDashboard.module.css'
 
 function CompetitionDashboard() {
     const { id } = useParams()
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         if (id) dispatch(setCurrentCompetition(Number(id)))
         return () => dispatch(clearCurrentCompetition())
     }, [id, dispatch])
 
-    let comp_name = "Web3 Hackathon";
-    let teams = true;
+    const { data: event } = useGetEventQuery(Number(id))
+    const { data: teamsData } = useGetTeamsQuery(
+        { event: id, page_size: 1000 },
+        { skip: !id }
+    )
 
-    let participantsData = [
-        { time: "January", value1: 186, value2: 118 },
-        { time: "February", value1: 305, value2: 130 },
-        { time: "May", value1: 29, value2: 12 },
-        { time: "May", value1: 209, value2: 120 },
-        { time: "February", value1: 305, value2: 130 },
-        { time: "May", value1: 209, value2: 120 },
-        { time: "June", value1: 214, value2: 121 },
-        { time: "January", value1: 186, value2: 118 },
-        { time: "June", value1: 214, value2: 121 },
-        { time: "January", value1: 186, value2: 118 },
-        { time: "March", value1: 237, value2: 123 },
-        { time: "April", value1: 73, value2: 17 },
-        { time: "February", value1: 305, value2: 130 },
-        { time: "April", value1: 73, value2: 17 },
-        { time: "May", value1: 29, value2: 12 },
-        { time: "April", value1: 73, value2: 17 },
-        { time: "May", value1: 29, value2: 12 },
-        { time: "May", value1: 209, value2: 120 },
-        { time: "June", value1: 214, value2: 121 },
-    ];
-    let prticipantsConfig = {
+    const teams = useMemo(() => teamsData?.results || [], [teamsData])
+
+    const statusCounts = useMemo(() => {
+        const counts = { draft: 0, pending: 0, accepted: 0, rejected: 0 }
+        teams.forEach(t => {
+            if (counts[t.status] !== undefined) counts[t.status]++
+        })
+        return counts
+    }, [teams])
+
+    const pieChartData = [
+        { category: "accepted", count: statusCounts.accepted, fill: "var(--color-green)" },
+        { category: "rejected", count: statusCounts.rejected, fill: "var(--color-error)" },
+        { category: "pending", count: statusCounts.pending, fill: "var(--color-prize)" },
+        { category: "draft", count: statusCounts.draft, fill: "var(--color-text)" },
+    ].filter(d => d.count > 0)
+
+    const pieConfig = {
+        count: { label: "teams" },
+        accepted: { label: "Accepted" },
+        rejected: { label: "Rejected" },
+        pending: { label: "Pending" },
+        draft: { label: "Draft" },
+    }
+
+    const sizeDistribution = useMemo(() => {
+        const dist = {}
+        teams.forEach(t => {
+            const size = t.members_count
+            dist[size] = (dist[size] || 0) + 1
+        })
+        return Object.entries(dist)
+            .sort(([a], [b]) => Number(a) - Number(b))
+            .map(([size, count]) => ({
+                group: `${size} Member${Number(size) !== 1 ? "s" : ""}`,
+                quantity: count,
+            }))
+    }, [teams])
+
+    const barConfig = {
+        quantity: {
+            label: "Teams",
+            color: "var(--color-main-accent)",
+        },
+    }
+
+    const lineChartData = useMemo(() => {
+        const statuses = ["draft", "pending", "accepted", "rejected"]
+        return statuses.map(status => {
+            const statusTeams = teams.filter(t => t.status === status)
+            return {
+                time: status.charAt(0).toUpperCase() + status.slice(1),
+                value1: statusTeams.reduce((sum, t) => sum + t.members_count, 0),
+                value2: statusTeams.length,
+            }
+        })
+    }, [teams])
+
+    const lineConfig = {
         value1: {
             label: "Participants",
             color: "var(--color-text)",
@@ -53,122 +95,43 @@ function CompetitionDashboard() {
             label: "Teams",
             color: "var(--color-main)",
         },
-    };
-    let invitationsData = [
-        { category: "approved", count: 275, fill: "var(--color-green)" },
-        { category: "rejected", count: 200, fill: "var(--color-error)" },
-        { category: "pending", count: 124, fill: "var(--color-text)" },
-    ];
-    let invitationsConfig = {
-        count: {
-            label: "status",
-        },
-        approved: {
-            label: "Approved",
-            // color: "var(--chart-1)",
-        },
-        rejected: {
-            label: "Rejected",
-            // color: "var(--chart-2)",
-        },
-        pending: {
-            label: "Pending",
-            // color: "var(--color-3)",
-        },
-    };
-    let teamsData = [
-        { group: "1 Members", quantity: 186 },
-        { group: "2 Members", quantity: 305 },
-        { group: "3 Members", quantity: 237 },
-        { group: "4 Members", quantity: 73 },
-        { group: "5 Members", quantity: 209 },
-        { group: "6 Members", quantity: 214 },
-    ];
-    let teamsConfig = {
-        quantity: {
-            label: "Groups",
-            color: "var(--color-main-accent)",
-        },
-    };
+    }
+
+    const compName = event?.title || "Competition"
 
     return (
             <div className={styles.pageContainer}>
                 <div className={styles.pageSearchSection}>
-                    <SearchBar variant="placeholder">{comp_name}</SearchBar>
+                    <SearchBar variant="placeholder">{compName}</SearchBar>
                 </div>
                 <div className={styles.pageResultsSection}>
                     <Block>
                         <div className={styles.pageResultsContainer}>
-                            <SectionHeader icon={'uis:chart'} title="Staistics"/>
+                            <SectionHeader icon={'uis:chart'} title="Statistics"/>
                             <div className={styles.pageStatisticsGrid}>
-                                {/* Participants Count (TimeCharts):
-                                <ul>
-                                    <li>
-                                        X: Time 
-                                        (marks: event(publish-date, start-date, end-date))
-                                        (value: team(date-created))
-                                    </li>
-                                    <li>
-                                        Y: Participants & Teams
-                                        (marks: event(capacity))
-                                        (value: team(date-created[sum]))
-                                        <ul>
-                                        <li>
-                                            Y1: participants
-                                            (variants: event_invitation(user-email))
-                                        </li>
-                                        <li>
-                                            Y2: teams
-                                            (variants: event_invitation(user-email))
-                                        </li>
-                                        </ul>
-                                    </li>
-                                </ul> */}
                                 <LineChartStatistic
-                                    title={'Participants Count'}
-                                    desc={'Count of participants across time.'}
-                                    chartData={participantsData}
-                                    chartConfig={prticipantsConfig}
-                                    footer={'Showing the number of active participants throughout the competition.'}
+                                    title={'Participants & Teams'}
+                                    desc={'By team status'}
+                                    chartData={lineChartData}
+                                    chartConfig={lineConfig}
+                                    footer={'Participants and teams grouped by application status.'}
                                 />
-                                {/* Teams Count (BarCharts):
-                                <ul>
-                                    <li>
-                                        X: Team size
-                                        (columns: event(team-size-min, team-size-max))
-                                    </li>
-                                    <li>
-                                        Y: Participants & Teams
-                                        (value: team(members-count[sum]))
-                                    </li>
-                                </ul> */}
                                 <PieChartStatistic
-                                    title={'Invitations Status'}
-                                    desc={'Status of Invitations sent for this competion.'}
-                                    chartData={invitationsData}
-                                    chartConfig={invitationsConfig}
-                                    footer={'Showing total count for the time since publishing.'}
+                                    title={'Teams by Status'}
+                                    desc={'Distribution of team applications'}
+                                    chartData={pieChartData}
+                                    chartConfig={pieConfig}
+                                    footer={`${teams.length} team${teams.length !== 1 ? "s" : ""} total.`}
                                 />
-                                { teams && <>
-                                    {/* Invitations Count (PieCharts):
-                                    <ul>
-                                    <li>
-                                    X: Status 
-                                    (pies: invitation(status))
-                                    </li>
-                                    <li>
-                                    Y: Invittions
-                                    (value: invitation(status[count]))
-                                    </li>
-                                    </ul> */}
+                                {sizeDistribution.length > 0 && (
                                     <BarChartStatistic
-                                        title={'Teams Count'}
-                                        desc={'Count of teams of with each number of members.'}
-                                        chartData={ teamsData }
-                                        chartConfig={ teamsConfig }
-                                        footer={'Showing count of each team category that exists currently.'}
+                                        title={'Team Size'}
+                                        desc={'Number of members per team'}
+                                        chartData={sizeDistribution}
+                                        chartConfig={barConfig}
+                                        footer={'Showing how many teams have each member count.'}
                                     />
-                                </>}
+                                )}
                             </div>
                         </div>
                     </Block>
