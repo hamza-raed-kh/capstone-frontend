@@ -61,7 +61,9 @@ const ChatMessage = ({ variant = 'default', avatar, username, userId, timestamp,
                 {variant === 'default' && hasAvatar ? (
                     <img className={`${styles.messageAvatar}`} src={avatar} alt={username} onClick={redirectProfile} onError={() => setImgError(true)} />
                 ) : variant === 'default' ? (
-                    <Icon icon="mdi:account-circle" size={48} className={styles.avatarPlaceholder} onClick={redirectProfile} />
+                    <div className={styles.avatarPlaceholder} onClick={redirectProfile}>
+                        <Icon icon="mdi:account-circle" size={48} />
+                    </div>
                 ) : ''}
             </div>
             <div className={`${styles.messageBlock}`}>
