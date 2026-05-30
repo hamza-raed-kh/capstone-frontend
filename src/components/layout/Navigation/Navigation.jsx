@@ -20,9 +20,9 @@ const PRESETS = {
     { label: "Organizer Center", to: "/organizer", icon: "fluent:calendar-24-filled" },
   ],
   admin: [
-    { label: "Dashboard", to: "/admin/dashboard", icon: "uis:chart" },
-    { label: "Draft Submissions", to: "/admin/draft-submissions", icon: "fluent:calendar-24-filled" },
-    { label: "Change Requests", to: "/admin/edit-requests", icon: "mage:edit-pen-fill" },
+    { label: "Dashboard", to: "/manage/dashboard", icon: "uis:chart" },
+    { label: "Draft Submissions", to: "/manage/draft-submissions", icon: "fluent:calendar-24-filled" },
+    { label: "Change Requests", to: "/manage/edit-requests", icon: "mage:edit-pen-fill" },
   ],
 };
 
@@ -56,7 +56,7 @@ const Navigation = ({ preset, community_links, backLink }) => {
   const isStaff = useSelector(selectIsStaff);
   let activeLinks = preset === "organizer" ? getOrganizerLinks(competitionId, !!backLink) : preset !== "community" ? [...PRESETS[preset]] : [];
   if (preset === "account" && isStaff) {
-    activeLinks.push({ label: "Admin Dashboard", to: "/admin/dashboard", icon: "uis:chart" });
+    activeLinks.push({ label: "Admin Dashboard", to: "/manage/dashboard", icon: "uis:chart" });
   }
 
   if (preset === "admin") {

@@ -21,7 +21,7 @@ function mapEditRequestToAdminCard(req, navigate, handleApprove, handleReject) {
         categories: [],
     }
     const onClick = {
-        view: () => navigate(`/admin/edit-requests/${req.id}/`),
+        view: () => navigate(`/manage/edit-requests/${req.id}/`),
         approve: () => handleApprove(req.id),
         reject: () => handleReject(req.id),
     }
@@ -50,7 +50,7 @@ function mapEditRequestToMainCard(req, navigate) {
         info,
         details,
         button: { variant: "primary", children: "View" },
-        onClick: { view: () => navigate(`/admin/edit-requests/${req.id}/`) },
+        onClick: { view: () => navigate(`/manage/edit-requests/${req.id}/`) },
     }
 }
 

@@ -21,7 +21,7 @@ function mapEventToAdminCard(event, navigate, handleApprove, handleReject) {
         categories: [],
     }
     const onClick = {
-        view: () => navigate(`/admin/draft-submissions/${event.id}/`),
+        view: () => navigate(`/manage/draft-submissions/${event.id}/`),
         approve: () => handleApprove(event.id),
         reject: () => handleReject(event.id),
     }
@@ -50,7 +50,7 @@ function mapEventToMainCard(event, navigate) {
         info,
         details,
         button: { variant: "primary", children: "View" },
-        onClick: { view: () => navigate(`/admin/draft-submissions/${event.id}/`) },
+        onClick: { view: () => navigate(`/manage/draft-submissions/${event.id}/`) },
     }
 }
 

@@ -20,7 +20,7 @@ function AdminEditRequestReviewPage() {
     const handleApprove = async () => {
         try {
             await approveEditRequest(req.id).unwrap()
-            navigate('/admin/edit-requests')
+            navigate('/manage/edit-requests')
         } catch (err) {
             console.error("Approve failed:", err?.data || err?.status || err)
         }
@@ -29,7 +29,7 @@ function AdminEditRequestReviewPage() {
     const handleReject = async () => {
         try {
             await rejectEditRequest(req.id).unwrap()
-            navigate('/admin/edit-requests')
+            navigate('/manage/edit-requests')
         } catch (err) {
             console.error("Reject failed:", err?.data || err?.status || err)
         }

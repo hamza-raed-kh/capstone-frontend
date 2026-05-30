@@ -22,7 +22,7 @@ const AdminLoginPage = () => {
     if (result.data) {
       dispatch(setTokens({ access: result.data.access, refresh: result.data.refresh }));
       dispatch(apiSlice.util.invalidateTags(['User']));
-      navigate('/admin/dashboard');
+      navigate('/manage/dashboard');
     }
   };
 

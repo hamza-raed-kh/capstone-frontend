@@ -106,16 +106,16 @@ const HomeRedirect = () => {
 
 const AdminRedirect = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  return <Navigate to={isLoggedIn ? "/admin/dashboard" : "/admin/login"} replace />;
+  return <Navigate to={isLoggedIn ? "/manage/dashboard" : "/manage/login"} replace />;
 };
 
 const AdminRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const { data: userData, isLoading, isSuccess } = useGetMeQuery(undefined, { skip: !isLoggedIn });
 
-  if (!isLoggedIn) return <Navigate to="/admin/login" replace />;
+  if (!isLoggedIn) return <Navigate to="/manage/login" replace />;
   if (isLoading) return null;
-  if (isSuccess && !userData?.is_staff) return <Navigate to="/admin/login" replace />;
+  if (isSuccess && !userData?.is_staff) return <Navigate to="/manage/login" replace />;
   return <SectionedLayout preset="admin">{children}</SectionedLayout>;
 };
 
@@ -134,11 +134,11 @@ const router = createBrowserRouter([
         element: <SignupPage />,
       },
       {
-        path: "admin/login",
+        path: "manage/login",
         element: <AdminLoginPage />,
       },
       {
-        path: "admin",
+        path: "manage",
         element: <AdminRedirect />,
       },
 
@@ -263,7 +263,7 @@ const router = createBrowserRouter([
           
           // Admin Navbar pages (except login)
           {
-            path: "admin",
+            path: "manage",
             element: <AdminRoute><Outlet /></AdminRoute>,
             children: [
               {

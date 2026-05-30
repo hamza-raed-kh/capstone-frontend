@@ -17,7 +17,7 @@ function AdminCompetitionReviewPage() {
     const handleApprove = async () => {
         try {
             await updateEvent({ id: comp.id, status: "open" }).unwrap()
-            navigate('/admin/draft-submissions')
+            navigate('/manage/draft-submissions')
         } catch (err) {
             console.error("Approve failed:", err?.data || err?.status || err)
         }
@@ -26,7 +26,7 @@ function AdminCompetitionReviewPage() {
     const handleReject = async () => {
         try {
             await updateEvent({ id: comp.id, status: "draft" }).unwrap()
-            navigate('/admin/draft-submissions')
+            navigate('/manage/draft-submissions')
         } catch (err) {
             console.error("Reject failed:", err?.data || err?.status || err)
         }

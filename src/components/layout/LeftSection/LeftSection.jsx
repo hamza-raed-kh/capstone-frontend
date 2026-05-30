@@ -19,7 +19,7 @@ function LeftSection({ preset, community_links, backLink }) {
     const handleLogout = () => {
         const isAdmin = userData?.is_staff;
         dispatch(logOut());
-        navigate(isAdmin ? '/admin/login' : '/login');
+        navigate(isAdmin ? '/manage/login' : '/login');
     };
 
     return (
