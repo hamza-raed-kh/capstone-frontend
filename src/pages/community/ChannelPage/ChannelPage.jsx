@@ -67,8 +67,8 @@ function ChannelPage() {
                         {messages.map((msg, i) => {
                             const prevUser = i > 0 ? messages[i - 1].user : null
                             const sameUser = prevUser  === msg.user
-                            const displayName = `${msg.user_first_name} ${msg.user_last_name}`.trim() || `User #${msg.user.id}`
-                            const avatar = `https://i.pravatar.cc/150?u=${msg.user.id}`
+                            const displayName = `${msg.user_first_name} ${msg.user_last_name}`.trim() || `User #${msg.user}`
+                            const avatar = msg.user_profile_picture
                             return (
                                 <div className={styles.bodyMessage} key={msg.id}>
                                     <ChatMessage

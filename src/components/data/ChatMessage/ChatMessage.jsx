@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ChatMessage.module.css'
 import { useSelector } from 'react-redux';
+import Icon from '../../ui/Icon/Icon';
 
 /**
  * A chatmessage component with different visual styles.
@@ -19,6 +21,8 @@ import { useSelector } from 'react-redux';
 const ChatMessage = ({ variant = 'default', avatar, username, userId, timestamp, body }) => {
   const navigate = useNavigate();
   const myId = useSelector((state) => state.user.user.id);
+  const [imgError, setImgError] = useState(false);
+  const hasAvatar = avatar && !imgError;
 
   const redirectProfile = () => {
     if(myId === userId){
@@ -54,7 +58,11 @@ const ChatMessage = ({ variant = 'default', avatar, username, userId, timestamp,
     return (
         <div className={`${styles.messageContainer} ${variant == 'brief'? '' : styles.topMessage}`}>
             <div className={`${styles.messageAvatarContainer}`}>
-                {variant === 'default'? <img className={`${styles.messageAvatar}`} src={avatar} alt={'Name'} onClick={redirectProfile}/> : ''}
+                {variant === 'default' && hasAvatar ? (
+                    <img className={`${styles.messageAvatar}`} src={avatar} alt={username} onClick={redirectProfile} onError={() => setImgError(true)} />
+                ) : variant === 'default' ? (
+                    <Icon icon="mdi:account-circle" size={48} className={styles.avatarPlaceholder} onClick={redirectProfile} />
+                ) : ''}
             </div>
             <div className={`${styles.messageBlock}`}>
                 {variant === 'default'?
