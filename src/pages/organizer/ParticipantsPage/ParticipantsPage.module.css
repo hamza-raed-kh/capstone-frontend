@@ -10,11 +10,7 @@
     height: 53px;
 }
 
-.pageFiltersSection {
-    height: auto;
-    /* overflow-x: scroll;
-    scrollbar-width: none; */
-}
+
 
 .pageResultsSection {
     flex-grow: 1;
@@ -27,4 +23,53 @@
     flex-grow: 1;
     min-height: 0;
     overflow: scroll;
+}
+
+.modalBody {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.answerCard {
+    background: var(--color-bg-secondary);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.answerQuestion {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.answerText {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.actionRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.actionLeft {
+    display: flex;
+    gap: 8px;
+}
+
+.actionRight {
+    display: flex;
+    gap: 8px;
 }

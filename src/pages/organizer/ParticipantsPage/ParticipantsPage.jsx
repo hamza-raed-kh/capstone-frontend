@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import FilterRow from "../../../components/data/FilterRow/FilterRow"
+
 import Results from "../../../components/data/Results/Results"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import Modal from "../../../components/ui/Modal/Modal"
-import SectionHeader from "../../../components/ui/SectionHeader/SectionHeader"
+
 import { Button } from "../../../components/inputs/Button/Button"
 import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
 import { useGetEventQuery, useInviteToEventMutation } from "../../../features/api/eventApi"
@@ -25,11 +25,11 @@ function TeamPreview({ teamId }) {
     if (!answers || answers.length === 0) return <div>No application answers.</div>;
     
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {answers.map((a, i) => (
-                <div key={i}>
-                    <p style={{ fontWeight: 'bold', margin: '0 0 5px 0' }}>{a.question}</p>
-                    <p style={{ margin: 0, padding: '10px', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>{a.answer}</p>
+                <div key={i} className={styles.answerCard}>
+                    <p className={styles.answerQuestion}>{a.question}</p>
+                    <p className={styles.answerText}>{a.answer}</p>
                 </div>
             ))}
         </div>
@@ -141,7 +141,7 @@ function ParticipantsPage() {
         t.participants.forEach(p => {
             if (p.status === 'rejected') {
                 disqualifiedParticipants.push({
-                    userId: p.id,
+                    userId: p.user,
                     username: `${p.user_detail?.username || p.user_detail?.email || 'User'} (${t.name})`,
                     avatar: p.user_detail?.avatar || null,
                     variant: "disqualified",
@@ -168,44 +168,44 @@ function ParticipantsPage() {
             <div className={styles.pageSearchSection}>
                 <SearchBar variant="placeholder">{comp_name}</SearchBar>
             </div>
-            <div className={styles.pageFiltersSection}>
-                <FilterRow />
-            </div>
             <div className={styles.pageResultsSection}>
                 <Results variant={'userlists'} sections={userlists}/>
             </div>
             
-            <Modal isOpen={!!selectedTeam} onClose={() => setSelectedTeam(null)} title={selectedTeam?.name || "Team"} hideHeader>
+            <Modal isOpen={!!selectedTeam} onClose={() => setSelectedTeam(null)} title={selectedTeam?.name || "Team"}>
                 {selectedTeam && (
-                    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '80vh', overflowY: 'auto' }}>
-                        <SectionHeader title={selectedTeam.name} category="Team Details" />
+                    <div className={styles.modalBody}>
                         <div>
-                            <h3>Members</h3>
+                            <h3 style={{ margin: '0 0 8px 0' }}>Members</h3>
                             {selectedTeam.participants.map(p => (
                                 <UserRecord 
                                     key={p.id}
                                     variant={p.status === 'rejected' ? 'disqualified' : 'participant'}
                                     username={p.user_detail?.username || p.user_detail?.email || `User ${p.user}`}
                                     avatar={p.user_detail?.avatar || null}
-                                    userId={p.id}
+                                    userId={p.user}
                                     onDisqualify={() => handleDisqualify(p.id)}
                                     onReturn={() => handleReturn(p.id)}
                                 />
                             ))}
                         </div>
                         {selectedTeam.status === 'pending' && (
-                            <>
-                                <div>
-                                    <h3>Application Preview</h3>
-                                    <TeamPreview teamId={selectedTeam.id} />
-                                </div>
-                                <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                                    <Button variant="red-secondary" onClick={() => handleReject(selectedTeam.id)}>Reject Team</Button>
-                                    <Button variant="green" onClick={() => handleApprove(selectedTeam.id)}>Approve Team</Button>
-                                </div>
-                            </>
+                            <div>
+                                <h3 style={{ margin: '0 0 8px 0' }}>Application Preview</h3>
+                                <TeamPreview teamId={selectedTeam.id} />
+                            </div>
                         )}
-                        <Button variant="secondary" onClick={() => setSelectedTeam(null)}>Close</Button>
+                        <div className={styles.actionRow}>
+                            <div className={styles.actionLeft}>
+                                <Button variant="secondary" onClick={() => setSelectedTeam(null)}>Close</Button>
+                            </div>
+                            {selectedTeam.status === 'pending' && (
+                                <div className={styles.actionRight}>
+                                    <Button variant="red-secondary" onClick={() => handleReject(selectedTeam.id)}>Reject</Button>
+                                    <Button variant="green" onClick={() => handleApprove(selectedTeam.id)}>Approve</Button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
             </Modal>

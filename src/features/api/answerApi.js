@@ -2,6 +2,10 @@ import { apiSlice } from "./apiSlice";
 
 export const answerApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getTextAnswers: builder.query({
+      query: (params) => ({ url: "text-answers/", params }),
+      providesTags: ["TextAnswer"],
+    }),
     submitTextAnswer: builder.mutation({
       query: (body) => ({
         url: "text-answers/",
@@ -18,6 +22,10 @@ export const answerApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["TextAnswer"],
     }),
+    getNumericAnswers: builder.query({
+      query: (params) => ({ url: "numeric-answers/", params }),
+      providesTags: ["NumericAnswer"],
+    }),
     submitNumericAnswer: builder.mutation({
       query: (body) => ({
         url: "numeric-answers/",
@@ -33,6 +41,10 @@ export const answerApi = apiSlice.injectEndpoints({
         body,
       }),
       invalidatesTags: ["NumericAnswer"],
+    }),
+    getChoiceAnswers: builder.query({
+      query: (params) => ({ url: "choice-answers/", params }),
+      providesTags: ["ChoiceAnswer"],
     }),
     submitChoiceAnswer: builder.mutation({
       query: (body) => ({
@@ -53,10 +65,13 @@ export const answerApi = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetTextAnswersQuery,
   useSubmitTextAnswerMutation,
   useUpdateTextAnswerMutation,
+  useGetNumericAnswersQuery,
   useSubmitNumericAnswerMutation,
   useUpdateNumericAnswerMutation,
+  useGetChoiceAnswersQuery,
   useSubmitChoiceAnswerMutation,
   useDeleteChoiceAnswerMutation,
 } = answerApi;

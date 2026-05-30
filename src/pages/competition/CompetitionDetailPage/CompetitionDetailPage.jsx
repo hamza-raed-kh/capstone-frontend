@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToast } from "../../../features/toast/toastSlice"
@@ -11,6 +11,10 @@ import Icon from "../../../components/ui/Icon/Icon"
 import Modal from "../../../components/ui/Modal/Modal"
 import CategoryTag from "../../../components/ui/CategoryTag/CategoryTag"
 import TextInput from "../../../components/inputs/TextInput/TextInput"
+import TextArea from "../../../components/inputs/TextArea/TextArea"
+import NumberInput from "../../../components/inputs/NumberInput/NumberInput"
+import { RadioGroup, RadioInput } from "../../../components/inputs/RadioInput/RadioInput"
+import { CheckboxGroup, CheckboxInput } from "../../../components/inputs/CheckboxInput/CheckboxInput"
 import FileInput from "../../../components/inputs/FileInput/FileInput"
 import { useGetEventQuery } from "../../../features/api/eventApi"
 import { useGetMeQuery, useGetUserQuery } from "../../../features/api/authApi"
@@ -20,6 +24,8 @@ import { useGetFaqQuestionsQuery } from "../../../features/api/faqApi"
 import { useGetTopicsQuery } from "../../../features/api/topicApi"
 import { useGetEventTypesQuery } from "../../../features/api/eventApi"
 import { useGetEditRequestsQuery, useDeleteEditRequestMutation } from "../../../features/api/editRequestApi"
+import { useGetTextQuestionsQuery, useGetNumericQuestionsQuery, useGetChoiceQuestionsQuery } from "../../../features/api/questionApi"
+import { useGetTextAnswersQuery, useSubmitTextAnswerMutation, useUpdateTextAnswerMutation, useGetNumericAnswersQuery, useSubmitNumericAnswerMutation, useUpdateNumericAnswerMutation, useGetChoiceAnswersQuery, useSubmitChoiceAnswerMutation, useDeleteChoiceAnswerMutation } from "../../../features/api/answerApi"
 import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
 import styles from './CompetitionDetailPage.module.css'
 
@@ -67,6 +73,103 @@ function CompetitionDetailPage() {
     )
     const invitations = invitationsData?.results || []
 
+    const [applyOpen, setApplyOpen] = useState(false)
+    const [withdrawOpen, setWithdrawOpen] = useState(false)
+    const [withdrawInput, setWithdrawInput] = useState('')
+    const [deleteOpen, setDeleteOpen] = useState(false)
+    const [deleteInput, setDeleteInput] = useState('')
+    const [announcementsExpanded, setAnnouncementsExpanded] = useState(false)
+    const [faqExpanded, setFaqExpanded] = useState(false)
+    const announcementsRef = useRef(null)
+    const faqRef = useRef(null)
+
+    const [teamName, setTeamName] = useState('')
+    const [teamPictureFile, setTeamPictureFile] = useState(null)
+    const [teamPicturePreview, setTeamPicturePreview] = useState(myTeam?.picture || '')
+    const [withdrawError, setWithdrawError] = useState('')
+    const [inviteEmail, setInviteEmail] = useState('')
+    const [inviteError, setInviteError] = useState('')
+    const [submitError, setSubmitError] = useState('')
+    const [withdrawTeam] = useWithdrawTeamMutation()
+
+    const [dirtyTextAnswers, setDirtyTextAnswers] = useState({})
+    const [dirtyNumericAnswers, setDirtyNumericAnswers] = useState({})
+    const [dirtyChoiceAnswers, setDirtyChoiceAnswers] = useState({})
+
+    const [submitTextAnswer] = useSubmitTextAnswerMutation()
+    const [updateTextAnswer] = useUpdateTextAnswerMutation()
+    const [submitNumericAnswer] = useSubmitNumericAnswerMutation()
+    const [updateNumericAnswer] = useUpdateNumericAnswerMutation()
+    const [submitChoiceAnswer] = useSubmitChoiceAnswerMutation()
+    const [deleteChoiceAnswer] = useDeleteChoiceAnswerMutation()
+
+    const { data: textQuestionsData } = useGetTextQuestionsQuery({ event: Number(id) }, { skip: !id })
+    const { data: numericQuestionsData } = useGetNumericQuestionsQuery({ event: Number(id) }, { skip: !id })
+    const { data: choiceQuestionsData } = useGetChoiceQuestionsQuery({ event: Number(id) }, { skip: !id })
+
+    const textQuestions = useMemo(() => textQuestionsData?.results || [], [textQuestionsData])
+    const numericQuestions = useMemo(() => numericQuestionsData?.results || [], [numericQuestionsData])
+    const choiceQuestions = useMemo(() => choiceQuestionsData?.results || [], [choiceQuestionsData])
+
+    const { data: textAnswersData } = useGetTextAnswersQuery({ team: myTeam?.id }, { skip: !myTeam?.id })
+    const { data: numericAnswersData } = useGetNumericAnswersQuery({ team: myTeam?.id }, { skip: !myTeam?.id })
+    const { data: choiceAnswersData } = useGetChoiceAnswersQuery({ team: myTeam?.id }, { skip: !myTeam?.id })
+
+    const allQuestions = useMemo(() => {
+        const merged = [
+            ...textQuestions.map(q => ({ ...q, _type: 'text' })),
+            ...numericQuestions.map(q => ({ ...q, _type: 'numeric' })),
+            ...choiceQuestions.map(q => ({ ...q, _type: 'choice' })),
+        ]
+        merged.sort((a, b) => a.position - b.position)
+        return merged
+    }, [textQuestions, numericQuestions, choiceQuestions])
+
+    const textAnswerLookup = useMemo(() => {
+        const lookup = {}
+        ;(textAnswersData?.results || []).forEach(a => { lookup[a.question] = a })
+        return lookup
+    }, [textAnswersData])
+
+    const numericAnswerLookup = useMemo(() => {
+        const lookup = {}
+        ;(numericAnswersData?.results || []).forEach(a => { lookup[a.question] = a })
+        return lookup
+    }, [numericAnswersData])
+
+    const choiceAnswerLookup = useMemo(() => {
+        const lookup = {}
+        ;(choiceAnswersData?.results || []).forEach(a => { lookup[a.choice] = a.id })
+        return lookup
+    }, [choiceAnswersData])
+
+    const apiTextAnswers = useMemo(() => {
+        const ans = {}
+        Object.values(textAnswerLookup).forEach(a => { ans[a.question] = a.answer_text })
+        return ans
+    }, [textAnswerLookup])
+
+    const apiNumericAnswers = useMemo(() => {
+        const ans = {}
+        Object.values(numericAnswerLookup).forEach(a => { ans[a.question] = a.answer_num })
+        return ans
+    }, [numericAnswerLookup])
+
+    const apiChoiceAnswers = useMemo(() => {
+        const ans = {}
+        choiceQuestions.forEach(q => {
+            const selected = q.choices
+                .filter(c => choiceAnswerLookup[c.id])
+                .map(c => c.id)
+            if (selected.length) ans[q.id] = selected
+        })
+        return ans
+    }, [choiceQuestions, choiceAnswerLookup])
+
+    const textAnswers = { ...apiTextAnswers, ...dirtyTextAnswers }
+    const numericAnswers = { ...apiNumericAnswers, ...dirtyNumericAnswers }
+    const choiceAnswers = { ...apiChoiceAnswers, ...dirtyChoiceAnswers }
+
     useEffect(() => {
         if (id) dispatch(setCurrentCompetition(Number(id)))
         return () => dispatch(clearCurrentCompetition())
@@ -97,25 +200,6 @@ function CompetitionDetailPage() {
     )
     const faqQuestions = faqData?.results || []
 
-    const [applyOpen, setApplyOpen] = useState(false)
-    const [withdrawOpen, setWithdrawOpen] = useState(false)
-    const [withdrawInput, setWithdrawInput] = useState("")
-    const [deleteOpen, setDeleteOpen] = useState(false)
-    const [deleteInput, setDeleteInput] = useState("")
-    const [announcementsExpanded, setAnnouncementsExpanded] = useState(false)
-    const [faqExpanded, setFaqExpanded] = useState(false)
-    const announcementsRef = useRef(null)
-    const faqRef = useRef(null)
-
-    const [teamName, setTeamName] = useState("")
-    const [teamPictureFile, setTeamPictureFile] = useState(null)
-    const [teamPicturePreview, setTeamPicturePreview] = useState(myTeam?.picture || "")
-    const [withdrawError, setWithdrawError] = useState("")
-    const [inviteEmail, setInviteEmail] = useState("")
-    const [inviteError, setInviteError] = useState("")
-    const [submitError, setSubmitError] = useState("")
-    const [withdrawTeam] = useWithdrawTeamMutation()
-
     const { data: editRequestsData } = useGetEditRequestsQuery(
         { event: Number(id), request_status: "pending" },
         { skip: !id || !isOrganizer || comp?.status !== "open" }
@@ -142,8 +226,8 @@ function CompetitionDetailPage() {
         }
     }, [myTeam])
 
-    const isDraft = myTeam?.status === "draft"
-    const isSubmitted = myTeam?.status === "pending" || myTeam?.status === "accepted" || myTeam?.status === "rejected"
+    const isDraft = myTeam?.status === "draft" || myTeam?.status === "rejected"
+    const isSubmitted = myTeam?.status === "pending" || myTeam?.status === "accepted"
     const maxSize = comp?.team_size_max || 1
     const acceptedCount = participants.filter((p) => p.status === "accepted").length
     const pendingInvites = invitations.filter((inv) => inv.status === "pending").length
@@ -196,10 +280,58 @@ function CompetitionDetailPage() {
         return null
     }
 
+    const saveAnswers = async (teamId) => {
+        for (const q of allQuestions) {
+            if (q._type === "text") {
+                const value = textAnswers[q.id]
+                const existing = textAnswerLookup[q.id]
+                if (value !== undefined && value !== null && value !== "") {
+                    if (existing) {
+                        await updateTextAnswer({ id: existing.id, answer_text: value }).unwrap()
+                    } else {
+                        await submitTextAnswer({ team: teamId, question: q.id, answer_text: value }).unwrap()
+                    }
+                }
+            } else if (q._type === "numeric") {
+                const value = numericAnswers[q.id]
+                const existing = numericAnswerLookup[q.id]
+                if (value !== undefined && value !== null && value !== "") {
+                    if (existing) {
+                        await updateNumericAnswer({ id: existing.id, answer_num: Number(value) }).unwrap()
+                    } else {
+                        await submitNumericAnswer({ team: teamId, question: q.id, answer_num: Number(value) }).unwrap()
+                    }
+                }
+            } else if (q._type === "choice") {
+                const selected = choiceAnswers[q.id] || []
+                const existingChoiceIds = new Set()
+                choiceQuestionsData?.results?.find(cq => cq.id === q.id)?.choices?.forEach(c => {
+                    if (choiceAnswerLookup[c.id]) existingChoiceIds.add(c.id)
+                })
+                const selectedSet = new Set(selected)
+
+                for (const choiceId of selected) {
+                    if (!existingChoiceIds.has(choiceId)) {
+                        await submitChoiceAnswer({ team: teamId, choice: choiceId }).unwrap()
+                    }
+                }
+                for (const choiceId of existingChoiceIds) {
+                    if (!selectedSet.has(choiceId)) {
+                        const answerId = choiceAnswerLookup[choiceId]
+                        if (answerId) {
+                            await deleteChoiceAnswer(answerId).unwrap()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     const handleSave = async () => {
         if (!teamName.trim()) return
         setSubmitError("")
         try {
+            let teamId = myTeam?.id
             if (myTeam && isDraft) {
                 if (teamPictureFile) {
                     const fd = new FormData()
@@ -211,16 +343,20 @@ function CompetitionDetailPage() {
                     await updateTeam({ id: myTeam.id, name: teamName.trim() })
                 }
             } else {
+                let resolved
                 if (teamPictureFile) {
                     const fd = new FormData()
                     fd.append("name", teamName.trim())
                     fd.append("event", Number(id))
                     fd.append("picture", teamPictureFile)
-                    await createTeam(fd)
+                    resolved = createTeam(fd).unwrap()
                 } else {
-                    await createTeam({ name: teamName.trim(), event: Number(id) })
+                    resolved = createTeam({ name: teamName.trim(), event: Number(id) }).unwrap()
                 }
+                const created = await resolved
+                teamId = created.id
             }
+            if (teamId) await saveAnswers(teamId)
             dispatch(addToast({ message: 'Application saved!', type: 'success' }))
         } catch (err) {
             const detail = err?.data?.detail || err?.error?.data?.detail || "Failed to save."
@@ -236,7 +372,18 @@ function CompetitionDetailPage() {
             if (!teamId) {
                 const created = await createTeam({ name: teamName.trim(), event: Number(id) }).unwrap()
                 teamId = created.id
+            } else if (isDraft) {
+                if (teamPictureFile) {
+                    const fd = new FormData()
+                    fd.append("id", myTeam.id)
+                    fd.append("name", teamName.trim())
+                    fd.append("picture", teamPictureFile)
+                    await updateTeam(fd).unwrap()
+                } else {
+                    await updateTeam({ id: myTeam.id, name: teamName.trim() }).unwrap()
+                }
             }
+            await saveAnswers(teamId)
             await submitTeam(teamId).unwrap()
             dispatch(addToast({ message: 'Application submitted for review!', type: 'success' }))
             setApplyOpen(false)
@@ -278,9 +425,32 @@ function CompetitionDetailPage() {
         }
     }
 
+    const ensureTeam = async () => {
+        if (myTeam?.id) return myTeam.id
+        let created
+        if (teamPictureFile) {
+            const fd = new FormData()
+            fd.append("name", teamName.trim())
+            fd.append("event", Number(id))
+            fd.append("picture", teamPictureFile)
+            created = await createTeam(fd).unwrap()
+        } else {
+            created = await createTeam({ name: teamName.trim(), event: Number(id) }).unwrap()
+        }
+        return created.id
+    }
+
     const handleInvite = async () => {
-        if (!inviteEmail.trim() || !myTeam) return
-        if (!isDraft) {
+        if (!inviteEmail.trim()) return
+        setInviteError("")
+        let teamId
+        try {
+            teamId = await ensureTeam()
+        } catch (err) {
+            setInviteError("Failed to create team. Please save first.")
+            return
+        }
+        if (myTeam && !isDraft) {
             setInviteError("Can only invite while the application is a draft.")
             return
         }
@@ -288,9 +458,8 @@ function CompetitionDetailPage() {
             setInviteError(`Team is at full capacity (${maxSize}).`)
             return
         }
-        setInviteError("")
         try {
-            await inviteToTeam({ id: myTeam.id, email: inviteEmail.trim() }).unwrap()
+            await inviteToTeam({ id: teamId, email: inviteEmail.trim() }).unwrap()
             dispatch(addToast({ message: 'Invitation sent!', type: 'success' }))
             setInviteEmail("")
         } catch (err) {
@@ -494,9 +663,11 @@ function CompetitionDetailPage() {
                             </p>
                         )}
                         {submitError && <p className={styles.errorText}>{submitError}</p>}
-                        {canEdit && hasTeamForThisEvent && (
+                        {canEdit && (
                             <div className={styles.teamSection}>
-                                <label className={styles.formQuestionLabel}>Team Members ({acceptedCount + pendingInvites}/{maxSize})</label>
+                                {hasTeamForThisEvent && (
+                                    <label className={styles.formQuestionLabel}>Team Members ({acceptedCount + pendingInvites}/{maxSize})</label>
+                                )}
                                 <div className={styles.inviteRow}>
                                     <div className={styles.inviteInputWrap}>
                                         <TextInput
@@ -508,37 +679,39 @@ function CompetitionDetailPage() {
                                     <Button variant="primary" className={styles.inviteBtn} onClick={handleInvite}>Invite</Button>
                                 </div>
                                 {inviteError && <p className={styles.errorText}>{inviteError}</p>}
-                                <div className={styles.memberList}>
-                                    {participants.map((p) => (
-                                        <div key={p.id} className={styles.memberItem}>
-                                            <span className={styles.memberName}>
-                                                {p.user_detail ? `${p.user_detail.first_name} ${p.user_detail.last_name}` : `User #${p.user}`}
-                                                {p.leader ? " (Leader)" : ""}
-                                            </span>
-                                            <div className={styles.memberRight}>
-                                                <span className={`${styles.memberStatus} ${styles[p.status]}`}>{p.status}</span>
-                                                {!p.leader && (
-                                                    <button className={styles.removeMemberBtn} onClick={() => deleteTeamParticipant(p.id)}>
+                                {hasTeamForThisEvent && (
+                                    <div className={styles.memberList}>
+                                        {participants.map((p) => (
+                                            <div key={p.id} className={styles.memberItem}>
+                                                <span className={styles.memberName}>
+                                                    {p.user_detail ? `${p.user_detail.first_name} ${p.user_detail.last_name}` : `User #${p.user}`}
+                                                    {p.leader ? " (Leader)" : ""}
+                                                </span>
+                                                <div className={styles.memberRight}>
+                                                    <span className={`${styles.memberStatus} ${styles[p.status]}`}>{p.status}</span>
+                                                    {!p.leader && (
+                                                        <button className={styles.removeMemberBtn} onClick={() => deleteTeamParticipant(p.id)}>
+                                                            <Icon icon="mdi:close" size={14} />
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {invitations.filter((inv) => inv.status === "pending").map((inv) => (
+                                            <div key={`inv-${inv.id}`} className={styles.memberItem}>
+                                                <span className={styles.memberName}>
+                                                    {inv.user_detail ? `${inv.user_detail.first_name} ${inv.user_detail.last_name}` : `User #${inv.user}`}
+                                                </span>
+                                                <div className={styles.memberRight}>
+                                                    <span className={`${styles.memberStatus} ${styles.pending}`}>pending</span>
+                                                    <button className={styles.removeMemberBtn} onClick={() => deleteTeamInvitation(inv.id)}>
                                                         <Icon icon="mdi:close" size={14} />
                                                     </button>
-                                                )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                    {invitations.filter((inv) => inv.status === "pending").map((inv) => (
-                                        <div key={`inv-${inv.id}`} className={styles.memberItem}>
-                                            <span className={styles.memberName}>
-                                                {inv.user_detail ? `${inv.user_detail.first_name} ${inv.user_detail.last_name}` : `User #${inv.user}`}
-                                            </span>
-                                            <div className={styles.memberRight}>
-                                                <span className={`${styles.memberStatus} ${styles.pending}`}>pending</span>
-                                                <button className={styles.removeMemberBtn} onClick={() => deleteTeamInvitation(inv.id)}>
-                                                    <Icon icon="mdi:close" size={14} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
                         {!canEdit && hasTeamForThisEvent && (
@@ -563,6 +736,74 @@ function CompetitionDetailPage() {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        )}
+                        {allQuestions.length > 0 && (
+                            <div className={styles.teamSection}>
+                                <label className={styles.formQuestionLabel}>Application Questions</label>
+                                {allQuestions.map(q => {
+                                    if (q._type === "text") {
+                                        return (
+                                            <TextArea
+                                                key={`tq-${q.id}`}
+                                                label={q.content}
+                                                placeholder={q.content}
+                                                value={textAnswers[q.id] || ""}
+                                                onChange={canEdit ? (e) => setDirtyTextAnswers(prev => ({ ...prev, [q.id]: e.target.value })) : undefined}
+                                                readOnly={!canEdit}
+                                            />
+                                        )
+                                    }
+                                    if (q._type === "numeric") {
+                                        return (
+                                            <NumberInput
+                                                key={`nq-${q.id}`}
+                                                label={q.content}
+                                                placeholder={q.content}
+                                                value={numericAnswers[q.id] ?? ""}
+                                                min={q.min}
+                                                max={q.max}
+                                                step={q.step}
+                                                onChange={canEdit ? (e) => setDirtyNumericAnswers(prev => ({ ...prev, [q.id]: e.target.value })) : undefined}
+                                                readOnly={!canEdit}
+                                            />
+                                        )
+                                    }
+                                    if (q._type === "choice") {
+                                        const isMulti = q.max_choices !== 1
+                                        const selected = choiceAnswers[q.id] || []
+                                        if (isMulti) {
+                                            return (
+                                                <CheckboxGroup
+                                                    key={`cq-${q.id}`}
+                                                    label={q.content}
+                                                    value={selected}
+                                                    maxSelection={q.max_choices}
+                                                    readOnly={!canEdit}
+                                                    onChange={(vals) => setDirtyChoiceAnswers(prev => ({ ...prev, [q.id]: vals }))}
+                                                >
+                                                    {q.choices?.map(c => (
+                                                        <CheckboxInput key={c.id} label={c.content} value={c.id} />
+                                                    ))}
+                                                </CheckboxGroup>
+                                            )
+                                        }
+                                        return (
+                                            <RadioGroup
+                                                key={`cq-${q.id}`}
+                                                label={q.content}
+                                                value={selected[0]?.toString() || ""}
+                                                readOnly={!canEdit}
+                                                onChange={(val) => setDirtyChoiceAnswers(prev => ({ ...prev, [q.id]: [Number(val)] }))}
+                                            >
+                                                {q.choices?.map(c => (
+                                                    <RadioInput key={c.id} label={c.content} value={c.id.toString()} />
+                                                ))}
+                                            </RadioGroup>
+                                        )
+                                    }
+                                    return null
+                                })}
                             </div>
                         )}
                     </div>
