@@ -3,9 +3,10 @@ import { format } from "date-fns"
 import Results from "../../../components/data/Results/Results"
 import AdminLayout from "../../../layouts/AdminLayout/AdminLayout"
 import { useGetEventsQuery, useUpdateEventMutation } from "../../../features/api/eventApi"
+import { getMediaUrl } from "../../../utils/media"
 
 function mapEventToAdminCard(event, navigate, handleApprove, handleReject) {
-    const banner_url = event.banner
+    const banner_url = getMediaUrl(event.banner)
     const info = {
         title: event.title,
         description: event.description || "No description provided.",
@@ -29,7 +30,7 @@ function mapEventToAdminCard(event, navigate, handleApprove, handleReject) {
 }
 
 function mapEventToMainCard(event, navigate) {
-    const banner_url = event.banner
+    const banner_url = getMediaUrl(event.banner)
     const info = {
         title: event.title,
         description: event.description || "No description provided.",

@@ -16,6 +16,7 @@ import {
 } from "../../../features/api/teamApi"
 import { addToast } from "../../../features/toast/toastSlice"
 import styles from './ParticipantsPage.module.css'
+import { getMediaUrl } from "../../../utils/media"
 import UserRecord from "../../../components/data/UserRecord/UserRecord"
 
 function TeamPreview({ teamId }) {
@@ -109,7 +110,7 @@ function ParticipantsPage() {
         .map(inv => ({
             userId: inv.user,
             username: inv.user_detail?.username || inv.user_detail?.email || `User ${inv.user}`,
-            avatar: inv.user_detail?.avatar || null,
+            avatar: getMediaUrl(inv.user_detail?.avatar) || null,
             variant: "invited",
         }))
 
@@ -118,7 +119,7 @@ function ParticipantsPage() {
         .map(t => ({
             userId: t.id,
             username: t.name,
-            avatar: t.picture,
+            avatar: getMediaUrl(t.picture),
             variant: "applied",
             onClick: () => setSelectedTeam(t),
             onApprove: () => handleApprove(t.id),
@@ -130,7 +131,7 @@ function ParticipantsPage() {
         .map(t => ({
             userId: t.id,
             username: t.name,
-            avatar: t.picture,
+            avatar: getMediaUrl(t.picture),
             variant: "participant",
             onClick: () => setSelectedTeam(t),
             onDisqualify: () => setSelectedTeam(t),
@@ -143,7 +144,7 @@ function ParticipantsPage() {
                 disqualifiedParticipants.push({
                     userId: p.user,
                     username: `${p.user_detail?.username || p.user_detail?.email || 'User'} (${t.name})`,
-                    avatar: p.user_detail?.avatar || null,
+                    avatar: getMediaUrl(p.user_detail?.avatar) || null,
                     variant: "disqualified",
                     onReturn: () => handleReturn(p.id)
                 });
@@ -182,7 +183,7 @@ function ParticipantsPage() {
                                     key={p.id}
                                     variant={p.status === 'rejected' ? 'disqualified' : 'participant'}
                                     username={p.user_detail?.username || p.user_detail?.email || `User ${p.user}`}
-                                    avatar={p.user_detail?.avatar || null}
+                                    avatar={getMediaUrl(p.user_detail?.avatar) || null}
                                     userId={p.user}
                                     onDisqualify={() => handleDisqualify(p.id)}
                                     onReturn={() => handleReturn(p.id)}

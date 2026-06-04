@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Icon from '@/components/ui/Icon/Icon'
 import { useGetMeQuery } from "../../../features/api/authApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './AccountBox.module.css'
 
 function AccountBox() {
@@ -14,7 +15,7 @@ function AccountBox() {
 
     return <div className={styles.container}>
         {hasAvatar ? (
-            <img className={styles.accountAvatar} src={user.profile_picture} alt={name} onError={() => setImgError(true)} />
+            <img className={styles.accountAvatar} src={getMediaUrl(user.profile_picture)} alt={name} onError={() => setImgError(true)} />
         ) : (
             <div className={`${styles.accountAvatar} ${styles.avatarPlaceholder}`}>
                 <Icon icon="mdi:account-circle" size={32} />

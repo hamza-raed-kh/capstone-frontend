@@ -9,13 +9,14 @@ import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import { useGetEventsQuery } from "../../../features/api/eventApi"
 import { useGetMeQuery } from "../../../features/api/authApi"
 import { useGetTeamsQuery } from "../../../features/api/teamApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './EventsPage.module.css'
 
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
     hideBanner: true,
-    banner_url: event.banner,
+    banner_url: getMediaUrl(event.banner),
     info: {
       title: event.title,
       description: event.description || "No description provided.",

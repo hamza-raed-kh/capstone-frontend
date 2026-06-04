@@ -6,6 +6,7 @@ import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import { Button } from "../../../components/inputs/Button/Button"
 import { useGetMeQuery } from "../../../features/api/authApi"
 import { useGetEventsQuery } from "../../../features/api/eventApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './OrganizerCenterPage.module.css'
 
 function getStatusGroup(status) {
@@ -21,7 +22,7 @@ function getStatusGroup(status) {
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
-    banner_url: event.banner,
+    banner_url: getMediaUrl(event.banner),
     info: {
       title: event.title,
       description: event.description || "No description provided.",

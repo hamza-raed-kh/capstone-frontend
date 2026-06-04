@@ -12,6 +12,7 @@ import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import CardGroup from "../../../components/data/CardGroup/CardGroup"
 import Icon from "../../../components/ui/Icon/Icon"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './ProfilePage.module.css'
 import { Button } from '../../../components/inputs/Button/Button'
 import { useCallback } from "react"
@@ -157,7 +158,7 @@ function ProfilePage() {
 						{hasAvatar ? (
 							<img
 								className={styles.avatar}
-								src={profile.profile_picture}
+								src={getMediaUrl(profile.profile_picture)}
 								alt={displayName}
 								onError={() => setImgError(true)}
 							/>

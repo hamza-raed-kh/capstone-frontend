@@ -27,6 +27,7 @@ import { useGetEditRequestsQuery, useDeleteEditRequestMutation } from "../../../
 import { useGetTextQuestionsQuery, useGetNumericQuestionsQuery, useGetChoiceQuestionsQuery } from "../../../features/api/questionApi"
 import { useGetTextAnswersQuery, useSubmitTextAnswerMutation, useUpdateTextAnswerMutation, useGetNumericAnswersQuery, useSubmitNumericAnswerMutation, useUpdateNumericAnswerMutation, useGetChoiceAnswersQuery, useSubmitChoiceAnswerMutation, useDeleteChoiceAnswerMutation } from "../../../features/api/answerApi"
 import { setCurrentCompetition, clearCurrentCompetition } from "../../../features/competition/competitionSlice"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './CompetitionDetailPage.module.css'
 
 function CompetitionDetailPage() {
@@ -85,7 +86,7 @@ function CompetitionDetailPage() {
 
     const [teamName, setTeamName] = useState('')
     const [teamPictureFile, setTeamPictureFile] = useState(null)
-    const [teamPicturePreview, setTeamPicturePreview] = useState(myTeam?.picture || '')
+    const [teamPicturePreview, setTeamPicturePreview] = useState(getMediaUrl(myTeam?.picture) || '')
     const [withdrawError, setWithdrawError] = useState('')
     const [inviteEmail, setInviteEmail] = useState('')
     const [inviteError, setInviteError] = useState('')
@@ -221,7 +222,7 @@ function CompetitionDetailPage() {
     useEffect(() => {
         if (myTeam) {
             setTeamName(myTeam.name || "")
-            setTeamPicturePreview(myTeam.picture || "")
+            setTeamPicturePreview(getMediaUrl(myTeam.picture) || "")
             setTeamPictureFile(null)
         }
     }, [myTeam])
@@ -499,7 +500,7 @@ function CompetitionDetailPage() {
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.pageBody}>
-                        <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${comp.banner}) center/cover no-repeat` : "var(--gradient-main)" }}>
+                        <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${getMediaUrl(comp.banner)}) center/cover no-repeat` : "var(--gradient-main)" }}>
                             <div className={styles.bannerOverlay}>
                                 <div className={styles.bannerTopRight}>
                                     {statusBadge()}
@@ -508,7 +509,7 @@ function CompetitionDetailPage() {
                                     <div className={styles.bannerBottomLeft}>
                                         <div className={styles.profileLink} onClick={() => navigate(`/profile/${comp.organizer}`)}>
                                             {organizerUser?.profile_picture ? (
-                                                <img className={styles.hostAvatar} src={organizerUser.profile_picture} alt={organizerUser.first_name} />
+                                                <img className={styles.hostAvatar} src={getMediaUrl(organizerUser.profile_picture)} alt={organizerUser.first_name} />
                                             ) : (
                                                 <Icon icon="mdi:account-circle" size={48} className={styles.hostAvatar} />
                                             )}

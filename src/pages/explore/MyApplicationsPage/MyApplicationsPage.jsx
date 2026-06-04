@@ -7,6 +7,7 @@ import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import { useGetMeQuery } from "../../../features/api/authApi"
 import { useGetTeamsQuery } from "../../../features/api/teamApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './MyApplicationsPage.module.css'
 
 const STATUS_BUTTON = {
@@ -31,7 +32,7 @@ function mapTeamToCard(team, navigate) {
   return {
     variant: 'main',
     hideBanner: true,
-    banner_url: ev.banner,
+    banner_url: getMediaUrl(ev.banner),
     info: {
       title: ev.title,
       description: `Team: ${team.name} — ${ev.description || "No description provided."}`,

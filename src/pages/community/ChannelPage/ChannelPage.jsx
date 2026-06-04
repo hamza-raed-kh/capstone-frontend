@@ -4,6 +4,7 @@ import ChatMessage from "../../../components/data/ChatMessage/ChatMessage"
 import SectionHeader from "../../../components/ui/SectionHeader/SectionHeader"
 import ChatInput from "../../../components/inputs/ChatInput/ChatInput"
 import { useGetMeQuery } from "../../../features/api/authApi"
+import { getMediaUrl } from "../../../utils/media"
 import { useGetChannelsQuery, useGetMessagesQuery, useSendMessageMutation } from "../../../features/api/chatApi"
 import { useGetEventQuery } from "../../../features/api/eventApi"
 import styles from "./ChannelPage.module.css"
@@ -68,7 +69,7 @@ function ChannelPage() {
                             const prevUser = i > 0 ? messages[i - 1].user : null
                             const sameUser = prevUser  === msg.user
                             const displayName = `${msg.user_first_name} ${msg.user_last_name}`.trim() || `User #${msg.user}`
-                            const avatar = msg.user_profile_picture
+                            const avatar = getMediaUrl(msg.user_profile_picture)
                             return (
                                 <div className={styles.bodyMessage} key={msg.id}>
                                     <ChatMessage

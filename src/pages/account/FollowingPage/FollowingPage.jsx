@@ -7,6 +7,7 @@ import {
     useUnfollowUserMutation,
     useUnbanUserMutation,
 } from "../../../features/api/followApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './FollowingPage.module.css'
 
 function getDisplayName(user) {
@@ -37,7 +38,7 @@ function FollowingPage() {
             const u = item.followed_detail
             return {
                 variant: "followed",
-                avatar: u?.profile_picture,
+                avatar: getMediaUrl(u?.profile_picture),
                 username: getDisplayName(u || {}),
                 userId: u?.id,
                 onUnfollow: handleUnfollow,
@@ -52,7 +53,7 @@ function FollowingPage() {
             const u = item.blocked_detail
             return {
                 variant: "banned",
-                avatar: u?.profile_picture,
+                avatar: getMediaUrl(u?.profile_picture),
                 username: getDisplayName(u || {}),
                 userId: u?.id,
                 onUnban: handleUnban,

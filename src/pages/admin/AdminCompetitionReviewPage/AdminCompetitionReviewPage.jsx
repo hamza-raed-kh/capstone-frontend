@@ -5,6 +5,7 @@ import { Button } from "../../../components/inputs/Button/Button"
 import Icon from "../../../components/ui/Icon/Icon"
 import CategoryTag from "../../../components/ui/CategoryTag/CategoryTag"
 import { useGetEventQuery, useUpdateEventMutation } from "../../../features/api/eventApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from "../../competition/CompetitionDetailPage/CompetitionDetailPage.module.css"
 import adminStyles from "./AdminCompetitionReviewPage.module.css"
 
@@ -39,7 +40,7 @@ function AdminCompetitionReviewPage() {
         <AdminLayout pageName="Draft Review">
             <div className={styles.contentContainer}>
                 <div className={styles.pageBody}>
-                    <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${comp.banner}) center/cover no-repeat` : 'var(--gradient-main)' }}>
+                    <div className={styles.bannerContainer} style={{ background: comp.banner ? `url(${getMediaUrl(comp.banner)}) center/cover no-repeat` : 'var(--gradient-main)' }}>
                         <div className={styles.bannerOverlay}>
                             <div className={styles.bannerTopRight}>
                                 <span className={styles.publicityPill}>{comp.visibility}</span>

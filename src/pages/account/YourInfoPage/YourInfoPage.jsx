@@ -9,6 +9,7 @@ import DateInput from '../../../components/inputs/DateInput/DateInput';
 import FileInput from '../../../components/inputs/FileInput/FileInput';
 import { Button } from '../../../components/inputs/Button/Button';
 import { addToast } from '../../../features/toast/toastSlice';
+import { getMediaUrl } from '../../../utils/media';
 import styles from './YourInfoPage.module.css';
 
 const INITIAL_DRAFT = {
@@ -36,7 +37,7 @@ const YourInfoPage = () => {
         aboutMe: userProfile.bio || '',
         gender: userProfile.gender || '',
         dateOfBirth: userProfile.date_of_birth || null,
-        profilePicUrl: userProfile.profile_picture || '',
+        profilePicUrl: getMediaUrl(userProfile.profile_picture) || '',
         profilePicFile: null,
       });
     }
@@ -92,7 +93,7 @@ const YourInfoPage = () => {
         aboutMe: userProfile.bio || '',
         gender: userProfile.gender || '',
         dateOfBirth: userProfile.date_of_birth || null,
-        profilePicUrl: userProfile.profile_picture || '',
+        profilePicUrl: getMediaUrl(userProfile.profile_picture) || '',
         profilePicFile: null,
       });
     }

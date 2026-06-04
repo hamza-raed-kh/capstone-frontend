@@ -6,12 +6,13 @@ import Results from "../../../components/data/Results/Results"
 import SearchBar from "../../../components/ui/SearchBar/SearchBar"
 import SectionedLayout from "../../../layouts/SectionedLayout/SectionedLayout"
 import { useGetEventsQuery } from "../../../features/api/eventApi"
+import { getMediaUrl } from "../../../utils/media"
 import styles from './ExplorePage.module.css'
 
 function mapEventToCard(event, navigate) {
   return {
     variant: 'main',
-    banner_url: event.banner,
+    banner_url: getMediaUrl(event.banner),
     info: {
       title: event.title,
       description: event.description || "No description provided.",
